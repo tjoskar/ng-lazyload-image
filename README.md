@@ -4,7 +4,7 @@
 
 About 90 loc and no dependencies (except for ng2 and rxjs of curse)
 
-Demo: ---
+Demo: http://tjoskar.github.io/ng2-lazyload-image/
 
 ### Installation
 ```
