@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress",
-    "build": "webpack --progress --optimize-minimize",
+    "build": "webpack --progress",
     "e2e": "protractor",
     "webdriver:update": "webdriver-manager update",
     "webdriver:start": "webdriver-manager start",
