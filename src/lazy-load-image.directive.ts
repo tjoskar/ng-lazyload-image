@@ -31,10 +31,11 @@ class LazyLoadImageDirective {
             .filter(() => this.isVisible())
             .switchMap(() => this.loadImage(this.lazyImage))
             .map(() => this.setImage(this.lazyImage))
+            .finally(() => this.setLoadedStyle())
             .subscribe(
                 () => this.ngOnDestroy(),
                 error => {
-                    this.setDefaultImage();
+                    this.setImage(this.defaultImg);
                     this.ngOnDestroy();
                 }
             );
@@ -60,8 +61,13 @@ class LazyLoadImageDirective {
         this.elementRef.nativeElement.src = image;
     }
 
-    setDefaultImage() {
-        this.setImage(this.defaultImg);
+    setLoadedStyle() {
+        const styles = this.elementRef.nativeElement.className
+            .split(' ')
+            .filter(s => !!s)
+            .filter(s => s !== 'ng2-lazyloading');
+        styles.push('ng2-lazyloaded');
+        this.elementRef.nativeElement.className = styles;
     }
 
     isVisible() {
