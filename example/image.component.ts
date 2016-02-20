@@ -1,5 +1,5 @@
 import {Component, Input} from 'angular2/core';
-import {LazyLoadImageDirective} from '../src/lazy-load-image.directive';
+import {LazyLoadImageDirective} from '../src/';
 
 @Component({
     selector: 'image',

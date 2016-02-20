@@ -1,3 +1,5 @@
+///<reference path="../typings/main.d.ts"/>
+
 import {Directive, ElementRef, Input} from 'angular2/core';
 import {Observable, Subscription} from 'rxjs';
 
