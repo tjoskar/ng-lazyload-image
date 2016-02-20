@@ -1,0 +1,43 @@
+{
+  "name": "ng2-lazyload-image",
+  "version": "1.0.0",
+  "description": "Lazy image loader for Angular 2",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --progress",
+    "build": "webpack --progress --optimize-minimize",
+    "e2e": "protractor",
+    "webdriver:update": "webdriver-manager update",
+    "webdriver:start": "webdriver-manager start",
+    "e2e:debug": "protractor --elementExplorer"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjoskar/ng2-lazyload-image.git"
+  },
+  "keywords": [
+    "lazy-load",
+    "lazy-image",
+    "angular2"
+  ],
+  "author": "Oskar Karlsson <kontakta@oskarkarlsson.nu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjoskar/ng2-lazyload-image/issues"
+  },
+  "homepage": "https://github.com/tjoskar/ng2-lazyload-image#readme",
+  "dependencies": {
+    "angular2": ">=2.0.0-beta.7",
+    "es6-shim": ">=0.33.3",
+    "reflect-metadata": ">=0.1.2",
+    "rxjs": ">=5.0.0-beta.2",
+    "zone.js": ">0.5.15"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^0.15.10",
+    "protractor": "^3.1.1",
+    "typescript": "^1.7.5",
+    "webpack": "^1.12.13",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
