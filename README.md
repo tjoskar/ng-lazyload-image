@@ -2,7 +2,7 @@
 
 > Lazy image loader for Angular 2
 
-About 90 loc and no dependencies (except for ng2 and rxjs of curse)
+About 90 loc and no dependencies (except for ng2 and rxjs of course)
 
 Demo: http://tjoskar.github.io/ng2-lazyload-image/
 
