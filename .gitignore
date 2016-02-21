@@ -1,2 +1,8 @@
 node_modules
 typings
+bundles/
+example/*.js
+src/*.js
+ng2-lazyload-image.js
+*.js.map
+*.d.ts
