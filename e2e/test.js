@@ -40,7 +40,7 @@ describe('Lazy load images', () => {
 
         browser.wait(() => {
             const deferred = protractor.promise.defer();
-            setTimeout(() => deferred.fulfill(true), 5000);
+            setTimeout(() => deferred.fulfill(true), 7000);
             return deferred.promise;
         });
 
