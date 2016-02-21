@@ -62,7 +62,7 @@ class LazyLoadImageDirective {
             .filter(s => !!s)
             .filter(s => s !== 'ng2-lazyloading');
         styles.push('ng2-lazyloaded');
-        this.elementRef.nativeElement.className = styles;
+        this.elementRef.nativeElement.className = styles.join(' ');
     }
 
     isVisible() {
