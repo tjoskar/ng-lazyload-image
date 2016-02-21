@@ -8,7 +8,7 @@ Demo: http://tjoskar.github.io/ng2-lazyload-image/
 
 ### Installation
 ```
-$ npm install tjoskar/ng2-lazyload-image --save
+$ npm install ng2-lazyload-image --save
 ```
 
 ### Usages
