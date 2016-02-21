@@ -8,14 +8,14 @@ Demo: http://tjoskar.github.io/ng2-lazyload-image/
 
 ### Installation
 ```
-$ npm install tjoskar/ng2-image-lazy-load --save
+$ npm install tjoskar/ng2-lazyload-image --save
 ```
 
 ### Usages
 
 ```javascript
 import {Component} from 'angular2/core';
-import {LazyLoadImageDirective} from 'ng2-image-lazy-load';
+import {LazyLoadImageDirective} from 'ng2-lazyload-image';
 
 @Component({
     selector: 'image',
