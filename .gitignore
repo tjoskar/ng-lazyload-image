@@ -4,5 +4,6 @@ bundles/
 example/*.js
 src/*.js
 ng2-lazyload-image.js
+index.js
 *.js.map
 *.d.ts
