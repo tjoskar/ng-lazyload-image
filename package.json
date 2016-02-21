@@ -1,8 +1,8 @@
 {
   "name": "ng2-lazyload-image",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lazy image loader for Angular 2",
-  "main": "ng2-lazyload-image.ts",
+  "main": "index.js",
   "scripts": {
     "prepublish": "tsc && node make-packages.js",
     "start": "webpack-dev-server --progress",
