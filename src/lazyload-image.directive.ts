@@ -10,18 +10,12 @@ class LazyLoadImageDirective {
     @Input() offset;
     elementRef: ElementRef;
     scrollSubscription;
-    viewportSize = {
-        height: 0,
-        width: 0
-    };
 
     constructor(el: ElementRef) {
         this.elementRef = el;
     }
 
     ngAfterContentInit() {
-        this.updateViewportOffset();
-
         this.scrollSubscription = Observable
             .merge(
                 Observable.of(1), // Fake a scroll event
@@ -72,17 +66,13 @@ class LazyLoadImageDirective {
 
     isVisible() {
         const rect = this.elementRef.nativeElement.getBoundingClientRect();
+        const threshold = (this.offset | 0);
         return (
-            rect.top >= 0 &&
+            (rect.top >= -threshold || rect.bottom >= -threshold) &&
             rect.left >= 0 &&
-            (rect.bottom - rect.height) <= this.viewportSize.height &&
-            (rect.right - rect.width) <= this.viewportSize.width
+            (rect.bottom - rect.height - threshold) <= window.innerHeight &&
+            (rect.right - rect.width - threshold) <= window.innerWidth
         );
-    }
-
-    updateViewportOffset() {
-        this.viewportSize.height = (window.innerHeight || document.documentElement.clientHeight) + (this.offset | 0);
-        this.viewportSize.width = (window.innerWidth || document.documentElement.clientWidth) + (this.offset | 0);
     }
 
     ngOnDestroy() {
