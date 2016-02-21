@@ -23,6 +23,7 @@ class LazyLoadImageDirective {
             )
             .sampleTime(100)
             .filter(() => this.isVisible())
+            .take(1)
             .switchMap(() => this.loadImage(this.lazyImage))
             .map(() => this.setImage(this.lazyImage))
             .finally(() => this.setLoadedStyle())
