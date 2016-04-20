@@ -9,7 +9,7 @@ module.exports = {
             'es6-shim',
             'reflect-metadata',
             'rxjs/Observable',
-            'zone.js/dist/zone-microtask',
+            'zone.js/dist/zone',
             'zone.js/dist/long-stack-trace-zone',
             'angular2/platform/browser',
             'angular2/core',
