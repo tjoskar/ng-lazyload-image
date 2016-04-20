@@ -27,6 +27,6 @@ const config = {
 builder.config(config);
 
 builder
-    .bundle(name, path.resolve(__dirname, 'bundles/', name + '.js'))
+    .bundle('index', path.resolve(__dirname, 'bundles/', name + '.js'))
     .then(() => console.log('Build complete.'))
     .catch(err => console.log('Error: ', err));
