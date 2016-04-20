@@ -7,7 +7,11 @@ import {Observable} from 'rxjs/Observable';
 class LazyLoadImageDirective {
     @Input('lazyLoad') lazyImage;
     @Input('src') defaultImg;
+    @Input() set scrollTarget(target) {
+        this._scrollTarget = target || this._scrollTarget;
+    };
     @Input() offset;
+    _scrollTarget = window;
     elementRef: ElementRef;
     scrollSubscription;
 
@@ -19,7 +23,7 @@ class LazyLoadImageDirective {
         this.scrollSubscription = Observable
             .merge(
                 Observable.of(1), // Fake a scroll event
-                Observable.fromEvent(window, 'scroll')
+                Observable.fromEvent(this._scrollTarget, 'scroll')
             )
             .sampleTime(100)
             .filter(() => this.isVisible())
