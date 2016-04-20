@@ -6,7 +6,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "start": "webpack-dev-server --progress",
-    "build": "tsc && node make-packages.js",
+    "build": "typings install && tsc && node make-packages.js",
     "e2e": "protractor",
     "webdriver:update": "webdriver-manager update",
     "webdriver:start": "webdriver-manager start",
