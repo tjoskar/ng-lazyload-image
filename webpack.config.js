@@ -1,4 +1,3 @@
-require('es6-shim');
 const webpack = require('webpack');
 
 module.exports = {
