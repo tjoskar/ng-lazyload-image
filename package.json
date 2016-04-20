@@ -8,6 +8,7 @@
     "start": "webpack-dev-server --progress",
     "build": "typings install && tsc && node make-packages.js",
     "e2e": "protractor",
+    "e2e:ci": "protractor protractor.ci.conf.js",
     "webdriver:update": "webdriver-manager update",
     "webdriver:start": "webdriver-manager start",
     "e2e:debug": "protractor --elementExplorer"

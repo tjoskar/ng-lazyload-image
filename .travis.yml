@@ -1,22 +1,18 @@
 language: node_js
 node_js:
   - 4.2
+addons:
+  sauce_connect:
+    username: SAUCE_USERNAME
+    access_key: SAUCE_ACCESS_KEY
 
 before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3 # give xvfb some time to start
   - npm install
   - npm start & WEBPACK_SERVER_PID=$!
-  - sleep 5 # give webpack some time to start
-  - npm run webdriver:update
-  - npm run webdriver:start & SELENIUM_SERVER_PID=$!
-  - sleep 5 # give selenium some time to start
+  - sleep 10 # give webpack some time to start
 
 script:
-  - npm run e2e
+  - npm run e2e:ci
 
 after_script:
   - kill WEBPACK_SERVER_PID
-  - kill SELENIUM_SERVER_PID
