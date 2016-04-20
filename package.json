@@ -4,9 +4,9 @@
   "description": "Lazy image loader for Angular 2",
   "main": "index.js",
   "scripts": {
-    "prepublish": "tsc && node make-packages.js",
+    "prepublish": "npm run build",
     "start": "webpack-dev-server --progress",
-    "build": "webpack --progress",
+    "build": "tsc && node make-packages.js",
     "e2e": "protractor",
     "webdriver:update": "webdriver-manager update",
     "webdriver:start": "webdriver-manager start",
