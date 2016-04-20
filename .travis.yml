@@ -2,9 +2,7 @@ language: node_js
 node_js:
   - 4.2
 addons:
-  sauce_connect:
-    username: SAUCE_USERNAME
-    access_key: SAUCE_ACCESS_KEY
+  sauce_connect: true
 
 before_install:
   - npm install

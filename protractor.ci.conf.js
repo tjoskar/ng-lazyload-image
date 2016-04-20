@@ -8,7 +8,9 @@ exports.config = {
     
 
     capabilities: {
-        browserName: 'chrome'
+        browserName: 'chrome',
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+        'build': process.env.TRAVIS_BUILD_NUMBER
     },
 
     // Ignore synchronization for angular 2
