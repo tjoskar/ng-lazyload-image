@@ -30,17 +30,17 @@
   "homepage": "https://github.com/tjoskar/ng2-lazyload-image#readme",
   "dependencies": {},
   "devDependencies": {
-    "angular2": "^2.0.0-beta.15",
+    "angular2": "2.0.0-beta.15",
     "awesome-typescript-loader": "^0.15.10",
-    "es6-shim": "^0.35.0",
+    "es6-shim": "0.35.0",
     "protractor": "^3.1.1",
     "reflect-metadata": "0.1.2",
-    "rxjs": "^5.0.0-beta.2",
+    "rxjs": "5.0.0-beta.2",
     "systemjs-builder": "^0.15.9",
     "typescript": "^1.7.5",
     "typings": "^0.8.1",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1",
-    "zone.js": "^0.6.12"
+    "zone.js": "0.6.12"
   }
 }
