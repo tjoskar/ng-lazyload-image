@@ -1,2 +1,10 @@
-./index.ts
-./src/lazyload-image.directive.ts
+index.ts
+src/lazyload-image.directive.ts
+e2e/
+example
+.travis.yml
+make-packages.js
+proactor.ci.conf.js
+proactor.conf.js
+tslint.json
+webpack.config.js
