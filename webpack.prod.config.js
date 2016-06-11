@@ -34,4 +34,4 @@ module.exports = Object.assign({}, devWebpackConfig, {
             ENV: JSON.stringify(ENV)
         })
     ]
-};
+});

@@ -7,6 +7,7 @@
     "prepublish": "npm run build",
     "start": "webpack-dev-server --inline --progress --profile --colors --watch --display-error-details --display-cached --hot",
     "build": "typings install && tsc && node make-packages.js",
+    "build:example": "webpack --config webpack.prod.config.js --profile --display-error-details --display-cache",
     "e2e": "protractor",
     "e2e:ci": "protractor protractor.ci.conf.js",
     "webdriver:update": "webdriver-manager update",
