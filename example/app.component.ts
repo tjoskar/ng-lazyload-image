@@ -1,12 +1,12 @@
-import {Component} from 'angular2/core';
-import {ImageComponent} from './image.component';
+import { Component } from '@angular/core';
+import { ImageComponent } from './image.component';
 
 @Component({
     selector: 'my-app',
     template: `
-        <image *ngFor="#image of images" [src]="image"></image>
+        <image *ngFor="let image of images" [src]="image"></image>
     `,
-    directives: [ImageComponent]
+    directives: [ ImageComponent ]
 })
 class AppComponent {
 

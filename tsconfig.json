@@ -17,8 +17,5 @@
   "compileOnSave": false,
   "exclude": [
     "node_modules"
-  ],
-  "awesomeTypescriptLoaderOptions": {
-    "declaration": false
-  }
+  ]
 }

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/sampleTime';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
-import { Directive, ElementRef, Input } from 'angular2/core';
+import { Directive, ElementRef, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Directive({
