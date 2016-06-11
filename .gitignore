@@ -7,3 +7,4 @@ ng2-lazyload-image.js
 index.js
 *.js.map
 *.d.ts
+!example/custom-typings.d.ts
