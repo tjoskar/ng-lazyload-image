@@ -34,13 +34,14 @@ const cretaeScrollListener = (scrollTarget): Observable<any> => {
     selector: '[lazyLoad]'
 })
 class LazyLoadImageDirective {
-    @Input('lazyLoad') lazyImage;
-    @Input('src') defaultImg;
+    @Input('lazyLoad') lazyImage; // The image to be lazy loaded
+    @Input('src') defaultImg;     // The default image, this image will be displayed before the lazy-loded-image has been loaded
+    // Chnage the node we should listen for scroll events on, default is window
+    _scrollTarget = window;
     @Input() set scrollTarget(target) {
         this._scrollTarget = target || this._scrollTarget;
     };
-    @Input() offset;
-    _scrollTarget = window;
+    @Input() offset: number;      // The number of px a image should be loaded before it is in view port
     elementRef: ElementRef;
     scrollSubscription;
 
@@ -96,11 +97,21 @@ class LazyLoadImageDirective {
     isVisible() {
         const rect = this.elementRef.nativeElement.getBoundingClientRect();
         const threshold = (this.offset | 0);
+        // Is the element in viewport and lager then viewport
+        const elementLagerThenViewport = rect.top <= threshold && rect.bottom >= -threshold;
+        // Is the top of the element in the viewport
+        const topInsideViewport = rect.top >= 0 && rect.top <= window.innerHeight;
+        // Is the bottom of the element in the viewport
+        const belowInsideViewport = rect.bottom >= 0 && rect.bottom <= window.innerHeight;
+        // Is the right side of the element in the viewport
+        const rightsideInViewport = rect.right >= -threshold && (rect.right - threshold) <= window.innerWidth;
+        // Is the left side of the element is the viewport
+        const leftsideInViewport = rect.left >= -threshold && (rect.left - threshold) <= window.innerWidth;
+
         return (
-            (rect.top >= -threshold || rect.bottom >= -threshold) &&
-            rect.left >= 0 &&
-            (rect.bottom - rect.height - threshold) <= window.innerHeight &&
-            (rect.right - rect.width - threshold) <= window.innerWidth
+            elementLagerThenViewport ||
+            ((topInsideViewport || belowInsideViewport) &&
+            (rightsideInViewport || leftsideInViewport))
         );
     }
 
