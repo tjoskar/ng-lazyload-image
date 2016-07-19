@@ -122,5 +122,5 @@ class LazyLoadImageDirective {
     }
 }
 
-export {LazyLoadImageDirective};
+export { LazyLoadImageDirective };
 export default LazyLoadImageDirective;
