@@ -50,7 +50,7 @@ class LazyLoadImageDirective {
     }
 
     ngAfterContentInit() {
-        cretaeScrollListener(this._scrollTarget)
+        this.scrollSubscription = cretaeScrollListener(this._scrollTarget)
             .filter(() => this.isVisible())
             .take(1)
             .switchMap(() => this.loadImage(this.lazyImage))
