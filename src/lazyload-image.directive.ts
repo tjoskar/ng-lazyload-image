@@ -75,7 +75,7 @@ class LazyLoadImageDirective {
         const rect = this.elementRef.nativeElement.getBoundingClientRect();
         const threshold = (this.offset | 0);
         // Is the element in viewport but larger then viewport itself
-        const elementLagerThenViewport = rect.top <= threshold && rect.bottom >= -threshold;
+        const elementLargerThenViewport = rect.top <= threshold && rect.bottom >= -threshold;
         // Is the top of the element in the viewport
         const topInsideViewport = rect.top >= 0 && rect.top <= window.innerHeight;
         // Is the bottom of the element in the viewport
@@ -86,7 +86,7 @@ class LazyLoadImageDirective {
         const leftsideInViewport = rect.left >= -threshold && (rect.left - threshold) <= window.innerWidth;
 
         return (
-            elementLagerThenViewport ||
+            elementLargerThenViewport ||
             ((topInsideViewport || belowInsideViewport) &&
             (rightsideInViewport || leftsideInViewport))
         );
