@@ -1,34 +1,11 @@
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/share';
-import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/finally';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/sampleTime';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
 import { Directive, ElementRef, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
-const scrollListeners = {};
-
-// Only create one scroll listener per target and share the observable.
-// Typical, there will only be one observable
-const cretaeScrollListener = (scrollTarget): Observable<any> => {
-    if (scrollTarget in scrollListeners) {
-        return scrollListeners[scrollTarget];
-    }
-    scrollListeners[scrollTarget] = Observable.fromEvent(scrollTarget, 'scroll')
-        .sampleTime(100)
-        .startWith('')
-        .do(() => console.log('scroll'))
-        .share();
-    return scrollListeners[scrollTarget];
-};
-
+import { getScrollListener } from './scroll-listener';
 
 @Directive({
     selector: '[lazyLoad]'
@@ -50,11 +27,11 @@ class LazyLoadImageDirective {
     }
 
     ngAfterContentInit() {
-        this.scrollSubscription = cretaeScrollListener(this._scrollTarget)
+        this.scrollSubscription = getScrollListener(this._scrollTarget)
             .filter(() => this.isVisible())
             .take(1)
             .switchMap(() => this.loadImage(this.lazyImage))
-            .map(() => this.setImage(this.lazyImage))
+            .do(() => this.setImage(this.lazyImage))
             .finally(() => this.setLoadedStyle())
             .subscribe(
                 () => this.ngOnDestroy(),
