@@ -5,8 +5,9 @@ import { LazyLoadImageDirective } from '../src/lazyload-image.directive';
     selector: 'image',
     styles: [`
         img {
+            min-width: 1497px;
             width: 100%;
-            min-height: 1000px;
+            min-height: 1127px;
             transition: opacity 1s;
             opacity: 0;
         }
