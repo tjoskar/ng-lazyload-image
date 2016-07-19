@@ -59,7 +59,13 @@ class LazyLoadImageDirective {
     }
 
     setImage(image) {
-        this.elementRef.nativeElement.src = image;
+        const element = this.elementRef.nativeElement;
+        const isImgNode = this.elementRef.nativeElement.nodeName.toLowerCase() === 'img';
+        if (isImgNode) {
+            element.src = image;
+        } else {
+            element.style.backgroundImage = `url('${image}')`;
+        }
     }
 
     setLoadedStyle() {
