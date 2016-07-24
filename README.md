@@ -33,6 +33,27 @@ class ImageComponent {
 }
 ```
 
+It also supports background images, by using `backgroundImage`:
+
+```javascript
+@Component({
+    selector: 'image',
+    template: `
+        <div [src]="defaultImage" [lazyLoad]="image" [offset]="offset"></div>
+        <!--
+        After it has been loaded the div will transform into:
+        <div class="ng2-lazyloaded" style="background-image: url('https://images.unsplash.com/photo-1431887773042-803ed52bed26?fm=jpg');"></div>
+        -->
+    `,
+    directives: [ LazyLoadImageDirective ]
+})
+class ImageComponent {
+    defaultImage = 'https://www.placecage.com/1000/1000';
+    image = 'https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg';
+    offset = 100;
+}
+```
+
 See example folder for more usages.
 
 ### Develop
