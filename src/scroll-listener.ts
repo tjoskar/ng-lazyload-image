@@ -14,7 +14,7 @@ export const getScrollListener = (scrollTarget): Observable<any> => {
     }
     scrollListeners[scrollTarget] = Observable.fromEvent(scrollTarget, 'scroll')
         .sampleTime(100)
-        .startWith('')
-        .share();
+        .share()
+        .startWith('');
     return scrollListeners[scrollTarget];
 };
