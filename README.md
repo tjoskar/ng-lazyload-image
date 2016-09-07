@@ -13,8 +13,8 @@ Demo: http://tjoskar.github.io/ng2-lazyload-image/
 $ npm install ng2-lazyload-image --save
 ```
 
-And then include it in your module:
-```
+And then include it in your module (see [app.module.ts](https://github.com/tjoskar/ng2-lazyload-image/blob/master/example/app.module.ts)):
+```javascript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LazyLoadImageModule } from 'ng2-lazyload-image';
