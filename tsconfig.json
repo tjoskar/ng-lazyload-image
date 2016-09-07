@@ -12,7 +12,11 @@
     "sourceMap": true,
     "sourceRoot": "/",
     "mapRoot": "",
-    "rootDir": "."
+    "rootDir": ".",
+    "lib": [
+        "dom",
+        "es5"
+    ]
   },
   "compileOnSave": false,
   "exclude": [

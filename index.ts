@@ -1,6 +1,6 @@
-import {LazyLoadImageDirective} from './src/lazyload-image.directive';
+import { LazyLoadImageDirective } from './src/lazyload-image.directive';
 
-export {LazyLoadImageDirective};
+export { LazyLoadImageDirective };
 export default {
-    directives: [LazyLoadImageDirective]
-}
+    directives: [ LazyLoadImageDirective ]
+};

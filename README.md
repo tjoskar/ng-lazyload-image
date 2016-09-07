@@ -13,18 +13,31 @@ Demo: http://tjoskar.github.io/ng2-lazyload-image/
 $ npm install ng2-lazyload-image --save
 ```
 
+And then include it in your module:
+```
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LazyLoadImageModule } from 'ng2-lazyload-image';
+import { AppComponent } from './app.component';
+
+@NgModule({
+    declarations: [ AppComponent ],
+    imports: [ BrowserModule, LazyLoadImageModule ],
+    bootstrap: [ AppComponent ]
+})
+export class MyAppModule {}
+```
+
 ### Usages
 
 ```javascript
 import { Component } from '@angular/core';
-import { LazyLoadImageDirective } from 'ng2-lazyload-image';
 
 @Component({
     selector: 'image',
     template: `
         <img [src]="defaultImage" [lazyLoad]="image" [offset]="offset">
-    `,
-    directives: [ LazyLoadImageDirective ]
+    `
 })
 class ImageComponent {
     defaultImage = 'https://www.placecage.com/1000/1000';
@@ -42,10 +55,9 @@ It also supports background images, by using `backgroundImage`:
         <div [src]="defaultImage" [lazyLoad]="image" [offset]="offset"></div>
         <!--
         After it has been loaded the div will transform into:
-        <div class="ng2-lazyloaded" style="background-image: url('https://images.unsplash.com/photo-1431887773042-803ed52bed26?fm=jpg');"></div>
+        <div class="ng2-lazyloaded" style="background-image: url('https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg');"></div>
         -->
-    `,
-    directives: [ LazyLoadImageDirective ]
+    `
 })
 class ImageComponent {
     defaultImage = 'https://www.placecage.com/1000/1000';

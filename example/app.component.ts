@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
-import { ImageComponent } from './image.component';
-import { BgImageComponent } from './bg-image.component';
 
 @Component({
     selector: 'my-app',
     template: `
         <image *ngFor="let image of images" [src]="image"></image>
         <!-- <bg-image [src]="images[0]"></bg-image> -->
-    `,
-    directives: [ ImageComponent, BgImageComponent ]
+    `
 })
 class AppComponent {
 

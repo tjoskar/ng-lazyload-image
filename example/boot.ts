@@ -1,10 +1,10 @@
-import { bootstrap } from '@angular/platform-browser-dynamic';
-import { AppComponent } from './app.component';
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app.module';
 
 function main() {
-    return bootstrap(AppComponent)
-    .then(() => '🦄')
-    .catch(err => console.error(err));
+    // JIT compilation
+    platformBrowserDynamic().bootstrapModule(AppModule);
 }
 
 if (ENV === 'development' && HMR === true) {
@@ -17,5 +17,6 @@ if (ENV === 'development' && HMR === true) {
     }
     module.hot.accept();
 } else {
-    document.addEventListener('DOMContentLoaded', main);
+    enableProdMode();
+    main();
 }

@@ -65,11 +65,12 @@ module.exports = {
 
     plugins: [
         new ForkCheckerPlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(true),
-        new webpack.optimize.CommonsChunkPlugin({ name: ['main', 'vendor', 'polyfills'], minChunks: Infinity }),
         new webpack.DefinePlugin({
             HMR,
             ENV: JSON.stringify(ENV)
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['vendor', 'polyfills']
         })
     ]
 };

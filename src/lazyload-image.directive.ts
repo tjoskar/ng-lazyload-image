@@ -10,7 +10,7 @@ import { getScrollListener } from './scroll-listener';
 @Directive({
     selector: '[lazyLoad]'
 })
-class LazyLoadImageDirective {
+export class LazyLoadImageDirective {
     @Input('lazyLoad') lazyImage; // The image to be lazy loaded
     @Input('src') defaultImg;     // The default image, this image will be displayed before the lazy-loded-image has been loaded
     // Chnage the node we should listen for scroll events on, default is window
@@ -104,6 +104,3 @@ class LazyLoadImageDirective {
             .forEach(subscription => subscription.unsubscribe());
     }
 }
-
-export { LazyLoadImageDirective };
-export default LazyLoadImageDirective;

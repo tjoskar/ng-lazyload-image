@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { LazyLoadImageDirective } from '../src/lazyload-image.directive';
 
 @Component({
     selector: 'bg-image',
@@ -13,18 +12,14 @@ import { LazyLoadImageDirective } from '../src/lazyload-image.directive';
             transition: opacity 1s;
             opacity: 0;
         }
-
         .ng2-lazyloaded {
             opacity: 1;
         }
     `],
     template: `
         <div src="https://www.placecage.com/1000/1000" [lazyLoad]="image" offset="0">
-    `,
-    directives: [ LazyLoadImageDirective ]
+    `
 })
-class BgImageComponent {
+export class BgImageComponent {
     @Input('src') image;
 }
-
-export { BgImageComponent };
