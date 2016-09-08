@@ -13,6 +13,7 @@ import { getScrollListener } from './scroll-listener';
 class LazyLoadImageDirective {
     @Input('lazyLoad') lazyImage; // The image to be lazy loaded
     @Input('src') defaultImg;     // The default image, this image will be displayed before the lazy-loded-image has been loaded
+    @Input('errorImage') errorImg; // The image to be displayed if lazyImage load fails
     // Chnage the node we should listen for scroll events on, default is window
     _scrollTarget = window;
     @Input() set scrollTarget(target) {
@@ -36,7 +37,8 @@ class LazyLoadImageDirective {
             .subscribe(
                 () => this.ngOnDestroy(),
                 error => {
-                    this.setImage(this.defaultImg);
+                    // Set error image if was set, otherwise use default image
+                    this.setImage(this.errorImg || this.defaultImg);
                     this.ngOnDestroy();
                 }
             );
