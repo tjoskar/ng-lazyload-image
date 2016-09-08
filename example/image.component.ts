@@ -16,9 +16,10 @@ import { Component, Input } from '@angular/core';
         }
     `],
     template: `
-        <img src="https://www.placecage.com/1000/1000" [lazyLoad]="image" offset="0">
-    `
+        <img src="https://www.placecage.com/1000/1000" [lazyLoad]="image" [errorImage]="errorImg" offset="0">
+    `,
 })
 export class ImageComponent {
     @Input('src') image;
+    @Input('error') errorImg;
 }
