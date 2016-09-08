@@ -15,7 +15,10 @@
     "rootDir": ".",
     "lib": [
         "dom",
-        "es5"
+        "es6"
+    ],
+    "types": [
+        "node"
     ]
   },
   "compileOnSave": false,
