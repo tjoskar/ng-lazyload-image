@@ -4,7 +4,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/empty';
 import { Observable } from 'rxjs/Observable';
 
-const scrollListeners = {};
+const scrollListeners = new WeakMap();
 
 // Only create one scroll listener per target and share the observable.
 // Typical, there will only be one observable per application
@@ -13,8 +13,8 @@ export const getScrollListener = (scrollTarget): Observable<any> => {
         console.warn('`addEventListener` on ' + scrollTarget + ' (scrollTarget) is not a function. Skipping this target');
         return Observable.empty();
     }
-    if (scrollTarget in scrollListeners) {
-        return scrollListeners[scrollTarget];
+    if (scrollListeners.has(scrollTarget)) {
+        return scrollListeners.get(scrollTarget);
     }
 
     const srollEvent = Observable.create(observer => {
@@ -25,9 +25,10 @@ export const getScrollListener = (scrollTarget): Observable<any> => {
         return () => scrollTarget.removeEventListener(eventName, handler, options);
     });
 
-    scrollListeners[scrollTarget] = srollEvent
+    const listeners = srollEvent
         .sampleTime(100)
         .share()
         .startWith('');
-    return scrollListeners[scrollTarget];
+    scrollListeners.set(scrollTarget, listeners);
+    return listeners;
 };
