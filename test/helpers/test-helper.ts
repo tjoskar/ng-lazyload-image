@@ -1,6 +1,7 @@
 declare var global;
 
 const isEqual = require('lodash.isequal');
+import './rx-operations';
 import { TestScheduler } from 'rxjs/testing/TestScheduler';
 
 global.rxTestScheduler = null;

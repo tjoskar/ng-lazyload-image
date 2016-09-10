@@ -28,4 +28,4 @@ export function expectSubscriptions() {
     return global.rxTestScheduler.expectSubscriptions.apply(global.rxTestScheduler, arguments);
 }
 
-export const rxTestScheduler = global.rxTestScheduler;
+export const getRxTestScheduler = () => global.rxTestScheduler;

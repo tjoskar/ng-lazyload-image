@@ -1,7 +1,7 @@
 import { spy } from 'simple-spy';
 import { is, isNot } from './helpers/assert';
-import { expectObservable } from './helpers/marble-testing';
-import { getScrollListener } from '../src/scroll-listener';
+import { expectObservable, hot, getRxTestScheduler } from './helpers/marble-testing';
+import { getScrollListener, sampleObservable } from '../src/scroll-listener';
 
 console.warn = () => undefined;
 const noop = () => {};
@@ -140,6 +140,20 @@ describe('Scroll listener', () => {
         is(subscriptionCounter, 1);
         subscriber1.unsubscribe();
         subscriber2.unsubscribe();
+    });
+
+    it(`Should sample the observable`, () => {
+        // Arrange
+        const values = { a: '', b: 'b' };
+        const e1 =   hot('----b-^----b----------------------|', values);
+        const expected =       'a---------b-----------------|';
+        // timer                ----------!----------!---------
+
+        // Act
+        const obs = sampleObservable(e1, getRxTestScheduler());
+
+        // Assert
+        expectObservable(obs).toBe(expected, values);
     });
 
 });

@@ -6,9 +6,9 @@ import { Observable } from 'rxjs/Observable';
 
 const scrollListeners = new WeakMap();
 
-export function sampleObservable(obs: Observable<any>) {
+export function sampleObservable(obs: Observable<any>, scheduler?: any) {
     return obs
-        .sampleTime(100)
+        .sampleTime(100, scheduler)
         .share()
         .startWith('')
 }
