@@ -7,7 +7,7 @@ import { TestScheduler } from 'rxjs/testing/TestScheduler';
 global.rxTestScheduler = null;
 
 const glit = global.it;
-const glfit = global.fit;
+const glonly = global.it.only;
 
 function stringifyFrame(x) {
     const value = x.notification.value === undefined ? '' : x.notification.value;
@@ -37,7 +37,7 @@ const assertDeepEqualFrame = function(actual, expected) {
 
 global.it = function(description, cb, timeout) {
     if (cb.length === 0) {
-        glit(description, function() {
+        glit.call(glit, description, function() {
             global.rxTestScheduler = new TestScheduler(assertDeepEqualFrame);
             cb();
             global.rxTestScheduler.flush();
@@ -45,23 +45,23 @@ global.it = function(description, cb, timeout) {
     } else {
         glit.apply(this, arguments);
     }
-};
+}.bind(glit);
 
 global.it.asDiagram = function() {
     return global.it;
 };
 
-global.fit = function(description, cb, timeout) {
+global.it.only = function(description, cb, timeout) {
     if (cb.length === 0) {
-        glfit(description, function() {
+        glonly.call(glonly, description, function() {
             global.rxTestScheduler = new TestScheduler(assertDeepEqualFrame);
             cb();
             global.rxTestScheduler.flush();
         });
     } else {
-        glfit.apply(this, arguments);
+        glonly.apply(this, arguments);
     }
-};
+}.bind(glonly);
 
 afterEach(() => {
     global.rxTestScheduler = null;
