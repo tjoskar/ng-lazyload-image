@@ -50,7 +50,7 @@
     "mocha": "^3.0.2",
     "protractor": "^4.0.0",
     "rxjs": "5.0.0-beta.11",
-    "simple-spy": "^1.0.3",
+    "simple-spy": "^2.0.3",
     "source-map-loader": "^0.1.5",
     "typescript": "^2.0.0",
     "webpack": "^1.13.2",
