@@ -1,8 +1,10 @@
+import { spy } from 'simple-spy';
 import { is, isNot } from './helpers/assert';
 import { expectObservable } from './helpers/marble-testing';
 import { getScrollListener } from '../src/scroll-listener';
 
 console.warn = () => undefined;
+const noop = () => {};
 
 describe('Scroll listener', () => {
 
@@ -23,7 +25,7 @@ describe('Scroll listener', () => {
     it('Should return the same observable for the same target', () => {
         // Arrange
         const element = {
-            addEventListener: () => ({})
+            addEventListener: noop
         };
 
         // Act
@@ -37,10 +39,10 @@ describe('Scroll listener', () => {
     it('Should return diffrent observables for diffrent target', () => {
         // Arrange
         const element1 = {
-            addEventListener: () => ({})
+            addEventListener: noop
         };
         const element2 = {
-            addEventListener: () => ({})
+            addEventListener: noop
         };
 
         // Act
@@ -49,6 +51,95 @@ describe('Scroll listener', () => {
 
         // Assert
         isNot(listener1, listener2);
+    });
+
+    it('Should pass eventname, handler and options as argument', () => {
+        // Arrange
+        let argumants = {
+            eventName: '',
+            handler: null,
+            options: null
+        };
+        const element = {
+            addEventListener(eventName, handler, options) {
+                argumants = { eventName, handler, options };
+            },
+            removeEventListener: noop
+        };
+
+        // Act
+        const subscription = getScrollListener(element).subscribe();
+
+        // Assert
+        is(argumants.eventName, 'scroll');
+        is(argumants.options.passive, true);
+        is(argumants.options.capture, false);
+        is(typeof argumants.handler, 'function');
+        subscription.unsubscribe();
+    });
+
+    it('Should call removeEventListener on unsubscribe', () => {
+        // Arrange
+        let argumants = {
+            eventName: '',
+            handler: null,
+            options: null
+        };
+        const element = {
+            addEventListener(eventName, handler, options) {
+                argumants = { eventName, handler, options };
+            },
+            removeEventListener: spy((eventName, handler, options) => {
+                is(argumants.eventName, eventName);
+                is(argumants.options.passive, options.passive);
+                is(argumants.options.capture, options.capture);
+                is(argumants.handler, handler);
+            })
+        };
+
+        // Act
+        const subscription = getScrollListener(element).subscribe();
+        subscription.unsubscribe();
+
+        // Assert
+        is(element.removeEventListener.callCount, 1, 'Should call removeEventListener one time');
+    });
+
+    it(`Should start stream with ''`, done => {
+        // Arrange
+        const element = {
+            addEventListener: noop,
+            removeEventListener: noop
+        };
+
+        // Act and assert
+        const subscriber = getScrollListener(element).subscribe(
+            d => {
+                is(d, '');
+                done();
+            });
+
+        subscriber.unsubscribe();
+    });
+
+    it(`Should share observable`, () => {
+        // Arrange
+        let subscriptionCounter = 0;
+        const element = {
+            addEventListener: () => {
+                subscriptionCounter = subscriptionCounter + 1;
+            },
+            removeEventListener: noop
+        };
+
+        // Act
+        const subscriber1 = getScrollListener(element).subscribe();
+        const subscriber2 = getScrollListener(element).subscribe();
+
+        // Assert
+        is(subscriptionCounter, 1);
+        subscriber1.unsubscribe();
+        subscriber2.unsubscribe();
     });
 
 });

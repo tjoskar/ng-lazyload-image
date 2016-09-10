@@ -1,10 +1,10 @@
 declare var global;
 
-export function hot() {
+export function hot(a: string) {
     if (!global.rxTestScheduler) {
         throw 'tried to use hot() in async test';
     }
-    return global.rxTestScheduler.createHotObservable.apply(global.rxTestScheduler, arguments);
+    return global.rxTestScheduler.createHotObservable(a);
 }
 
 export function cold() {
@@ -28,9 +28,4 @@ export function expectSubscriptions() {
     return global.rxTestScheduler.expectSubscriptions.apply(global.rxTestScheduler, arguments);
 }
 
-export default {
-    hot: hot,
-    cold: cold,
-    expectObservable: expectObservable,
-    expectSubscriptions: expectSubscriptions
-};
+export const rxTestScheduler = global.rxTestScheduler;

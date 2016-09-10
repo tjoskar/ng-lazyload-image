@@ -6,6 +6,13 @@ import { Observable } from 'rxjs/Observable';
 
 const scrollListeners = new WeakMap();
 
+export function sampleObservable(obs: Observable<any>) {
+    return obs
+        .sampleTime(100)
+        .share()
+        .startWith('')
+}
+
 // Only create one scroll listener per target and share the observable.
 // Typical, there will only be one observable per application
 export const getScrollListener = (scrollTarget): Observable<any> => {
@@ -25,10 +32,7 @@ export const getScrollListener = (scrollTarget): Observable<any> => {
         return () => scrollTarget.removeEventListener(eventName, handler, options);
     });
 
-    const listeners = srollEvent
-        .sampleTime(100)
-        .share()
-        .startWith('');
-    scrollListeners.set(scrollTarget, listeners);
-    return listeners;
+    const listener = sampleObservable(srollEvent);
+    scrollListeners.set(scrollTarget, listener);
+    return listener;
 };
