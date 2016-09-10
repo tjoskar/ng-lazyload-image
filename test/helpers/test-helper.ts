@@ -1,13 +1,13 @@
-declare var global;
+declare var window;
 
 const isEqual = require('lodash.isequal');
 import './rx-operations';
 import { TestScheduler } from 'rxjs/testing/TestScheduler';
 
-global.rxTestScheduler = null;
+window.rxTestScheduler = null;
 
-const glit = global.it;
-const glonly = global.it.only;
+const glit = window.it;
+const glonly = window.it.only;
 
 function stringifyFrame(x) {
     const value = x.notification.value === undefined ? '' : x.notification.value;
@@ -35,28 +35,28 @@ const assertDeepEqualFrame = function(actual, expected) {
     }
 };
 
-global.it = function(description, cb, timeout) {
+window.it = function(description, cb, timeout) {
     if (cb.length === 0) {
         glit.call(glit, description, function() {
-            global.rxTestScheduler = new TestScheduler(assertDeepEqualFrame);
+            window.rxTestScheduler = new TestScheduler(assertDeepEqualFrame);
             cb();
-            global.rxTestScheduler.flush();
+            window.rxTestScheduler.flush();
         });
     } else {
         glit.apply(this, arguments);
     }
 }.bind(glit);
 
-global.it.asDiagram = function() {
-    return global.it;
+window.it.asDiagram = function() {
+    return window.it;
 };
 
-global.it.only = function(description, cb, timeout) {
+window.it.only = function(description, cb, timeout) {
     if (cb.length === 0) {
         glonly.call(glonly, description, function() {
-            global.rxTestScheduler = new TestScheduler(assertDeepEqualFrame);
+            window.rxTestScheduler = new TestScheduler(assertDeepEqualFrame);
             cb();
-            global.rxTestScheduler.flush();
+            window.rxTestScheduler.flush();
         });
     } else {
         glonly.apply(this, arguments);
@@ -64,5 +64,5 @@ global.it.only = function(description, cb, timeout) {
 }.bind(glonly);
 
 afterEach(() => {
-    global.rxTestScheduler = null;
+    window.rxTestScheduler = null;
 });

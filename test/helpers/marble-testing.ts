@@ -1,31 +1,31 @@
-declare var global;
+declare var window;
 
 export function hot(marbles: string, values?: any) {
-    if (!global.rxTestScheduler) {
+    if (!window.rxTestScheduler) {
         throw 'tried to use hot() in async test';
     }
-    return global.rxTestScheduler.createHotObservable(marbles, values);
+    return window.rxTestScheduler.createHotObservable(marbles, values);
 }
 
 export function cold() {
-    if (!global.rxTestScheduler) {
+    if (!window.rxTestScheduler) {
         throw 'tried to use cold() in async test';
     }
-    return global.rxTestScheduler.createColdObservable.apply(global.rxTestScheduler, arguments);
+    return window.rxTestScheduler.createColdObservable.apply(window.rxTestScheduler, arguments);
 }
 
 export function expectObservable(abservable: any) {
-    if (!global.rxTestScheduler) {
+    if (!window.rxTestScheduler) {
         throw 'tried to use expectObservable() in async test';
     }
-    return global.rxTestScheduler.expectObservable(abservable);
+    return window.rxTestScheduler.expectObservable(abservable);
 }
 
 export function expectSubscriptions() {
-    if (!global.rxTestScheduler) {
+    if (!window.rxTestScheduler) {
         throw 'tried to use expectSubscriptions() in async test';
     }
-    return global.rxTestScheduler.expectSubscriptions.apply(global.rxTestScheduler, arguments);
+    return window.rxTestScheduler.expectSubscriptions.apply(window.rxTestScheduler, arguments);
 }
 
-export const getRxTestScheduler = () => global.rxTestScheduler;
+export const getRxTestScheduler = () => window.rxTestScheduler;
