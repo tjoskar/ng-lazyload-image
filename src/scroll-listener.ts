@@ -10,7 +10,7 @@ export function sampleObservable(obs: Observable<any>, scheduler?: any) {
     return obs
         .sampleTime(100, scheduler)
         .share()
-        .startWith('')
+        .startWith('');
 }
 
 // Only create one scroll listener per target and share the observable.
