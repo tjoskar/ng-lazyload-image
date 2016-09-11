@@ -1,15 +1,15 @@
 language: node_js
 node_js:
-  - 4.2
+  - 6
 addons:
   sauce_connect: true
 
-before_install:
-  - npm install
+before_script:
   - npm start & WEBPACK_SERVER_PID=$!
   - sleep 10 # give webpack some time to start
 
 script:
+  - npm run test:ci
   - npm run e2e:ci
 
 after_script:

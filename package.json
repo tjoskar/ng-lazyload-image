@@ -6,6 +6,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "test": "karma start karma.local.js",
+    "test:ci": "karma start karma.ci.js",
     "start": "webpack-dev-server --inline --progress --profile --colors --watch --display-error-details --display-cached --hot",
     "build": "tsc",
     "build:example": "webpack --config webpack.prod.config.js --profile --display-error-details --display-cache",
