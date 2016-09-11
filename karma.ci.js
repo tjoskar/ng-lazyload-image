@@ -6,6 +6,7 @@ module.exports = config => {
         'SL_Chrome': {
             base: 'SauceLabs',
             browserName: 'chrome',
+            platform: 'Windows 10',
             version: 'latest'
         },
         'SL_Edge': {
@@ -17,6 +18,7 @@ module.exports = config => {
         'SL_FireFox': {
             base: 'SauceLabs',
             browserName: 'firefox',
+            platform: 'Windows 10',
             version: 'latest'
         }
     };
@@ -31,7 +33,11 @@ module.exports = config => {
         colors: true,
         logLevel: config.LOG_INFO,
         sauceLabs: {
-            testName: 'Angular lazy load images'
+            testName: 'Angular lazy load images',
+            tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+            username: process.env.SAUCE_USERNAME,
+            accessKey: process.env.SAUCE_ACCESS_KEY,
+            startConnect: false
         },
         captureTimeout: 120000,
         customLaunchers: customLaunchers,
