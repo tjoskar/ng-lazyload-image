@@ -14,7 +14,7 @@ class AppComponent {
         'https://hd.unsplash.com/photo-1441765425173-8fd330fb4a02',
         'https://hd.unsplash.com/photo-1451481454041-104482d8e284',
         'https://hd.unsplash.com/photo-1471070855862-324d571a1857',
-        'https://hd.unsplash.com/photo-1415045550139-59b6fafc832f_'
+        'https://hd.unsplash.com/photo-1415045550139-59b6fafc832f'
     ];
 
 }
