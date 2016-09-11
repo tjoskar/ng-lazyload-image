@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'image',
+    selector: 'lz-image',
     styles: [`
         img {
             min-width: 1497px;
@@ -19,7 +19,7 @@ import { Component, Input } from '@angular/core';
         <img src="https://www.placecage.com/1000/1000" [lazyLoad]="image" [errorImage]="errorImg" offset="0">
     `,
 })
-export class ImageComponent {
+export class LazyImageComponent {
     @Input('src') image;
     @Input('error') errorImg;
 }
