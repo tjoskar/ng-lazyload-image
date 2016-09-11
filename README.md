@@ -75,6 +75,11 @@ class ImageComponent {
 See example folder for more usages.
 
 ### Develop
+Run `unit` tests:
+```
+$ npm test
+```
+
 Run `e2e` tests:
 ```
 $ npm run webdriver:update
