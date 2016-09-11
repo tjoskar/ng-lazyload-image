@@ -12,6 +12,12 @@ module.exports = Object.assign({}, devWebpackConfig, {
     cache: false,
 
     devServer: undefined,
+    output: {
+        path: './dist',
+        filename: '[name].bundle.js',
+        sourceMapFilename: '[name].js.map',
+        chunkFilename: '[id].chunk.js'
+    },
 
     plugins: [
         new ForkCheckerPlugin(),
