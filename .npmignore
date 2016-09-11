@@ -3,6 +3,7 @@ src/lazyload-image.directive.ts
 src/scroll-listener.ts
 e2e/
 example
+test
 .travis.yml
 make-packages.js
 proactor.ci.conf.js

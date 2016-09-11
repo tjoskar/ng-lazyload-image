@@ -3,6 +3,7 @@ typings
 bundles/
 example/*.js
 src/*.js
+test/**/*.js
 ng2-lazyload-image.js
 index.js
 *.js.map
