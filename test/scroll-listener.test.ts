@@ -1,10 +1,10 @@
 import { spy } from 'simple-spy';
 import { is, isNot } from './helpers/assert';
+import { noop } from './helpers/noop';
 import { expectObservable, hot, getRxTestScheduler } from './helpers/marble-testing';
 import { getScrollListener, sampleObservable } from '../src/scroll-listener';
 
 console.warn = () => undefined;
-const noop = () => {};
 
 describe('Scroll listener', () => {
 
@@ -156,4 +156,31 @@ describe('Scroll listener', () => {
         expectObservable(obs).toBe(expected, values);
     });
 
+    it(`Should emit event through the handler`, done => {
+        // Arrange
+        let eventHandler = null;
+        const events = [];
+        const element = {
+            addEventListener: (eventName, handler, options) => {
+                eventHandler = handler;
+            },
+            removeEventListener: noop
+        };
+
+        // Act and assert
+        const subscriber = getScrollListener(element)
+            .subscribe(
+                d => {
+                    events.push(d);
+                    if (events.length === 2) {
+                        is(events[0], '');
+                        is(events[1], 'oskar');
+                        subscriber.unsubscribe();
+                        done();
+                    }
+                },
+                error => done(error)
+            );
+        eventHandler('oskar');
+    });
 });
