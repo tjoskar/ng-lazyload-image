@@ -8,6 +8,9 @@ About [90 loc](https://github.com/tjoskar/ng2-lazyload-image/blob/master/src/laz
 
 Demo: http://tjoskar.github.io/ng2-lazyload-image/
 
+### Requirement
+The browser you targeting need to have support of `WeepMap`. If you need to support an older browser (like IE or Safari) you will need to include polyfill for `WeekMap` (see https://github.com/zloirock/core-js for example).
+
 ### Installation
 ```
 $ npm install ng2-lazyload-image --save
