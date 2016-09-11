@@ -2,7 +2,10 @@
 
 > Lazy image loader for Angular 2
 
-[![Build Status](https://travis-ci.org/tjoskar/ng2-lazyload-image.svg?branch=master)](https://travis-ci.org/tjoskar/ng2-lazyload-image)
+[![Build Status](https://travis-ci.org/tjoskar/ng2-lazyload-image.svg?branch=master)](https://travis-ci.org/tjoskar/ng2-lazyload-image) [![npm version](https://badge.fury.io/js/ng2-lazyload-image.svg)](https://badge.fury.io/js/ng2-lazyload-image)
+[![npm](https://img.shields.io/npm/l/ng2-lazyload-image.svg?maxAge=2592000)]()
+
+[![Build Status](https://saucelabs.com/browser-matrix/tjoskar.svg)](https://saucelabs.com/beta/builds/c7a7d7683d6843f79ae4118f737769c5)
 
 About [90 loc](https://github.com/tjoskar/ng2-lazyload-image/blob/master/src/lazyload-image.directive.ts) and no dependencies (except for angular and rxjs of course)
 
