@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'lz-image',
+    selector: 'fade-in-image',
     styles: [`
         img {
             min-width: 1497px;
@@ -16,10 +16,10 @@ import { Component, Input } from '@angular/core';
         }
     `],
     template: `
-        <img src="https://www.placecage.com/1000/1000" [lazyLoad]="image" [errorImage]="errorImg" offset="0">
+        <img src="https://www.placecage.com/1000/1000" [lazyLoad]="src" [errorImage]="errorImage" offset="0">
     `,
 })
-export class LazyImageComponent {
-    @Input('src') image;
-    @Input('error') errorImg;
+export class FadeInImageComponent {
+    @Input() src;
+    @Input() errorImage;
 }
