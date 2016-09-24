@@ -1,5 +1,6 @@
 index.ts
 src/lazyload-image.directive.ts
+src/lazyload-image.module.ts
 src/scroll-listener.ts
 e2e/
 example
