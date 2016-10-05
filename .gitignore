@@ -1,6 +1,9 @@
 node_modules
 typings
 bundles/
+compiled/
+dist/
+*.metadata.json
 example/*.js
 src/*.js
 test/**/*.js

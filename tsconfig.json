@@ -13,17 +13,25 @@
     "sourceRoot": "/",
     "mapRoot": "",
     "rootDir": ".",
+    "outDir": "dist",
     "lib": [
-        "dom",
-        "es6"
+      "dom",
+      "es6"
     ],
     "types": [
-        "node",
-        "mocha"
+      "node",
+      "mocha"
     ]
   },
   "compileOnSave": false,
   "exclude": [
-    "node_modules"
-  ]
+    "node_modules",
+    "dist",
+    "compiled",
+    "example",
+    "test"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "compiled"
+  }
 }

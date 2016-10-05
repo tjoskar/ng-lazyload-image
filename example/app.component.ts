@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 
-export enum ExampleType {
-    fadeIn, default, pixelated, background
-}
-
 @Component({
     selector: 'my-app',
     styles: [`
@@ -22,28 +18,29 @@ export enum ExampleType {
     `],
     template: `
         <div class="menu">
-            <p (click)="changeImageExample(${ExampleType.fadeIn})">Fade in image</p>
-            <p (click)="changeImageExample(${ExampleType.default})">Default image</p>
-            <p (click)="changeImageExample(${ExampleType.pixelated})">Pixelated transform</p>
-            <p (click)="changeImageExample(${ExampleType.background})">Background image</p>
+            <p (click)="changeImageExample(exampleTypes.fadeIn)">Fade in image</p>
+            <p (click)="changeImageExample(exampleTypes.default)">Default image</p>
+            <p (click)="changeImageExample(exampleTypes.pixelated)">Pixelated transform</p>
+            <p (click)="changeImageExample(exampleTypes.background)">Background image</p>
         </div>
 
-        <template [ngIf]="exampleType === ${ExampleType.fadeIn}">
+        <template [ngIf]="exampleType === exampleTypes.fadeIn">
             <fade-in-image *ngFor="let image of images" [src]="image" [errorImage]="errorImage"></fade-in-image>
         </template>
-        <template [ngIf]="exampleType === ${ExampleType.default}">
+        <template [ngIf]="exampleType === exampleTypes.default">
             <default-image *ngFor="let image of images" [src]="image" [errorImage]="errorImage"></default-image>
         </template>
-        <template [ngIf]="exampleType === ${ExampleType.pixelated}">
+        <template [ngIf]="exampleType === exampleTypes.pixelated">
             <pixelated-image></pixelated-image>
         </template>
-        <template [ngIf]="exampleType === ${ExampleType.background}">
+        <template [ngIf]="exampleType === exampleTypes.background">
             <bg-image [src]="images[3]" [errorImage]="errorImage"></bg-image>
         </template>
     `
 })
 export class AppComponent {
-    exampleType: ExampleType = ExampleType.fadeIn;
+    exampleTypes = { fadeIn: 0, default: 1, pixelated: 2, background: 3};
+    exampleType = this.exampleTypes.fadeIn;
 
     errorImage = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
 
@@ -54,7 +51,7 @@ export class AppComponent {
         'https://hd.unsplash.com/photo-1415045550139-59b6fafc832f'
     ];
 
-    changeImageExample(type: ExampleType) {
+    changeImageExample(type) {
         this.exampleType = type;
     }
 

@@ -2,13 +2,13 @@
   "name": "ng2-lazyload-image",
   "version": "2.2.1",
   "description": "Lazy image loader for Angular 2",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "prepublish": "npm run build",
     "test": "karma start karma.local.js",
     "test:ci": "karma start karma.ci.js",
     "start": "webpack-dev-server --inline --progress --profile --colors --watch --display-error-details --display-cached --hot",
-    "build": "tsc",
+    "build": "ngc src",
     "build:example": "webpack --config webpack.prod.config.js --profile --display-error-details --display-cache",
     "e2e": "protractor",
     "e2e:ci": "protractor protractor.ci.conf.js",
@@ -32,16 +32,18 @@
   },
   "homepage": "https://github.com/tjoskar/ng2-lazyload-image#readme",
   "peerDependencies": {
-    "@angular/core": "^2.0.0-rc.6",
+    "@angular/core": "^2.0.0",
     "rxjs": "^5.0.0-beta.11"
   },
   "dependencies": {},
   "devDependencies": {
-    "@angular/common": "2.0.0-rc.6",
-    "@angular/compiler": "2.0.0-rc.6",
-    "@angular/core": "2.0.0-rc.6",
-    "@angular/platform-browser": "2.0.0-rc.6",
-    "@angular/platform-browser-dynamic": "2.0.0-rc.6",
+    "@angular/common": "^2.0.1",
+    "@angular/compiler": "^2.0.1",
+    "@angular/compiler-cli": "^0.6.3",
+    "@angular/core": "^2.0.1",
+    "@angular/platform-browser": "^2.0.1",
+    "@angular/platform-browser-dynamic": "^2.0.1",
+    "@angular/platform-server": "^2.0.1",
     "@types/core-js": "^0.9.32",
     "@types/mocha": "^2.2.31",
     "@types/node": "^6.0.38",
@@ -58,18 +60,19 @@
     "mocha": "^3.0.2",
     "null-loader": "^0.1.1",
     "protractor": "^4.0.0",
-    "rxjs": "5.0.0-beta.11",
+    "rxjs": "^5.0.0-beta.12",
     "simple-spy": "^2.0.3",
     "source-map-loader": "^0.1.5",
     "typescript": "^2.0.0",
     "wallaby-webpack": "0.0.25",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.1",
-    "zone.js": "0.6.17"
+    "zone.js": "^0.6.21"
   },
   "greenkeeper": {
     "ignore": [
-      "rxjs", "zone.js"
+      "rxjs",
+      "zone.js"
     ]
   }
 }
