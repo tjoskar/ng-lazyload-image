@@ -13,7 +13,6 @@
     "sourceRoot": "/",
     "mapRoot": "",
     "rootDir": ".",
-    "outDir": "dist",
     "lib": [
       "dom",
       "es6"

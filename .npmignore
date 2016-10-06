@@ -9,6 +9,7 @@ wallaby.js
 webpack.*.js
 compiled/
 e2e/
+src/*.ts
+!src/*.d.ts
 example
-src/
 test
