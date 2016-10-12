@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'bg-image',
@@ -17,10 +17,19 @@ import { Component, Input } from '@angular/core';
         }
     `],
     template: `
-        <div src="https://www.placecage.com/1000/1000" [lazyLoad]="src" [errorImage]="errorImage" offset="0">
+      <div
+        *ngFor="let image of images"
+        src="https://www.placecage.com/1000/1000"
+        [lazyLoad]="image"
+        [errorImage]="errorImage">
     `
 })
 export class BgImageComponent {
-    @Input() src;
-    @Input() errorImage;
+  errorImage = 'https://i.imgur.com/XkU4Ajf.png';
+
+  images = [
+      'https://hd.unsplash.com/photo-1470165525439-3cf9e6dccbad',
+      'https://hd.unsplash.com/photo-1471109880861-75a04f9b7833',
+      'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5'
+  ];
 }

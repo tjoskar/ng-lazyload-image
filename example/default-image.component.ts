@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'default-image',
@@ -19,10 +19,19 @@ import { Component, Input } from '@angular/core';
         }
     `],
     template: `
-        <img src="https://www.placecage.com/1000/1000" [lazyLoad]="src" [errorImage]="errorImage" offset="0">
+      <img
+        *ngFor="let image of images"
+        src="https://www.placecage.com/1000/1000"
+        [errorImage]="errorImage"
+        [lazyLoad]="image">
     `,
 })
 export class DefaultImageComponent {
-    @Input() src;
-    @Input() errorImage;
+  errorImage = 'https://i.imgur.com/XkU4Ajf.png';
+
+  images = [
+      'https://hd.unsplash.com/photo-1449023859676-22e61b0c0695',
+      'https://hd.unsplash.com/photo-1451324119451-db0ac857463c',
+      'https://hd.unsplash.com/photo-1464746133101-a2c3f88e0dd9'
+  ];
 }
