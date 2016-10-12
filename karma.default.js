@@ -64,6 +64,6 @@ module.exports = config => {
             title: 'Yoo boy!',
             show: false
         },
-        singleRun: false
+        singleRun: true
     };
 };
