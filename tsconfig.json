@@ -16,6 +16,7 @@
   },
   "compileOnSave": false,
   "include": [
+    "./index.ts",
     "src/**/*.ts",
     "example/**/*.ts"
   ],
