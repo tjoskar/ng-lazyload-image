@@ -13,21 +13,18 @@
     "sourceRoot": "/",
     "mapRoot": "",
     "rootDir": ".",
-    "lib": [
-      "dom",
-      "es6"
-    ],
-    "types": [
-      "node",
-      "mocha"
-    ]
+    "lib": [ "dom", "es6" ],
+    "types": [ "node", "mocha" ]
   },
   "compileOnSave": false,
+  "include": [
+    "src/**/*.ts",
+    "example/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
     "dist",
     "compiled",
-    "example",
     "test"
   ],
   "angularCompilerOptions": {

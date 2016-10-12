@@ -4,7 +4,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/empty';
 import { Observable } from 'rxjs/Observable';
 
-const scrollListeners = new WeakMap();
+const scrollListeners = new WeakMap<any, Observable<any>>();
 
 export function sampleObservable(obs: Observable<any>, scheduler?: any) {
     return obs
