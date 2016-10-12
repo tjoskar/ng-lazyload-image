@@ -10,8 +10,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "sourceRoot": "/",
-    "mapRoot": "",
     "rootDir": ".",
     "lib": [ "dom", "es6" ],
     "types": [ "node", "mocha" ]
