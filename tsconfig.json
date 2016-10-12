@@ -9,7 +9,7 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "rootDir": ".",
     "lib": [ "dom", "es6" ],
     "types": [ "node", "mocha" ]
