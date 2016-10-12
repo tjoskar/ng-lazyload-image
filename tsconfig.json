@@ -9,21 +9,24 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "sourceRoot": "/",
-    "mapRoot": "",
+    "sourceMap": false,
     "rootDir": ".",
-    "lib": [
-        "dom",
-        "es6"
-    ],
-    "types": [
-        "node",
-        "mocha"
-    ]
+    "lib": [ "dom", "es6" ],
+    "types": [ "node", "mocha" ]
   },
   "compileOnSave": false,
+  "include": [
+    "./index.ts",
+    "src/**/*.ts",
+    "example/**/*.ts"
+  ],
   "exclude": [
-    "node_modules"
-  ]
+    "node_modules",
+    "dist",
+    "compiled",
+    "test"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "compiled"
+  }
 }
