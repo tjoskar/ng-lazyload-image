@@ -60,7 +60,7 @@
     "lodash.isequal": "^4.4.0",
     "mocha": "^3.1.2",
     "null-loader": "^0.1.1",
-    "protractor": "^4.0.0",
+    "protractor": "^4.0.10",
     "rxjs": "^5.0.0-rc.1",
     "simple-spy": "^2.0.3",
     "source-map-loader": "^0.1.5",
