@@ -43,6 +43,7 @@ module.exports = config => {
         customLaunchers: customLaunchers,
         browsers: Object.keys(customLaunchers),
         singleRun: true,
+        concurrency: 1,
         autoWatch: false
     }));
 };
