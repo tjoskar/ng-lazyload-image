@@ -20,6 +20,12 @@ module.exports = config => {
             browserName: 'firefox',
             platform: 'Windows 10',
             version: 'latest'
+        },
+        'SL_Safari': {
+            base: 'SauceLabs',
+            browserName: 'safari',
+            platform: 'OS X 10.11',
+            version: 'latest'
         }
     };
 
