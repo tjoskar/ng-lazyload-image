@@ -64,7 +64,7 @@
     "rxjs": "^5.0.0-rc.1",
     "simple-spy": "^2.0.3",
     "source-map-loader": "^0.1.5",
-    "typescript": "^2.0.0",
+    "typescript": "^2.0.6",
     "wallaby-webpack": "0.0.26",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2",
