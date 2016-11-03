@@ -29,7 +29,7 @@ export class LazyLoadImageDirective {
 
     ngAfterContentInit() {
         this.scrollSubscription = getScrollListener(this._scrollTarget)
-            .filter(() => this.isVisible())
+            .filter(() => this.isVisible() && !!this.lazyImage)
             .take(1)
             .switchMap(() => this.loadImage(this.lazyImage))
             .do(() => this.setImage(this.lazyImage))
