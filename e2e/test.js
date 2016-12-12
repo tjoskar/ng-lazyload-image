@@ -38,9 +38,10 @@ describe('Lazy load images', () => {
 
         browser.executeScript(slowScroll);
 
+        // Wait for the scroll
         browser.wait(() => {
             const deferred = protractor.promise.defer();
-            setTimeout(() => deferred.fulfill(true), 7000);
+            setTimeout(() => deferred.fulfill(true), 10000);
             return deferred.promise;
         });
 
