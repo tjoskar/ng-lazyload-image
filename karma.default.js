@@ -8,7 +8,6 @@ module.exports = config => {
         files: [
             // Only specify one entry point
             // and require all tests in there
-            { pattern: './test/helpers/test-helper.ts', watched: false },
             { pattern: './unit-test.bundle.js', watched: false }
         ],
         preprocessors: {

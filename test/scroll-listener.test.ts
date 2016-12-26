@@ -2,13 +2,14 @@ import { spy } from 'simple-spy';
 import { is, isNot } from './helpers/assert';
 import { noop } from './helpers/noop';
 import { expectObservable, hot, getRxTestScheduler } from './helpers/marble-testing';
+import { test } from './helpers/test-helper';
 import { getScrollListener, sampleObservable } from '../src/scroll-listener';
 
 console.warn = () => undefined;
 
 describe('Scroll listener', () => {
 
-    it('Should return an empty observable', () => {
+    test('Should return an empty observable', () => {
         // Arrange
         const element = {
             addEventListener: null
@@ -142,7 +143,7 @@ describe('Scroll listener', () => {
         subscriber2.unsubscribe();
     });
 
-    it(`Should sample the observable`, () => {
+    test(`Should sample the observable`, () => {
         // Arrange
         const values = { a: '', b: 'b' };
         const e1 =   hot('----b-^----b----------------------|', values);
@@ -178,8 +179,7 @@ describe('Scroll listener', () => {
                         subscriber.unsubscribe();
                         done();
                     }
-                },
-                error => done(error)
+                }
             );
         eventHandler('oskar');
     });

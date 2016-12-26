@@ -4,9 +4,6 @@ const isEqual = require('lodash.isequal');
 import './rx-operations';
 import { TestScheduler } from 'rxjs/testing/TestScheduler';
 
-window.rxTestScheduler = null;
-
-const glit = window.it;
 const glonly = window.it.only;
 
 function stringifyFrame(x) {
@@ -35,33 +32,29 @@ const assertDeepEqualFrame = function(actual, expected) {
     }
 };
 
-window.it = function(description, cb, timeout) {
+export const test = function test(description, cb, timeout) {
     if (cb.length === 0) {
-        glit.call(glit, description, function() {
+        window.it.call(window.it, description, function() {
             window.rxTestScheduler = new TestScheduler(assertDeepEqualFrame);
             cb();
             window.rxTestScheduler.flush();
         });
     } else {
-        glit.apply(this, arguments);
+        window.it.apply(this, arguments);
     }
-}.bind(glit);
+}.bind(window.it);
 
-window.it.asDiagram = function() {
-    return window.it;
-};
-
-window.it.only = function(description, cb, timeout) {
+export const onlyTest = function onlyTest(description, cb, timeout) {
     if (cb.length === 0) {
-        glonly.call(glonly, description, function() {
+        window.it.only.call(window.it.only, description, function() {
             window.rxTestScheduler = new TestScheduler(assertDeepEqualFrame);
             cb();
             window.rxTestScheduler.flush();
         });
     } else {
-        glonly.apply(this, arguments);
+        window.it.only.apply(this, arguments);
     }
-}.bind(glonly);
+}.bind(window.it.only);
 
 afterEach(() => {
     window.rxTestScheduler = null;
