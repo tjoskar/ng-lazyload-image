@@ -3,7 +3,7 @@ import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { getScrollListener } from './scroll-listener';
 
@@ -21,27 +21,31 @@ export class LazyLoadImageDirective {
     };
     @Input() offset: number;      // The number of px a image should be loaded before it is in view port
     elementRef: ElementRef;
+    ngZone: NgZone;
     scrollSubscription;
 
-    constructor(el: ElementRef) {
+    constructor(el: ElementRef, ngZone: NgZone) {
         this.elementRef = el;
+        this.ngZone = ngZone;
     }
 
     ngAfterContentInit() {
-        this.scrollSubscription = getScrollListener(this._scrollTarget)
-            .filter(() => this.isVisible())
-            .take(1)
-            .switchMap(() => this.loadImage(this.lazyImage))
-            .do(() => this.setImage(this.lazyImage))
-            .finally(() => this.setLoadedStyle())
-            .subscribe(
-                () => this.ngOnDestroy(),
-                error => {
-                    // Set error image if was set, otherwise use default image
-                    this.setImage(this.errorImg || this.defaultImg);
-                    this.ngOnDestroy();
-                }
-            );
+        this.ngZone.runOutsideAngular(() => {
+            this.scrollSubscription = getScrollListener(this._scrollTarget)
+                .filter(() => this.isVisible())
+                .take(1)
+                .switchMap(() => this.loadImage(this.lazyImage))
+                .do(() => this.setImage(this.lazyImage))
+                .finally(() => this.setLoadedStyle())
+                .subscribe(
+                    () => this.ngOnDestroy(),
+                    error => {
+                        // Set error image if was set, otherwise use default image
+                        this.setImage(this.errorImg || this.defaultImg);
+                        this.ngOnDestroy();
+                    }
+                );
+            });
     }
 
     loadImage(image) {
