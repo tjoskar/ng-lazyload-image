@@ -12,3 +12,4 @@ index.js
 *.js.map
 *.d.ts
 !example/custom-typings.d.ts
+.vscode
