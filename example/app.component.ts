@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'my-app',
@@ -31,6 +31,7 @@ import { Component } from '@angular/core';
         </div>
 
         <router-outlet></router-outlet>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {}

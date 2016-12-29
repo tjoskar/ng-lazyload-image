@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'default-image',
@@ -25,6 +25,7 @@ import { Component } from '@angular/core';
         [errorImage]="errorImage"
         [lazyLoad]="image">
     `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DefaultImageComponent {
   errorImage = 'https://i.imgur.com/XkU4Ajf.png';

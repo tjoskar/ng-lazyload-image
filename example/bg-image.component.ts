@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'bg-image',
@@ -22,7 +22,8 @@ import { Component } from '@angular/core';
         src="https://www.placecage.com/1000/1000"
         [lazyLoad]="image"
         [errorImage]="errorImage">
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BgImageComponent {
   errorImage = 'https://i.imgur.com/XkU4Ajf.png';

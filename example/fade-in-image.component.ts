@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'fade-in-image',
@@ -22,6 +22,7 @@ import { Component } from '@angular/core';
           [errorImage]="errorImage"
           [lazyLoad]="image">
     `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FadeInImageComponent {
   errorImage = 'https://i.imgur.com/XkU4Ajf.png';

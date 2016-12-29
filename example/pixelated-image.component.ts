@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'pixelated-image',
@@ -38,5 +38,6 @@ import { Component } from '@angular/core';
             <div class="fanart" lazyLoad="https://images.unsplash.com/photo-1450101215322-bf5cd27642fc?ixlib=rb-0.3.5&q=80&fm=jpg"></div>
         </div>
     `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PixelatedImageComponent {}
