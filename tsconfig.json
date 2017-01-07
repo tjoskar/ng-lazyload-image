@@ -11,6 +11,7 @@
     "experimentalDecorators": true,
     "sourceMap": false,
     "rootDir": ".",
+    "outDir": "dist",
     "lib": [ "dom", "es6" ],
     "types": [ "node", "mocha" ]
   },
@@ -24,10 +25,10 @@
   "exclude": [
     "node_modules",
     "dist",
-    "compiled",
-    "test"
+    "compiled"
   ],
   "angularCompilerOptions": {
-    "genDir": "compiled"
+    "genDir": "dist",
+    "strictMetadataEmit": true
   }
 }

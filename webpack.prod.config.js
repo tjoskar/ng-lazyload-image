@@ -13,7 +13,7 @@ module.exports = Object.assign({}, devWebpackConfig, {
 
     devServer: undefined,
     output: {
-        path: './dist',
+        path: './example-dist',
         filename: '[name].bundle.js',
         sourceMapFilename: '[name].js.map',
         chunkFilename: '[id].chunk.js'
