@@ -1,7 +1,6 @@
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
@@ -38,10 +37,7 @@ function loadImage(imagePath: string): Observable<HTMLImageElement> {
                 observer.complete();
             };
             img.onerror = err => {
-                console.log('On Error men OK!');
-                observer.next(null);
-                observer.complete();
-                // observer.error(err);
+                observer.error(null);
             };
         });
 }
@@ -69,38 +65,16 @@ function setLoadedStyle(element: HTMLElement) {
 export function lazyLoadImage(image: HTMLElement, imagePath: string, errorImgPath: string, offset: number) {
     return (scrollObservable: Observable<Event>) => {
         return scrollObservable
-            .do(() => { console.log('Before filter'); })
             .filter(() => isVisible(image, offset))
-            .do(() => { console.log('After filter'); })
             .take(1)
-            .mergeMap(() => {
-                console.log('Inside mergeMap');
-                return loadImage(imagePath)
-                    .do(img => {
-                        if (img) {
-                            setImage(image, imagePath);
-                        } else {
-                            setImage(image, errorImgPath);
-                        }
-                    })
-                    .catch(() => {
-                        console.log('Error! 2');
-                        if (errorImgPath) {
-                            setImage(image, errorImgPath);
-                        }
-                        return Observable.of(1);
-                    });
+            .mergeMap(() => loadImage(imagePath))
+            .do(() => setImage(image, imagePath))
+            .catch(() => {
+                if (errorImgPath) {
+                    setImage(image, errorImgPath);
+                }
+                return Observable.of(1);
             })
-            // .do(() => setImage(image, imagePath) && console.log('Setting image'))
-            // .catch(() => {
-            //     console.log('Error!');
-            //     if (errorImgPath) {
-            //         setImage(image, errorImgPath);
-            //     }
-            //     return Observable.of(1);
-            // })
-            .do(() => {
-                setLoadedStyle(image);
-            });
+            .do(() => setLoadedStyle(image));
     };
 }
