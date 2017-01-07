@@ -26,11 +26,11 @@ export class LazyLoadImageDirective {
         this.ngZone.runOutsideAngular(() => {
             if (this.scrollObservable) {
                 this.scrollSubscription = this.scrollObservable
+                    .startWith('')
                     .let(lazyLoadImage(this.elementRef.nativeElement, this.lazyImage, this.errorImage, this.offset))
                     .subscribe(() => {});
             } else {
                 this.scrollSubscription = getScrollListener(this.scrollTarget)
-                    .startWith('')
                     .let(lazyLoadImage(this.elementRef.nativeElement, this.lazyImage, this.errorImage, this.offset))
                     .subscribe(() => {});
             }
