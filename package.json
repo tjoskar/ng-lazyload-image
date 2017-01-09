@@ -67,7 +67,7 @@
     "simple-spy": "^2.1.0",
     "source-map-loader": "^0.1.5",
     "typescript": "2.0.10",
-    "wallaby-webpack": "0.0.27",
+    "wallaby-webpack": "^0.0.28",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2",
     "zone.js": "^0.7.4"
