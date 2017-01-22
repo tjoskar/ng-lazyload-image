@@ -22,6 +22,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
         src="https://www.placecage.com/1000/1000"
         [lazyLoad]="image"
         [errorImage]="errorImage">
+      </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

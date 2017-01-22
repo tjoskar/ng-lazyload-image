@@ -1,0 +1,25 @@
+{
+  "name": "ng2-lazyload-image",
+  "version": "2.3.1",
+  "description": "Lazy image loader for Angular 2",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjoskar/ng2-lazyload-image.git"
+  },
+  "keywords": [
+    "lazy-load",
+    "lazy-image",
+    "angular2"
+  ],
+  "author": "Oskar Karlsson <kontakta@oskarkarlsson.nu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjoskar/ng2-lazyload-image/issues"
+  },
+  "homepage": "https://github.com/tjoskar/ng2-lazyload-image#readme",
+  "peerDependencies": {
+    "@angular/core": "^2.0.0",
+    "rxjs": "^5.0.0-beta.11"
+  }
+}

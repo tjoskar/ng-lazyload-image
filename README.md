@@ -7,7 +7,7 @@
 
 [![Build Status](https://saucelabs.com/browser-matrix/tjoskar.svg)](https://saucelabs.com/beta/builds/c7a7d7683d6843f79ae4118f737769c5)
 
-About [90 loc](https://github.com/tjoskar/ng2-lazyload-image/blob/master/src/lazyload-image.directive.ts) and no dependencies (except for angular and rxjs of course)
+About 150 loc and no dependencies (except for angular and rxjs of course)
 
 Demo: http://tjoskar.github.io/ng2-lazyload-image/
 
@@ -72,7 +72,78 @@ class ImageComponent {
 }
 ```
 
+If you are using Ionic 2 you may need to include your own scroll observable or change the scroll target.
+
+```javascript
+@Component({
+    selector: 'page-image',
+    template: `
+      <ion-content #container padding>
+        <img src="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [scrollObservable]="container.ionScroll" />
+      </ion-content>
+    `
+})
+export class AboutPage {
+    lazyLoadImage = 'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5';
+}
+```
+
 See example folder for more usages.
+
+### API
+
+##### lazyLoad
+
+Type: `string`
+
+Example: `https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg`
+
+The image to be lazy loaded. This image will replace the default image (src).
+
+##### src (optional)
+
+Type: `string`
+
+Example: `https://www.placecage.com/1000/1000`
+
+Path to default image. This image will be loaded right away.
+
+##### errorImage (optional)
+
+Type: `string`
+
+Example: `https://i.imgur.com/XkU4Ajf.png`
+
+An image to be loaded if failing to load `lazyLoad`. Will load the default image (`src`) if absent.
+
+##### offset (optional)
+
+Type: `number`
+
+Example: `100`
+
+Default: `0`
+
+Number of px a image should be loaded before it is in view port
+
+##### scrollTarget (optional)
+
+Type: `Element`
+
+Example: `document.getElementById('my-scroll-container')`
+
+Default: `window`
+
+You will need to set this property if you are using a scroll container and do not propagate the scroll event to window.
+
+##### scrollObservable (optional)
+
+Type: `Observable`
+
+Example: `Observable.fromEvent(myScrollContainer, 'scroll')`
+
+You can pass your own observable if you need more control over the flow. Can be useful if integrating with other frameworks like ionic.
+
 
 ### Develop
 Run `unit` tests:
