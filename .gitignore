@@ -1,9 +1,4 @@
-node_modules
-dist/
-example-dist/
-*.metadata.json
-**/*.js
-*.js.map
-*.d.ts
-!example/custom-typings.d.ts
 .vscode
+dist
+example-dist
+node_modules
