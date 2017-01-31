@@ -12,7 +12,7 @@ About 150 loc and no dependencies (except for angular and rxjs of course)
 Demo: http://tjoskar.github.io/ng2-lazyload-image/
 
 ### Requirement
-The browser you targeting need to have support of `WeepMap`. If you need to support an older browser (like IE or Safari) you will need to include polyfill for `WeekMap` (see https://github.com/zloirock/core-js for example).
+The browser you targeting need to have support of `WeakMap`. If you need to support an older browser (like IE or Safari) you will need to include polyfill for `WeakMap` (see https://github.com/zloirock/core-js for example).
 
 ### Installation
 ```
