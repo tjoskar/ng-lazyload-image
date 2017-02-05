@@ -48,7 +48,7 @@
     "@types/core-js": "^0.9.32",
     "@types/mocha": "^2.2.34",
     "@types/node": "^7.0.0",
-    "awesome-typescript-loader": "^2.2.4",
+    "awesome-typescript-loader": "^3.0.0",
     "copyfiles": "^1.0.0",
     "core-js": "^2.4.1",
     "electron-prebuilt": "^1.4.13",
