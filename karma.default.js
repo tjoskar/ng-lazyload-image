@@ -18,10 +18,10 @@ module.exports = config => {
         webpack: {
             devtool: 'inline-source-map',
             resolve: {
-                extensions: ['', '.ts', '.js']
+                extensions: ['.ts', '.js']
             },
             module: {
-                preLoaders: [
+                loaders: [
                     {
                         test: /\.js$/,
                         loader: 'source-map-loader',
@@ -32,7 +32,7 @@ module.exports = config => {
                         ]
                     }
                 ],
-                loaders: [
+                rules: [
                     {
                         test: /\.ts$/,
                         loader: 'awesome-typescript-loader',
@@ -42,8 +42,7 @@ module.exports = config => {
                     }
                 ],
                 noParse: [/zone\.js\/dist\/.+/]
-            },
-            debug: false
+            }
         },
 
         // Webpack please don't spam the console when running in karma!
