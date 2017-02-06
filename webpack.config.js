@@ -1,14 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-const HMR = true;
 
 module.exports = {
     devtool: 'inline-source-map',
     cache: true,
-    debug: false,
 
     entry: {
         'polyfills': './example/polyfills.ts',
@@ -17,18 +14,18 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['', '.ts', '.js']
+        extensions: ['.ts', '.js']
     },
 
     output: {
-        path: './example',
+        path: path.resolve(__dirname, './example'),
         filename: '[name].bundle.js',
         sourceMapFilename: '[name].js.map',
         chunkFilename: '[id].chunk.js'
     },
 
     module: {
-        preLoaders: [
+        rules: [
             {
                 test: /\.js$/,
                 loader: 'source-map-loader',
@@ -37,9 +34,7 @@ module.exports = {
                     path.resolve(__dirname, 'node_modules/rxjs'),
                     path.resolve(__dirname, 'node_modules/@angular')
                 ]
-            }
-        ],
-        loaders: [
+            },
             { test: /\.ts$/, loader: 'awesome-typescript-loader' },
 
             // Support for CSS as raw text
@@ -49,7 +44,7 @@ module.exports = {
 
             // support for .html as raw text
             { test: /\.html$/,  loader: 'raw-loader', exclude: [ './src/index.html' ] }
-        ]
+        ],
     },
 
     devServer: {
@@ -64,9 +59,7 @@ module.exports = {
     },
 
     plugins: [
-        new ForkCheckerPlugin(),
         new webpack.DefinePlugin({
-            HMR,
             ENV: JSON.stringify(ENV)
         }),
         new webpack.optimize.CommonsChunkPlugin({

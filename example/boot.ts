@@ -7,16 +7,8 @@ function main() {
     platformBrowserDynamic().bootstrapModule(AppModule);
 }
 
-if (ENV === 'development' && HMR === true) {
-    // activate hot module reload
-    if (document.readyState === 'complete') {
-        console.clear();
-        main();
-    } else {
-        document.addEventListener('DOMContentLoaded', main);
-    }
-    module.hot.accept();
-} else {
+if (ENV !== 'development') {
     enableProdMode();
-    main();
 }
+
+document.addEventListener('DOMContentLoaded', main);

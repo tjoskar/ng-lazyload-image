@@ -1,27 +1,23 @@
 const path = require('path');
 const webpack = require('webpack');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 const devWebpackConfig = require('./webpack.config');
 
 const ENV = process.env.ENV = process.env.NODE_ENV = 'production';
-const HMR = false;
 
 module.exports = Object.assign({}, devWebpackConfig, {
     devtool: 'source-map',
-    debug: false,
     cache: false,
 
     devServer: undefined,
     output: {
-        path: './example-dist',
+        path: path.resolve(__dirname, './example-dist'),
         filename: '[name].bundle.js',
         sourceMapFilename: '[name].js.map',
         chunkFilename: '[id].chunk.js'
     },
 
     plugins: [
-        new ForkCheckerPlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(true),
+        new webpack.optimize.OccurrenceOrderPlugin(true),
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
             beautify: false,
@@ -36,7 +32,6 @@ module.exports = Object.assign({}, devWebpackConfig, {
         }),
         new webpack.optimize.CommonsChunkPlugin({ name: ['main', 'vendor', 'polyfills'], minChunks: Infinity }),
         new webpack.DefinePlugin({
-            HMR,
             ENV: JSON.stringify(ENV)
         })
     ]
