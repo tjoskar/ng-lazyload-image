@@ -9,7 +9,6 @@ import { lazyLoadImage } from './lazyload-image';
 export class LazyLoadImageDirective {
     @Input('lazyLoad') lazyImage;   // The image to be lazy loaded
     @Input() errorImage: string;    // The image to be displayed if lazyImage load fails
-    @Input() src: string;
     @Input() scrollTarget = window; // Chnage the node we should listen for scroll events on, default is window
     @Input() scrollObservable;      // Pass your own scroll emitter
     @Input() offset: number;        // The number of px a image should be loaded before it is in view port
