@@ -7,6 +7,7 @@ import { FadeInImageComponent } from './fade-in-image.component';
 import { BgImageComponent } from './bg-image.component';
 import { DefaultImageComponent } from './default-image.component';
 import { PixelatedImageComponent } from './pixelated-image.component';
+import { ScrollContainerComponent } from './scroll-container.component';
 
 @NgModule({
     declarations: [
@@ -14,7 +15,8 @@ import { PixelatedImageComponent } from './pixelated-image.component';
       FadeInImageComponent,
       BgImageComponent,
       DefaultImageComponent,
-      PixelatedImageComponent
+      PixelatedImageComponent,
+      ScrollContainerComponent
     ],
     imports: [
       BrowserModule,
@@ -28,6 +30,7 @@ import { PixelatedImageComponent } from './pixelated-image.component';
         { path: 'bg-image', component: BgImageComponent },
         { path: 'default-image', component: DefaultImageComponent },
         { path: 'pixelated-image', component: PixelatedImageComponent },
+        { path: 'scroll-container', component: ScrollContainerComponent },
       ]),
       LazyLoadImageModule
     ],
