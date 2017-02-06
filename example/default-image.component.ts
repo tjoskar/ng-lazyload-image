@@ -21,7 +21,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     template: `
         <img
             *ngFor="let image of images"
-            src="https://www.placecage.com/1000/1000"
+            [src]="defaultImage"
             [errorImage]="errorImage"
             [lazyLoad]="image">
     `,
@@ -29,6 +29,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 export class DefaultImageComponent {
     errorImage = 'https://i.imgur.com/XkU4Ajf.png';
+    defaultImage = 'https://www.placecage.com/1000/1000';
 
     images = [
         'https://images.unsplash.com/photo-1467932760935-519284fc87fa?dpr=2&auto=compress,format&fit=crop&w=1199&h=800&q=80',
