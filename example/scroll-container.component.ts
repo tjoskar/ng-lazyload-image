@@ -26,6 +26,7 @@ import { Component, ChangeDetectionStrategy, ElementRef } from '@angular/core';
         }
     `],
     template: `
+    <h1>Using querySelector</h1>
     <div class="scroll-container" id="my-scroll-container">
         <img
             *ngFor="let image of images"
@@ -35,6 +36,7 @@ import { Component, ChangeDetectionStrategy, ElementRef } from '@angular/core';
             [lazyLoad]="image">
     </div>
 
+    <h1>Using template variable</h1>
     <div class="scroll-container" #scrollableDiv>
         <img
             *ngFor="let image of images"
