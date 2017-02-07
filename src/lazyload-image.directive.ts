@@ -41,13 +41,11 @@ export class LazyLoadImageDirective implements OnChanges, OnDestroy {
             this.scrollSubscription = this.scrollObservable
               .startWith('')
               .let(lazyLoadImage(this.elementRef.nativeElement, currImg, this.errorImage, this.offset, this.window))
-              .subscribe(() => {
-              });
+              .subscribe();
           } else {
             this.scrollSubscription = getScrollListener(this.scrollTarget)
               .let(lazyLoadImage(this.elementRef.nativeElement, currImg, this.errorImage, this.offset, this.window))
-              .subscribe(() => {
-              });
+              .subscribe();
           }
         });
       }
