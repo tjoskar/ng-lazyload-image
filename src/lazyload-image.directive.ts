@@ -8,8 +8,9 @@ import { lazyLoadImage } from './lazyload-image';
 })
 export class LazyLoadImageDirective {
     @Input('lazyLoad') lazyImage;   // The image to be lazy loaded
+    @Input() defaultImage: string;  // The image to be displayed before lazyImage is loaded
     @Input() errorImage: string;    // The image to be displayed if lazyImage load fails
-    @Input() scrollTarget = window; // Chnage the node we should listen for scroll events on, default is window
+    @Input() scrollTarget = window; // Change the node we should listen for scroll events on, default is window
     @Input() scrollObservable;      // Pass your own scroll emitter
     @Input() offset: number;        // The number of px a image should be loaded before it is in view port
     elementRef: ElementRef;
@@ -26,11 +27,11 @@ export class LazyLoadImageDirective {
             if (this.scrollObservable) {
                 this.scrollSubscription = this.scrollObservable
                     .startWith('')
-                    .let(lazyLoadImage(this.elementRef.nativeElement, this.lazyImage, this.errorImage, this.offset))
+                    .let(lazyLoadImage(this.elementRef.nativeElement, this.lazyImage, this.defaultImage, this.errorImage, this.offset))
                     .subscribe(() => {});
             } else {
                 this.scrollSubscription = getScrollListener(this.scrollTarget)
-                    .let(lazyLoadImage(this.elementRef.nativeElement, this.lazyImage, this.errorImage, this.offset))
+                    .let(lazyLoadImage(this.elementRef.nativeElement, this.lazyImage, this.defaultImage, this.errorImage, this.offset))
                     .subscribe(() => {});
             }
         });

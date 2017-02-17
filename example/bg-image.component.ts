@@ -9,17 +9,21 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
             min-height: 1127px;
             background-position: center;
             background-size: cover;
-            transition: opacity 1s;
-            opacity: 0;
         }
-        .ng2-lazyloaded {
-            opacity: 1;
+        
+        div.ng2-lazyloaded {
+            animation: fadein .5s;
+        }
+
+        @keyframes fadein {
+            from { opacity: 0; }
+            to   { opacity: 1; }
         }
     `],
     template: `
       <div
         *ngFor="let image of images"
-        src="https://www.placecage.com/1000/1000"
+        [defaultImage]="defaultImage"
         [lazyLoad]="image"
         [errorImage]="errorImage">
       </div>
@@ -27,11 +31,12 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BgImageComponent {
-  errorImage = 'https://i.imgur.com/XkU4Ajf.png';
+    errorImage = 'https://i.imgur.com/XkU4Ajf.png';
+    defaultImage = 'https://www.placecage.com/1000/1000';
 
-  images = [
-      'https://hd.unsplash.com/photo-1470165525439-3cf9e6dccbad',
-      'https://hd.unsplash.com/photo-1471109880861-75a04f9b7833',
-      'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5'
-  ];
+    images = [
+        'https://hd.unsplash.com/photo-1470165525439-3cf9e6dccbad',
+        'https://hd.unsplash.com/photo-1471109880861-75a04f9b7833',
+        'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5'
+    ];
 }

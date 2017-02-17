@@ -21,7 +21,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     template: `
         <img
             *ngFor="let image of images"
-            [src]="defaultImage"
+            [defaultImage]="defaultImage"
             [errorImage]="errorImage"
             [lazyLoad]="image">
     `,
