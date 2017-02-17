@@ -108,10 +108,10 @@ Example: `https://www.placecage.com/1000/1000`
 
 Path to default image. This image will be loaded right away.
 
-You can also use `src` attribute for img tag to define default image:
+You can also use `src` attribute for img tag to define default image:  
 `<img src="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" />`
 
-or `background-image` property for non-image tags:
+or `background-image` property for non-image tags:  
 `<div style="background-image: url('https://www.placecage.com/1000/1000');" [lazyLoad]="lazyLoadImage"></div>`
 
 
