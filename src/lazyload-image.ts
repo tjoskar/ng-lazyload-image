@@ -63,7 +63,9 @@ function setLoadedStyle(element: HTMLElement) {
 }
 
 export function lazyLoadImage(image: HTMLElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number) {
-    setImage(image, defaultImagePath);
+    if (defaultImagePath) {
+        setImage(image, defaultImagePath);
+    }
     return (scrollObservable: Observable<Event>) => {
         return scrollObservable
             .filter(() => isVisible(image, offset))
