@@ -42,7 +42,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'image',
     template: `
-        <img [src]="defaultImage" [lazyLoad]="image" [offset]="offset">
+        <img [defaultImage]="defaultImage" [lazyLoad]="image" [offset]="offset">
     `
 })
 class ImageComponent {
@@ -58,7 +58,7 @@ It also supports background images, by using `backgroundImage`:
 @Component({
     selector: 'image',
     template: `
-        <div [src]="defaultImage" [lazyLoad]="image" [offset]="offset"></div>
+        <div [defaultImage]="defaultImage" [lazyLoad]="image" [offset]="offset"></div>
         <!--
         After it has been loaded the div will transform into:
         <div class="ng2-lazyloaded" style="background-image: url('https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg');"></div>
@@ -79,7 +79,7 @@ If you are using Ionic 2 you may need to include your own scroll observable or c
     selector: 'page-image',
     template: `
       <ion-content #container padding>
-        <img src="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [scrollObservable]="container.ionScroll" />
+        <img [defaultImage]="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [scrollObservable]="container.ionScroll" />
       </ion-content>
     `
 })
@@ -98,9 +98,9 @@ Type: `string`
 
 Example: `https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg`
 
-The image to be lazy loaded. This image will replace the default image (src).
+The image to be lazy loaded. This image will replace the default image (`defaultImage`).
 
-##### src (optional)
+##### defaultImage (optional)
 
 Type: `string`
 
@@ -108,13 +108,20 @@ Example: `https://www.placecage.com/1000/1000`
 
 Path to default image. This image will be loaded right away.
 
+You can also use `src` attribute for img tag to define default image:  
+`<img src="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" />`
+
+or `background-image` property for non-image tags:  
+`<div style="background-image: url('https://www.placecage.com/1000/1000');" [lazyLoad]="lazyLoadImage"></div>`
+
+
 ##### errorImage (optional)
 
 Type: `string`
 
 Example: `https://i.imgur.com/XkU4Ajf.png`
 
-An image to be loaded if failing to load `lazyLoad`. Will load the default image (`src`) if absent.
+An image to be loaded if failing to load `lazyLoad`. Will load the default image (`defaultImage`) if absent.
 
 ##### offset (optional)
 
