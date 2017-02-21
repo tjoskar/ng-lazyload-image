@@ -53,7 +53,7 @@
     "core-js": "^2.4.1",
     "electron-prebuilt": "^1.4.13",
     "karma": "^1.4.1",
-    "karma-electron-launcher": "^0.1.0",
+    "karma-electron-launcher": "^0.2.0",
     "karma-mocha": "^1.1.1",
     "karma-sauce-launcher": "^1.1.0",
     "karma-sourcemap-loader": "^0.3.7",
