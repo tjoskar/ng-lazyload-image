@@ -65,7 +65,7 @@
     "rimraf": "^2.5.4",
     "rxjs": "5.0.1",
     "simple-spy": "^2.1.0",
-    "source-map-loader": "^0.1.6",
+    "source-map-loader": "^0.2.0",
     "typescript": "2.1.6",
     "wallaby-webpack": "^0.0.33",
     "webpack": "^2.2.1",
