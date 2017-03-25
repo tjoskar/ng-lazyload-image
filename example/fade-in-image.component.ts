@@ -11,7 +11,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
             opacity: 0;
         }
 
-        img.ng2-lazyloaded {
+        img.ng-lazyloaded {
             opacity: 1;
         }
     `],

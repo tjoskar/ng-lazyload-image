@@ -56,8 +56,8 @@ function setLoadedStyle(element: HTMLElement) {
     const styles = element.className
         .split(' ')
         .filter(s => !!s)
-        .filter(s => s !== 'ng2-lazyloading');
-    styles.push('ng2-lazyloaded');
+        .filter(s => s !== 'ng-lazyloading');
+    styles.push('ng-lazyloaded');
     element.className = styles.join(' ');
     return element;
 }

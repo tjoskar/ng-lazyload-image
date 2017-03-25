@@ -9,7 +9,7 @@ import { Component, ChangeDetectionStrategy, ElementRef } from '@angular/core';
             min-height: 1127px;
         }
 
-        img.ng2-lazyloaded {
+        img.ng-lazyloaded {
             animation: fadein .5s;
         }
 

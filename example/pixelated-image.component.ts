@@ -28,7 +28,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
             transition: opacity 1s;
             opacity: 0;
         }
-        .ng2-lazyloaded {
+        .ng-lazyloaded {
             opacity: 1;
         }
     `],

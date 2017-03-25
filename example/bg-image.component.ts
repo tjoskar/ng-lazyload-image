@@ -11,7 +11,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
             background-size: cover;
         }
         
-        div.ng2-lazyloaded {
+        div.ng-lazyloaded {
             animation: fadein .5s;
         }
 
