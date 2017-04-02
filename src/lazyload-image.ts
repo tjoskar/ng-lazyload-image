@@ -76,6 +76,7 @@ export function lazyLoadImage(image: HTMLElement, imagePath: string, defaultImag
                 if (errorImgPath) {
                     setImage(image, errorImgPath);
                 }
+                image.className += ' ng-failed-lazyloaded';
                 return Observable.of(1);
             })
             .do(() => setLoadedStyle(image));
