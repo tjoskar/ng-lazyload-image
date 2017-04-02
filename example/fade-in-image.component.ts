@@ -29,9 +29,8 @@ export class FadeInImageComponent {
     defaultImage = 'https://www.placecage.com/1000/1000';
 
     images = [
-        'https://hd.unsplash.com/photo-1441765425173-8fd330fb4a02',
-        'https://hd.unsplash.com/photo-1451481454041-104482d8e284',
-        'https://hd.unsplash.com/photo-1471070855862-324d571a1857',
-        'https://hd.unsplash.com/photo-1415045550139-59b6fafc832f'
+        'https://images.unsplash.com/photo-1468413922365-e3766a17da9e?dpr=2&auto=compress,format&fit=crop&w=1199&h=800&q=80',
+        'https://images.unsplash.com/photo-1488388373205-a134c1cc7e4e?dpr=2&auto=compress,format&fit=crop&w=1199&h=799&q=80',
+        'https://images.unsplash.com/photo-1422257986712-4f02edc298ce?dpr=2&auto=compress,format&fit=crop&w=1199&h=1199&q=80'
     ];
 }
