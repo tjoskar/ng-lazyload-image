@@ -64,7 +64,7 @@
     "null-loader": "^0.1.1",
     "protractor": "^5.1.1",
     "rimraf": "^2.6.1",
-    "rxjs": "5.2.0",
+    "rxjs": "5.2.1-smooth",
     "simple-spy": "^2.1.0",
     "source-map-loader": "^0.2.0",
     "typescript": "^2.2.1",
