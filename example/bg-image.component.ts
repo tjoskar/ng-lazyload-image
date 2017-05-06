@@ -10,7 +10,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
             background-position: center;
             background-size: cover;
         }
-        
+
         div.ng-lazyloaded {
             animation: fadein .5s;
         }
