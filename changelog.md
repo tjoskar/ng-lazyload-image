@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.1.1 (2017-05-11)
+
+### Feature
+* Support server-side rendering
+
+## 3.1.0 (2017-04-01)
+
+### Feature
+* Add a css class when a loading error occurs
+
 ## 3.0.0 (2017-03-25)
 
 ### Feature
