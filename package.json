@@ -69,7 +69,7 @@
     "source-map-loader": "^0.2.1",
     "typescript": "^2.3.2",
     "wallaby-webpack": "^0.0.38",
-    "webpack": "^2.5.0",
+    "webpack": "^3.0.0",
     "webpack-dev-server": "^2.4.5",
     "zone.js": "^0.8.10"
   }
