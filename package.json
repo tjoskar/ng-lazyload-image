@@ -4,7 +4,7 @@
   "description": "Lazy image loader for Angular > v2",
   "main": "index.js",
   "scripts": {
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "test": "karma start karma.local.js",
     "test:ci": "karma start karma.ci.js",
     "start": "webpack-dev-server --progress --profile --colors --watch",
