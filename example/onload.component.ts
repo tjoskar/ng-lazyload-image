@@ -4,9 +4,7 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
     selector: 'default-image',
     styles: [`
         img {
-            min-width: 1497px;
             width: 100%;
-            min-height: 1127px;
         }
     `],
     template: `
@@ -26,7 +24,7 @@ export class OnLoadComponent {
     isLoading = true;
     errorImage = 'https://i.imgur.com/XkU4Ajf.png';
     defaultImage = 'https://www.placecage.com/1000/1000';
-    image = 'https://www.placecage.com/3500/3500';
+    image = 'https://images.unsplash.com/photo-1467932760935-519284fc87fa?dpr=2&auto=compress,format&fit=crop&w=1199&h=800&q=80';
 
     constructor(private cd: ChangeDetectorRef) {}
 
