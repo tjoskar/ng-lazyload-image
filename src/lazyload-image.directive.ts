@@ -31,13 +31,13 @@ export class LazyLoadImageDirective {
                 this.scrollSubscription = this.scrollObservable
                     .startWith('')
                     .let(lazyLoadImage(this.elementRef.nativeElement, this.lazyImage, this.defaultImage, this.errorImage, this.offset))
-                    .subscribe((success) => {
+                    .subscribe(success => {
                         this.onLoad.emit(success);
                     });
             } else {
                 this.scrollSubscription = getScrollListener(this.scrollTarget)
                     .let(lazyLoadImage(this.elementRef.nativeElement, this.lazyImage, this.defaultImage, this.errorImage, this.offset))
-                    .subscribe((success) => {
+                    .subscribe(success => {
                         this.onLoad.emit(success);
                     });
             }
