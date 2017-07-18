@@ -15,7 +15,7 @@ export class LazyLoadImageDirective {
     @Input() scrollTarget = target; // Change the node we should listen for scroll events on, default is window
     @Input() scrollObservable;      // Pass your own scroll emitter
     @Input() offset: number;        // The number of px a image should be loaded before it is in view port
-    @Output() onLoad: EventEmitter<null> = new EventEmitter(); // Callback after image is loaded
+    @Output() onLoad: EventEmitter<boolean> = new EventEmitter(); // Callback when an image is loaded
     elementRef: ElementRef;
     ngZone: NgZone;
     scrollSubscription;
@@ -31,14 +31,14 @@ export class LazyLoadImageDirective {
                 this.scrollSubscription = this.scrollObservable
                     .startWith('')
                     .let(lazyLoadImage(this.elementRef.nativeElement, this.lazyImage, this.defaultImage, this.errorImage, this.offset))
-                    .subscribe(() => {
-                        this.onLoad.emit();
+                    .subscribe((success) => {
+                        this.onLoad.emit(success);
                     });
             } else {
                 this.scrollSubscription = getScrollListener(this.scrollTarget)
                     .let(lazyLoadImage(this.elementRef.nativeElement, this.lazyImage, this.defaultImage, this.errorImage, this.offset))
-                    .subscribe(() => {
-                        this.onLoad.emit();
+                    .subscribe((success) => {
+                        this.onLoad.emit(success);
                     });
             }
         });

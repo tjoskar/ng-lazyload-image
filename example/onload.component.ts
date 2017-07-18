@@ -17,7 +17,7 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
                 [defaultImage]="defaultImage"
                 [errorImage]="errorImage"
                 [lazyLoad]="image"
-                (onLoad)="onLoad()">
+                (onLoad)="onLoadImage($event)">
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -30,8 +30,12 @@ export class OnLoadComponent {
 
     constructor(private cd: ChangeDetectorRef) {}
 
-    onLoad() {
-        this.isLoading = false;
-        this.cd.detectChanges();
+    onLoadImage(success) {
+        if (success) {
+            this.isLoading = false;
+            this.cd.detectChanges();
+        } else {
+            alert('Image cannot be loaded!');
+        }
     }
 }

@@ -155,9 +155,11 @@ You can pass your own observable if you need more control over the flow. Can be 
 
 ##### onLoad (optional)
 
-Type: `Function`
+Type: `Function: (success: boolean) => void`
 
-You can pass callback function, which will be called when image was loaded.
+Example: `<img [lazyLoad]="lazyLoadImage" (onLoad)="myCallbackFunction($event)">`
+
+You can pass a callback function, which will be called when the image is loaded.
 
 ### Develop
 Run `unit` tests:
