@@ -151,6 +151,15 @@ Example: `Observable.fromEvent(myScrollContainer, 'scroll')`
 
 You can pass your own observable if you need more control over the flow. Can be useful if integrating with other frameworks like ionic.
 
+### Events
+
+##### onLoad (optional)
+
+Type: `Function: (success: boolean) => void`
+
+Example: `<img [lazyLoad]="lazyLoadImage" (onLoad)="myCallbackFunction($event)">`
+
+You can pass a callback function, which will be called when the image is loaded.
 
 ### Develop
 Run `unit` tests:

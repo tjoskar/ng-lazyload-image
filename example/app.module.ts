@@ -8,6 +8,7 @@ import { BgImageComponent } from './bg-image.component';
 import { DefaultImageComponent } from './default-image.component';
 import { PixelatedImageComponent } from './pixelated-image.component';
 import { ScrollContainerComponent } from './scroll-container.component';
+import { OnLoadComponent } from './onload.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { ScrollContainerComponent } from './scroll-container.component';
       BgImageComponent,
       DefaultImageComponent,
       PixelatedImageComponent,
-      ScrollContainerComponent
+      ScrollContainerComponent,
+      OnLoadComponent,
     ],
     imports: [
       BrowserModule,
@@ -31,6 +33,7 @@ import { ScrollContainerComponent } from './scroll-container.component';
         { path: 'default-image', component: DefaultImageComponent },
         { path: 'pixelated-image', component: PixelatedImageComponent },
         { path: 'scroll-container', component: ScrollContainerComponent },
+        { path: 'on-load', component: OnLoadComponent },
       ]),
       LazyLoadImageModule
     ],

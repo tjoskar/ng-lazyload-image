@@ -1,6 +1,7 @@
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
@@ -72,12 +73,13 @@ export function lazyLoadImage(image: HTMLElement, imagePath: string, defaultImag
             .take(1)
             .mergeMap(() => loadImage(imagePath))
             .do(() => setImage(image, imagePath))
+            .map(() => true)
             .catch(() => {
                 if (errorImgPath) {
                     setImage(image, errorImgPath);
                 }
                 image.className += ' ng-failed-lazyloaded';
-                return Observable.of(1);
+                return Observable.of(false);
             })
             .do(() => setLoadedStyle(image));
     };

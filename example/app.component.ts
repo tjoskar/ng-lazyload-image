@@ -29,6 +29,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
             <a routerLink="/pixelated-image" routerLinkActive="active">Pixelated transform</a>
             <a routerLink="/bg-image" routerLinkActive="active">Background image</a>
             <a routerLink="/scroll-container" routerLinkActive="active">Scroll Container</a>
+            <a routerLink="/on-load" routerLinkActive="active">OnLoad event</a>
         </div>
 
         <router-outlet></router-outlet>
