@@ -1,5 +1,6 @@
 import 'rxjs/add/operator/let';
-import { Directive, ElementRef, EventEmitter, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, Inject, NgZone, Output, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 import { getScrollListener } from './scroll-listener';
 import { lazyLoadImage } from './lazyload-image';
 
@@ -18,14 +19,28 @@ export class LazyLoadImageDirective {
     @Output() onLoad: EventEmitter<boolean> = new EventEmitter(); // Callback when an image is loaded
     elementRef: ElementRef;
     ngZone: NgZone;
+    platformId: string;
     scrollSubscription;
 
-    constructor(el: ElementRef, ngZone: NgZone) {
-        this.elementRef = el;
-        this.ngZone = ngZone;
-    }
+  constructor(
+    @Inject(PLATFORM_ID) platformId: string,
+    el: ElementRef,
+    ngZone: NgZone,
+  ) {
+    this.platformId = platformId;
+    this.elementRef = el;
+    this.ngZone = ngZone;
+  }
 
     ngAfterContentInit() {
+        /**
+         * Disable lazy load image in server side
+         * @see https://github.com/tjoskar/ng-lazyload-image/issues/178
+         */
+        if (isPlatformServer(this.platformId)) {
+            return null;
+        }
+
         this.ngZone.runOutsideAngular(() => {
             if (this.scrollObservable) {
                 this.scrollSubscription = this.scrollObservable
