@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.1 (2017-07-20)
+
+### Bugfix
+* Disable directive on server side. Closes [#178](https://github.com/tjoskar/ng-lazyload-image/issues/178). Thanks to [rimlin](https://github.com/rimlin) :tada:
+
 ## 3.2.0 (2017-07-18)
 
 ### Feature
