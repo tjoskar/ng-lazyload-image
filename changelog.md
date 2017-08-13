@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.3 (2017-08-13)
+
+### Bugfix
+* Take offset into account for top and bottom. Closes [#192](https://github.com/tjoskar/ng-lazyload-image/issues/193)
+
 ## 3.2.2 (2017-07-24)
 
 ### Bugfix
