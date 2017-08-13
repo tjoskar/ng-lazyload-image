@@ -30,6 +30,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
             <a routerLink="/bg-image" routerLinkActive="active">Background image</a>
             <a routerLink="/scroll-container" routerLinkActive="active">Scroll Container</a>
             <a routerLink="/on-load" routerLinkActive="active">OnLoad event</a>
+            <a routerLink="/change-image" routerLinkActive="active">Change image</a>
         </div>
 
         <router-outlet></router-outlet>

@@ -8,6 +8,7 @@ import { BgImageComponent } from './bg-image.component';
 import { DefaultImageComponent } from './default-image.component';
 import { PixelatedImageComponent } from './pixelated-image.component';
 import { ScrollContainerComponent } from './scroll-container.component';
+import { ChangeImageComponent } from './changing-image.component';
 import { OnLoadComponent } from './onload.component';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { OnLoadComponent } from './onload.component';
       DefaultImageComponent,
       PixelatedImageComponent,
       ScrollContainerComponent,
+      ChangeImageComponent,
       OnLoadComponent,
     ],
     imports: [
@@ -28,6 +30,7 @@ import { OnLoadComponent } from './onload.component';
           redirectTo: '/fade-in-image',
           pathMatch: 'full'
         },
+        { path: 'change-image', component: ChangeImageComponent },
         { path: 'fade-in-image', component: FadeInImageComponent },
         { path: 'bg-image', component: BgImageComponent },
         { path: 'default-image', component: DefaultImageComponent },
