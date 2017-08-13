@@ -72,6 +72,11 @@ class ImageComponent {
 }
 ```
 
+You can (from 3.3.0) load image async or change the url on the fly, eg.
+```html
+<img [lazyLoad]="image$ | async">
+```
+
 If you are using Ionic 2 you may need to include your own scroll observable or change the scroll target.
 
 ```javascript
