@@ -70,10 +70,18 @@ describe('Lazy load image', () => {
             is(result, false);
         });
 
+        it('Should be vissible when the image is outside viewport but have a offset', () => {
+            const element = generateElement(-399, 100);
+            debugger;
+            const result = isVisible(element, 100, _window);
+
+            is(result, true);
+        });
+
         it('Should not be vissible when the image is inside viewport but have a offset', () => {
             const element = generateElement(901, 100);
             debugger;
-            const result = isVisible(element, 100, _window);
+            const result = isVisible(element, -100, _window);
 
             is(result, false);
         });
@@ -81,7 +89,7 @@ describe('Lazy load image', () => {
         it('Should be vissible when the image is inside viewport and have a offset', () => {
             const element = generateElement(899, 100);
 
-            const result = isVisible(element, 100, _window);
+            const result = isVisible(element, -100, _window);
 
             is(result, true);
         });
@@ -89,7 +97,7 @@ describe('Lazy load image', () => {
         it('Should not be vissible when the bottom of the image is inside viewport but have a offset', () => {
             const element = generateElement(-201, 100);
 
-            const result = isVisible(element, 100, _window);
+            const result = isVisible(element, -100, _window);
 
             is(result, false);
         });
@@ -97,7 +105,7 @@ describe('Lazy load image', () => {
         it('Should be vissible when the bottom of the image is inside viewport and have a offset', () => {
             const element = generateElement(-199, 100);
             debugger;
-            const result = isVisible(element, 100, _window);
+            const result = isVisible(element, -100, _window);
 
             is(result, true);
         });
@@ -129,7 +137,7 @@ describe('Lazy load image', () => {
         it('Should be vissible when the left side is in viewport', () => {
             const element = generateElement(200, 899);
             debugger;
-            const result = isVisible(element, 100, _window);
+            const result = isVisible(element, -100, _window);
 
             is(result, true);
         });
@@ -137,7 +145,7 @@ describe('Lazy load image', () => {
         it('Should be vissible when the right side is in viewport', () => {
             const element = generateElement(200, -199);
             debugger;
-            const result = isVisible(element, 100, _window);
+            const result = isVisible(element, -100, _window);
 
             is(result, true);
         });

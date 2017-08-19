@@ -13,15 +13,15 @@ export function isVisible(element: HTMLElement, threshold = 0, _window = window)
     const height = _window.innerHeight;
     const width = _window.innerWidth;
     // Is the element in viewport but larger then viewport itself
-    const elementLargerThenViewport = top <= threshold && bottom >= (height - threshold) && left <= threshold && right >= (width - threshold);
+    const elementLargerThenViewport = top <= -threshold && bottom >= (height + threshold) && left <= -threshold && right >= (width + threshold);
     // Is the top of the element in the viewport
-    const topInsideViewport = top <= (height - threshold) && top >= threshold;
+    const topInsideViewport = top <= (height + threshold) && top >= -threshold;
     // Is the bottom of the element in the viewport
-    const bottomInsideViewport = bottom >= threshold && bottom <= (height - threshold);
+    const bottomInsideViewport = bottom >= -threshold && bottom <= (height + threshold);
     // Is the right side of the element in the viewport
-    const rightsideInViewport = right >= threshold && right <= (width - threshold);
+    const rightsideInViewport = right >= -threshold && right <= (width + threshold);
     // Is the left side of the element is the viewport
-    const leftsideInViewport = left <= (width - threshold) && left >= threshold;
+    const leftsideInViewport = left <= (width + threshold) && left >= -threshold;
 
     return (
         elementLargerThenViewport ||
