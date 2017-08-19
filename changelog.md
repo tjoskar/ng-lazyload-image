@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.3.0 (2017-08-19)
+
+### Feature
+* Make it possible to update the images on the fly. Closes [#187](https://github.com/tjoskar/ng-lazyload-image/issues/187), [#140](https://github.com/tjoskar/ng-lazyload-image/issues/140)
+
 ## 3.2.3 (2017-08-13)
 
 ### Bugfix
