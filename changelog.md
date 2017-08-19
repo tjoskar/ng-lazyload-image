@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.3.1 (2017-08-19)
+
+### Bugfix
+* Offset should expand the window. Closes [#192](https://github.com/tjoskar/ng-lazyload-image/issues/192)
+
 ## 3.3.0 (2017-08-19)
 
 ### Feature
