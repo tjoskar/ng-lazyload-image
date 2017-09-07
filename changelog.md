@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.3.2 (2017-09-07)
+
+### Bugfix
+* Fix arguments for the AoT Compiler
+
 ## 3.3.1 (2017-08-19)
 
 ### Bugfix
