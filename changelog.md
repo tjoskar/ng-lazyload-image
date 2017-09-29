@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.3.3 (2017-09-29)
+
+### Bugfix
+* Fix multiple ng-lazyloaded class. Closes [#201](https://github.com/tjoskar/ng-lazyload-image/issues/201) Thanks to [vaidiep](https://github.com/vaidiep) :tada:
+
 ## 3.3.2 (2017-09-07)
 
 ### Bugfix
