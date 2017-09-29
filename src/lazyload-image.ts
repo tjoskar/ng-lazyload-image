@@ -69,6 +69,9 @@ export function lazyLoadImage(image: HTMLElement, imagePath: string, defaultImag
     if (defaultImagePath) {
         setImage(image, defaultImagePath);
     }
+    if (image.className && image.className.includes('ng-lazyloaded')) {
+        image.className = image.className.replace('ng-lazyloaded', '');
+    }
     return (scrollObservable: Observable<Event>) => {
         return scrollObservable
             .filter(() => isVisible(image, offset))
