@@ -1,6 +1,6 @@
 {
   "name": "ng-lazyload-image",
-  "version": "3.3.4",
+  "version": "3.3.5",
   "description": "Lazy image loader for Angular > v2",
   "main": "index.js",
   "repository": {

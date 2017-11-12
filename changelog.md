@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.3.5 (2017-11-12)
+
+* Downgrade typescript. Closes [#222](https://github.com/tjoskar/ng-lazyload-image/issues/222)
+
+## 3.3.4 (2017-11-05)
+
+* Upgrade to angular 5
+
 ## 3.3.3 (2017-09-29)
 
 ### Bugfix
