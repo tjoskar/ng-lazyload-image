@@ -10,6 +10,7 @@ import { PixelatedImageComponent } from './pixelated-image.component';
 import { ScrollContainerComponent } from './scroll-container.component';
 import { ChangeImageComponent } from './changing-image.component';
 import { OnLoadComponent } from './onload.component';
+import { ResponsiveImageComponent } from './responsive-image.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { OnLoadComponent } from './onload.component';
       ScrollContainerComponent,
       ChangeImageComponent,
       OnLoadComponent,
+      ResponsiveImageComponent,
     ],
     imports: [
       BrowserModule,
@@ -37,6 +39,7 @@ import { OnLoadComponent } from './onload.component';
         { path: 'pixelated-image', component: PixelatedImageComponent },
         { path: 'scroll-container', component: ScrollContainerComponent },
         { path: 'on-load', component: OnLoadComponent },
+        { path: 'responsive-image', component: ResponsiveImageComponent },
       ]),
       LazyLoadImageModule
     ],

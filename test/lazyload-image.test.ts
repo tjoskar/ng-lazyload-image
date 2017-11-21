@@ -16,7 +16,7 @@ describe('Lazy load image', () => {
         const imagePath = 'https://some-path/image.jpg';
 
         // Act
-        const listener = lazyLoadImage(element as any, null, imagePath, null, 0);
+        const listener = lazyLoadImage(element as any, null, imagePath, null, 0, false);
 
         // Assert
         is(element.src, imagePath);
@@ -33,10 +33,53 @@ describe('Lazy load image', () => {
         const imagePath = undefined;
 
         // Act
-        const listener = lazyLoadImage(element as any, null, imagePath, null, 0);
+        const listener = lazyLoadImage(element as any, null, imagePath, null, 0, false);
 
         // Assert
         is(element.src, '');
+    });
+
+    it('Should use srcset instead of src if useSrcset is true', () => {
+        // Arrange
+        const element = {
+            nodeName: {
+                toLowerCase: () => 'img'
+            },
+            src: '',
+            srcset: ''
+        }
+        const imagePath = 'https://some-path/image.jpg';
+
+        // Act
+        const listener = lazyLoadImage(element as any, null, imagePath, null, 0, true);
+
+        // Assert
+        is(element.src, '');
+        is(element.srcset, imagePath)
+    });
+
+    it('Should set default image for img and all picture source elements', () => {
+        // Arrange
+        const imagePath1 = 'https://some-path/image1.jpg';
+        const imagePath2 = 'https://some-path/image2.jpg';
+        const imagePath3 = 'https://some-path/image3.jpg';
+        const picture = document.createElement('picture');
+        const source1 = document.createElement('source');
+        const source2 = document.createElement('source');
+        const img = document.createElement('img');
+        source1.setAttribute('defaultImage', imagePath2);
+        source2.setAttribute('defaultImage', imagePath3);
+        picture.appendChild(source1);
+        picture.appendChild(source2);
+        picture.appendChild(img);
+
+        // Act
+        const listener = lazyLoadImage(img, null, imagePath1, null, 0, false);
+
+        // Assert
+        is(img.src, imagePath1);
+        is(source1.srcset, imagePath2);
+        is(source2.srcset, imagePath3);
     });
 
     describe('isVisible', () => {
