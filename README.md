@@ -98,9 +98,11 @@ See example folder for more usages.
 ### FAQ
 
 **Q** How can I manually trigger the loading of images?
+
 **A** See: https://github.com/tjoskar/ng-lazyload-image/issues/197
 
 **Q** Does this library work with ionic or some other wrapper for Angular?
+
 **A** Yes, but ionic and some other library wraps the whole document inside an other div so you might need to create your own scroll listener. https://github.com/tjoskar/ng-lazyload-image/issues?utf8=%E2%9C%93&q=is%3Aissue+Ionic
 
 ### API
