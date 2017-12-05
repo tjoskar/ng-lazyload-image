@@ -38,11 +38,12 @@ export function isImageElement(element: HTMLImageElement | HTMLDivElement): elem
     return element.nodeName.toLowerCase() === 'img';
 }
 
-function loadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset: boolean, sourcesAttrName: string): Observable<string> {
+function loadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset: boolean): Observable<string> {
     let img: HTMLImageElement;
     if (isImageElement(element) && isChildOfPicture(element)) {
-        const parentClone = <HTMLPictureElement>element.parentNode.cloneNode(true);
-        img = <HTMLImageElement>parentClone.getElementsByTagName('img')[0];
+        const parentClone = element.parentNode.cloneNode(true) as HTMLPictureElement;
+        img = parentClone.getElementsByTagName('img')[0];
+        setSourcesToLazy(img);
         setImage(img, imagePath, useSrcset);
     } else {
         img = new Image();
@@ -82,8 +83,8 @@ function setImage(element: HTMLImageElement | HTMLDivElement, imagePath: string,
 }
 
 function setSources(attrName: string) {
-    return (element: HTMLImageElement) => {
-        const sources = element.parentElement.getElementsByTagName('source');
+    return (image: HTMLImageElement) => {
+        const sources = image.parentElement.getElementsByTagName('source');
         for (let i = 0; i < sources.length; i++) {
             const attrValue = sources[i].getAttribute(attrName);
             if (attrValue) {
@@ -94,10 +95,10 @@ function setSources(attrName: string) {
 }
 
 const setSourcesToDefault = setSources('defaultImage');
-const setSourcesToLazy = setSources('lazyImage');
+const setSourcesToLazy = setSources('lazyLoad');
 const setSourcesToError = setSources('errorImage');
 
-function setLoadedStyle(element: HTMLElement) {
+function setLoadedStyle(element: HTMLImageElement | HTMLDivElement) {
     const styles = element.className
         .split(' ')
         .filter(s => !!s)
@@ -107,40 +108,40 @@ function setLoadedStyle(element: HTMLElement) {
     return element;
 }
 
-export function lazyLoadImage(image: HTMLImageElement | HTMLDivElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number, useSrcset: boolean = false) {
-    const isImgOfPicture = isImageElement(image) && isChildOfPicture(image);
+export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number, useSrcset: boolean = false) {
+    const isImgOfPicture = isImageElement(element) && isChildOfPicture(element);
     if (isImgOfPicture) {
-        setSourcesToDefault(image as HTMLImageElement);
+        setSourcesToDefault(element as HTMLImageElement);
     }
     if (defaultImagePath) {
-        setImage(image, defaultImagePath, useSrcset);
+        setImage(element, defaultImagePath, useSrcset);
     }
-    if (image.className && image.className.includes('ng-lazyloaded')) {
-        image.className = image.className.replace('ng-lazyloaded', '');
+    if (element.className && element.className.includes('ng-lazyloaded')) {
+        element.className = element.className.replace('ng-lazyloaded', '');
     }
 
     return (scrollObservable: Observable<Event>) => {
         return scrollObservable
-            .filter(() => isVisible(image, offset))
+            .filter(() => isVisible(element, offset))
             .take(1)
-            .mergeMap(() => loadImage(image, imagePath, useSrcset, 'lazyLoad'))
+            .mergeMap(() => loadImage(element, imagePath, useSrcset))
             .do(() => {
                 if (isImgOfPicture) {
-                    setSourcesToDefault(image as HTMLImageElement);
+                    setSourcesToLazy(element as HTMLImageElement);
                 }
-                setImage(image, imagePath, useSrcset);
+                setImage(element, imagePath, useSrcset);
             })
             .map(() => true)
             .catch(() => {
                 if (isImgOfPicture) {
-                    setSourcesToError(image as HTMLImageElement);
+                    setSourcesToError(element as HTMLImageElement);
                 }
                 if (errorImgPath) {
-                    setImage(image, errorImgPath, useSrcset);
+                    setImage(element, errorImgPath, useSrcset);
                 }
-                image.className += ' ng-failed-lazyloaded';
+                element.className += ' ng-failed-lazyloaded';
                 return Observable.of(false);
             })
-            .do(() => setLoadedStyle(image));
+            .do(() => setLoadedStyle(element));
     };
 }
