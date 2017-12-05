@@ -16,7 +16,7 @@ describe('Lazy load image', () => {
         const imagePath = 'https://some-path/image.jpg';
 
         // Act
-        const listener = lazyLoadImage(element as any, null, imagePath, null, 0, false);
+        const listener = lazyLoadImage(element as any, null, imagePath, null, 0);
 
         // Assert
         is(element.src, imagePath);
@@ -33,7 +33,7 @@ describe('Lazy load image', () => {
         const imagePath = undefined;
 
         // Act
-        const listener = lazyLoadImage(element as any, null, imagePath, null, 0, false);
+        const listener = lazyLoadImage(element as any, null, imagePath, null, 0);
 
         // Assert
         is(element.src, '');

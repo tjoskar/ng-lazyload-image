@@ -99,7 +99,7 @@ function setLoadedStyle(element: HTMLElement) {
     return element;
 }
 
-export function lazyLoadImage(image: HTMLElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number, useSrcset: boolean) {
+export function lazyLoadImage(image: HTMLElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number, useSrcset: boolean = false) {
     if (defaultImagePath) {
         setImage(image, defaultImagePath, useSrcset, 'defaultImage');
     }
