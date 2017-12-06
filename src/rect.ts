@@ -16,12 +16,7 @@ export class Rect {
     }
 
     static fromWindow(_window: Window): Rect {
-        const left = _window.pageXOffset;
-        const top = _window.pageYOffset;
-        const right = _window.pageXOffset + _window.innerWidth;
-        const bottom = _window.pageYOffset + _window.innerHeight;
-
-        return new Rect(left, top, right, bottom);
+        return new Rect(0, 0, _window.innerWidth, _window.innerHeight);
     }
 
     inflate(inflateBy: number) {

@@ -28,19 +28,17 @@ describe('Rect', () => {
         // Arrange
         const _window = {
             innerWidth: 100,
-            innerHeight: 200,
-            pageXOffset: 400,
-            pageYOffset: 1600
+            innerHeight: 200
         }
 
         // Act
         const rect = Rect.fromWindow(_window as any);
 
         // Assert
-        is(rect.left, _window.pageXOffset);
-        is(rect.top, _window.pageYOffset);
-        is(rect.right, _window.pageXOffset + _window.innerWidth);
-        is(rect.bottom, _window.pageYOffset + _window.innerHeight);
+        is(rect.left, 0);
+        is(rect.top, 0);
+        is(rect.right, _window.innerWidth);
+        is(rect.bottom, _window.innerHeight);
     });
 
     describe('inflate', () => {

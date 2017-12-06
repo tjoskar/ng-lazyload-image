@@ -42,9 +42,7 @@ describe('Lazy load image', () => {
     describe('isVisible', () => {
         const _window = {
             innerHeight: 1000,
-            innerWidth: 1000,
-            pageXOffset: 0,
-            pageYOffset: 0
+            innerWidth: 1000
         } as any;
 
         const generateElement = (top, left, height = 300, width = 300): any => ({
