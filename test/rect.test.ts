@@ -7,21 +7,23 @@ describe('Rect', () => {
 
     it('Should create a correctly sized Rect from a ClientRect object', () => {
         // Arrange
-        const clientRect = {
-            left: 100,
-            top: 200,
-            right: 300,
-            bottom: 400
+        const element = {
+            getBoundingClientRect: () => ({
+                left: 100,
+                top: 200,
+                right: 300,
+                bottom: 400
+            })
         }
 
         // Act
-        const rect = Rect.fromClientRect(clientRect as any);
+        const rect = Rect.fromElement(element as HTMLElement);
 
         // Assert
-        is(rect.left, clientRect.left);
-        is(rect.top, clientRect.top);
-        is(rect.right, clientRect.right);
-        is(rect.bottom, clientRect.bottom);
+        is(rect.left, element.getBoundingClientRect().left);
+        is(rect.top, element.getBoundingClientRect().top);
+        is(rect.right, element.getBoundingClientRect().right);
+        is(rect.bottom, element.getBoundingClientRect().bottom);
     });
 
     it('Should create a correctly sized Rect from a Window object', () => {

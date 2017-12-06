@@ -10,7 +10,7 @@ import { getScrollListener } from './scroll-listener';
 import { Rect } from './rect';
 
 export function isVisible(element: HTMLElement, threshold = 0, _window = window) {
-    const elementBounds = Rect.fromClientRect(element.getBoundingClientRect());
+    const elementBounds = Rect.fromElement(element);
     const windowBounds = Rect.fromWindow(_window);
     elementBounds.inflate(threshold);
     

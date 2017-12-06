@@ -11,8 +11,9 @@ export class Rect {
         this.bottom = bottom;
     }
 
-    static fromClientRect(clientRect: ClientRect): Rect {
-        return new Rect(clientRect.left, clientRect.top, clientRect.right, clientRect.bottom);
+    static fromElement(element: HTMLElement): Rect {
+        const { left, top, right, bottom } = element.getBoundingClientRect();
+        return new Rect(left, top, right, bottom);
     }
 
     static fromWindow(_window: Window): Rect {
