@@ -7,27 +7,14 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { getScrollListener } from './scroll-listener';
+import { Rect } from './rect';
 
 export function isVisible(element: HTMLElement, threshold = 0, _window = window) {
-    const { top, bottom, left, right } = element.getBoundingClientRect();
-    const height = _window.innerHeight;
-    const width = _window.innerWidth;
-    // Is the element in viewport but larger then viewport itself
-    const elementLargerThenViewport = top <= -threshold && bottom >= (height + threshold) && left <= -threshold && right >= (width + threshold);
-    // Is the top of the element in the viewport
-    const topInsideViewport = top <= (height + threshold) && top >= -threshold;
-    // Is the bottom of the element in the viewport
-    const bottomInsideViewport = bottom >= -threshold && bottom <= (height + threshold);
-    // Is the right side of the element in the viewport
-    const rightsideInViewport = right >= -threshold && right <= (width + threshold);
-    // Is the left side of the element is the viewport
-    const leftsideInViewport = left <= (width + threshold) && left >= -threshold;
-
-    return (
-        elementLargerThenViewport ||
-        ((topInsideViewport || bottomInsideViewport) &&
-        (rightsideInViewport || leftsideInViewport))
-    );
+    const elementBounds = Rect.fromClientRect(element.getBoundingClientRect());
+    const windowBounds = Rect.fromWindow(_window);
+    elementBounds.inflate(threshold);
+    
+    return elementBounds.intersectsWith(windowBounds);
 }
 
 function loadImage(imagePath: string): Observable<HTMLImageElement> {

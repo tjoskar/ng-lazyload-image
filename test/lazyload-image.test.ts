@@ -42,7 +42,9 @@ describe('Lazy load image', () => {
     describe('isVisible', () => {
         const _window = {
             innerHeight: 1000,
-            innerWidth: 1000
+            innerWidth: 1000,
+            pageXOffset: 0,
+            pageYOffset: 0
         } as any;
 
         const generateElement = (top, left, height = 300, width = 300): any => ({
@@ -146,6 +148,38 @@ describe('Lazy load image', () => {
             const element = generateElement(200, -199);
             debugger;
             const result = isVisible(element, -100, _window);
+
+            is(result, true);
+        });
+
+        it('Should be vissible when only left side with no corners is in the viewport', () => {
+            const element = generateElement(-100, 500, 1200, 1200);
+            debugger;
+            const result = isVisible(element, 0, _window);
+
+            is(result, true);
+        });
+
+        it('Should be vissible when only top side with no corners is in the viewport', () => {
+            const element = generateElement(500, -100, 1200, 1200);
+            debugger;
+            const result = isVisible(element, 0, _window);
+
+            is(result, true);
+        });
+
+        it('Should be vissible when only right side with no corners is in the viewport', () => {
+            const element = generateElement(-100, -500, 1200, 1200);
+            debugger;
+            const result = isVisible(element, 0, _window);
+
+            is(result, true);
+        });
+
+        it('Should be vissible when only bottom side with no corners is in the viewport', () => {
+            const element = generateElement(-500, -100, 1200, 1200);
+            debugger;
+            const result = isVisible(element, 0, _window);
 
             is(result, true);
         });
