@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 
 module.exports = {
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     cache: true,
 
     entry: {

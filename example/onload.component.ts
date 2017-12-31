@@ -6,11 +6,14 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
         img {
             width: 100%;
         }
+        img.hidden {
+            visibility: hidden;
+        }
     `],
     template: `
         <div *ngIf="isLoading">Image is loading...</div>
         <div *ngIf="!isLoading">Image is loaded</div>
-        <div [hidden]="isLoading">
+        <div [ngClass]="{'hidden': isLoading}">
             <img
                 [defaultImage]="defaultImage"
                 [errorImage]="errorImage"

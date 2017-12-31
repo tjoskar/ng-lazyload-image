@@ -9,7 +9,7 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "rootDir": ".",
     "outDir": "dist",
     "lib": [ "dom", "es6" ],
