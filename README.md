@@ -72,6 +72,54 @@ class ImageComponent {
 }
 ```
 
+If using responsive images in a plain `<img>` tag, you'll need to set the `useSrcset` attribute to `true`:
+```javascript
+@Component({
+    selector: 'image',
+    template: `
+        <img [defaultImage]="defaultImage"
+             [lazyLoad]="images"
+             [useSrcset]="true"
+             [offset]="offset">
+    `
+})
+class ImageComponent {
+    offset = 100;
+    defaultImage = 'https://www.placecage.com/1000/1000';
+    images = `https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?fm=jpg 700w,
+              https://images.unsplash.com/photo-1437818628339-19ded67ade8e?fm=jpg 1100w`;
+}
+```
+
+If using responsive images in a `<picture>` tag, set the default `<img>` tag as usual with `[lazyLoad]` etc. attributes.  
+You can use `[attr.lazyLoad]`, `[attr.defaultImage]` and `[attr.errorImage]` attributes for `<source>` elements.  
+There's no need to set `[useSrcset]` for `<source>` elements, as `srcset` is used by default.  
+A simple example for a `<picture>` tag:
+```javascript
+@Component({
+    selector: 'image',
+    template: `
+        <picture>
+            <source media="(min-width: {{ screen_lg }})" [attr.defaultImage]="defaultImage" [attr.lazyLoad]="image2">
+            <source media="(min-width: {{ screen_md }})" [attr.defaultImage]="defaultImage" [attr.lazyLoad]="image3">
+            <img [defaultImage]="defaultImage"
+                 [lazyLoad]="image1"
+                 [offset]="offset">
+        </picture>
+    `
+})
+class ImageComponent {
+    offset = 100;
+    screen_lg = '1200px';
+    screen_md = '992px';
+    defaultImage = 'https://www.placecage.com/1000/1000';
+    image1 = 'https://images.unsplash.com/photo-1422004707501-e8dad229e17a?fm=jpg';
+    image2 = 'https://images.unsplash.com/photo-1439931444800-9bcc83f804a6?fm=jpg';
+    image3 = 'https://images.unsplash.com/photo-1417128281290-30a42da46277?fm=jpg';
+}
+```
+
+
 You can (from 3.3.0) load image async or change the url on the fly, eg.
 ```html
 <img [lazyLoad]="image$ | async">
@@ -155,6 +203,15 @@ Type: `Observable`
 Example: `Observable.fromEvent(myScrollContainer, 'scroll')`
 
 You can pass your own observable if you need more control over the flow. Can be useful if integrating with other frameworks like ionic.
+
+##### useSrcset (optional)
+
+Type: `boolean`
+
+Example: `true`
+
+You can set this to `true` if you need to lazy load images with `srcset` attribute, instead of `src`.  
+`<source>` tags are set to use `srcset` by default, so you don't need to set this option additionaly.
 
 ### Events
 
