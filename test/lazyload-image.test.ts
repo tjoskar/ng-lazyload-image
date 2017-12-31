@@ -141,6 +141,38 @@ describe('Lazy load image', () => {
 
             is(result, true);
         });
+
+        it('Should be vissible when only left side with no corners is in the viewport', () => {
+            const element = generateElement(-100, 500, 1200, 1200);
+            debugger;
+            const result = isVisible(element, 0, _window);
+
+            is(result, true);
+        });
+
+        it('Should be vissible when only top side with no corners is in the viewport', () => {
+            const element = generateElement(500, -100, 1200, 1200);
+            debugger;
+            const result = isVisible(element, 0, _window);
+
+            is(result, true);
+        });
+
+        it('Should be vissible when only right side with no corners is in the viewport', () => {
+            const element = generateElement(-100, -500, 1200, 1200);
+            debugger;
+            const result = isVisible(element, 0, _window);
+
+            is(result, true);
+        });
+
+        it('Should be vissible when only bottom side with no corners is in the viewport', () => {
+            const element = generateElement(-500, -100, 1200, 1200);
+            debugger;
+            const result = isVisible(element, 0, _window);
+
+            is(result, true);
+        });
     });
 
 });
