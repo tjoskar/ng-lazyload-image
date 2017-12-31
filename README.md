@@ -91,9 +91,9 @@ class ImageComponent {
 }
 ```
 
-If using responsive images in a `<picture>` tag, set the default `<img>` tag as usual with `[lazyLoad]` etc. attributes.  
-You can use `[attr.lazyLoad]`, `[attr.defaultImage]` and `[attr.errorImage]` attributes for `<source>` elements.  
-There's no need to set `[useSrcset]` for `<source>` elements, as `srcset` is used by default.  
+If using responsive images in a `<picture>` tag, set the default `<img>` tag as usual with `lazyLoad` etc. attributes.  
+You can use `attr.lazyLoad`, `attr.defaultImage` and `attr.errorImage` attributes for `<source>` elements.  
+There's no need to set `useSrcset` for `<source>` elements, as `srcset` is used by default.  
 A simple example for a `<picture>` tag:
 ```javascript
 @Component({
