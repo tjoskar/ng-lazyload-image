@@ -59,7 +59,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
             errorImage: this.errorImage,
             scrollTarget: this.scrollTarget,
             scrollObservable: this.scrollObservable,
-            offset: this.offset,
+            offset: this.offset | 0
         });
     }
 
