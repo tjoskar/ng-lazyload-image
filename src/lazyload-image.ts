@@ -9,12 +9,22 @@ import { Observable } from 'rxjs/Observable';
 import { getScrollListener } from './scroll-listener';
 import { Rect } from './rect';
 
-export function isVisible(element: HTMLElement, threshold = 0, _window = window) {
+export function isVisible(element: HTMLElement, threshold = 0, _window: Window, scrollContainer?: HTMLElement) {
     const elementBounds = Rect.fromElement(element);
     const windowBounds = Rect.fromWindow(_window);
     elementBounds.inflate(threshold);
-    
-    return elementBounds.intersectsWith(windowBounds);
+
+    if (scrollContainer) {
+        const scrollContainerBounds = Rect.fromElement(scrollContainer);
+        if (scrollContainerBounds.intersectsWith(windowBounds)) {
+            const intersection = scrollContainerBounds.getIntersectionWith(windowBounds);
+            return elementBounds.intersectsWith(intersection);
+        } else {
+            return false;
+        }
+    } else {
+        return elementBounds.intersectsWith(windowBounds);
+    }
 }
 
 export function isChildOfPicture(element: HTMLImageElement | HTMLDivElement): boolean {
@@ -110,7 +120,7 @@ function setLoadedStyle(element: HTMLImageElement | HTMLDivElement) {
     return element;
 }
 
-export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number, useSrcset: boolean = false) {
+export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number, useSrcset: boolean = false, scrollContainer?: HTMLElement) {
     setImageAndSourcesToDefault(element, defaultImagePath, useSrcset);
     if (element.className && element.className.includes('ng-lazyloaded')) {
         element.className = element.className.replace('ng-lazyloaded', '');
@@ -118,7 +128,7 @@ export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imageP
 
     return (scrollObservable: Observable<Event>) => {
         return scrollObservable
-            .filter(() => isVisible(element, offset))
+            .filter(() => isVisible(element, offset, window, scrollContainer))
             .take(1)
             .mergeMap(() => loadImage(element, imagePath, useSrcset))
             .do(() => setImageAndSourcesToLazy(element, imagePath, useSrcset))
