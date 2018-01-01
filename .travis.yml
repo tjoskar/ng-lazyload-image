@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 6
+  - node
 addons:
   sauce_connect: true
   jwt:
@@ -16,3 +16,15 @@ script:
 
 after_script:
   - kill WEBPACK_SERVER_PID
+
+before_deploy:
+  - npm run build:example
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: ${TRAVIS_BUILD_DIR}/example-dist
+  target_branch: gh-pages
+  on:
+    branch: master
