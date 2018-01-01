@@ -1,8 +1,6 @@
 import { is, isNot } from './helpers/assert';
 import { Rect } from '../src/rect';
 
-console.warn = () => undefined;
-
 describe('Rect', () => {
 
     it('Should create a correctly sized Rect from a ClientRect object', () => {

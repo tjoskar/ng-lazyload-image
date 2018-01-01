@@ -1,8 +1,6 @@
 import { is, isNot } from './helpers/assert';
 import { lazyLoadImage, isVisible } from '../src/lazyload-image';
 
-console.warn = () => undefined;
-
 describe('Lazy load image', () => {
 
     it('Should set default image if defined', () => {
