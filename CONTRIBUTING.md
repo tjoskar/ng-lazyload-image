@@ -42,7 +42,7 @@ Alright, let me give you a introduction to the project.
 The project is quite simple. When Angular detects `[lazyLoad]` on a `img` tag it will create a new instance of `LazyLoadImageDirective` ([lazyload-image.directive.ts](src/lazyload-image.directive.ts)). This will trigger `ngAfterContentInit` witch will create a new event listener (or reuse one if there is a existing one for the same scroll target). 
 
 First of all we check if the user has defined a `defaultImage`, if so we set the `src` attribute to `defaultImage`.
-For (almost) every (we are sampling the events) we check if the image is in viewport. If so we load the image and after the image is loaded we replace the `src` attribute with the value of `[lazyLoad]`. If there was an error while loading the image we try to set the `src` attribute to the value of `errorImage`.
+For (almost) every event (we are sampling the events) we check if the image is in viewport. If so we load the image and after the image is loaded we replace the `src` attribute with the value of `[lazyLoad]`. If there was an error while loading the image we try to set the `src` attribute to the value of `errorImage`.
 When that is done, we will complete the event stream and unsubscribe to the scroll listener. Which means, as soon the image is loaded the directive will stop do anything.
 
 ### Project setup
