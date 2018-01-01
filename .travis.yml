@@ -19,6 +19,7 @@ after_script:
 
 before_deploy:
   - npm run build:example
+  - sed -i '' -e 's/href="\/"/href="\/ng-lazyload-image\/"/g' ${TRAVIS_BUILD_DIR}/example-dist/index.html
 
 deploy:
   provider: pages

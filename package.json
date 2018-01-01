@@ -9,13 +9,12 @@
     "test:ci": "karma start karma.ci.js",
     "start": "webpack-dev-server --progress --profile --colors --watch",
     "build": "copyfiles -u 1 dist/package.json .backup && rimraf dist && tsc && ngc src && copyfiles LICENSE README.md dist && copyfiles -u 1 .backup/package.json dist && rimraf dist/example dist/test .backup",
-    "build:example": "rimraf example-dist && webpack --config webpack.prod.config.js --profile && rimraf example-dist/example example-dist/src && copyfiles -u 1 example/style.css example/index.html example-dist && npm run changeBasePathInExample",
+    "build:example": "rimraf example-dist && webpack --config webpack.prod.config.js --profile && rimraf example-dist/example example-dist/src && copyfiles -u 1 example/style.css example/index.html example-dist",
     "e2e": "protractor",
     "e2e:ci": "protractor protractor.ci.conf.js",
     "webdriver:update": "webdriver-manager update",
     "webdriver:start": "webdriver-manager start",
-    "e2e:debug": "protractor --elementExplorer",
-    "changeBasePathInExample": "sed -i '' -e 's\/href=\"\\/\"\/href=\"\\/ng-lazyload-image\\/\"\/g' example-dist/index.html"
+    "e2e:debug": "protractor --elementExplorer"
   },
   "repository": {
     "type": "git",
