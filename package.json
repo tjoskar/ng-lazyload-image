@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prepare": "npm run build",
-    "test": "exit 0",
+    "test": "karma start karma.local.js",
     "test:ci": "karma start karma.ci.js",
     "start": "webpack-dev-server --progress --profile --colors --watch",
     "build": "copyfiles -u 1 dist/package.json .backup && rimraf dist && tsc && ngc src && copyfiles LICENSE README.md dist && copyfiles -u 1 .backup/package.json dist && rimraf dist/example dist/test .backup",
