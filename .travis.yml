@@ -23,7 +23,8 @@ before_deploy:
   - "npm run build:example"
   - "ls ${TRAVIS_BUILD_DIR}/example-dist"
   - "echo $SEDARG"
-  - "sed -i '' -e $SEDARG ${TRAVIS_BUILD_DIR}/example-dist/index.html"
+  - echo "sed -i '' -e $SEDARG ${TRAVIS_BUILD_DIR}/example-dist/index.html"
+  - echo "sed -i '' -e $SEDARG ${TRAVIS_BUILD_DIR}/example-dist/index.html" | sh -c
 
 deploy:
   provider: pages
