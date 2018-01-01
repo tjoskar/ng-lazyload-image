@@ -33,4 +33,13 @@ export class Rect {
                (rect.top < this.bottom) &&
                (this.top < rect.bottom);
     }
+
+    getIntersectionWith(rect: Rect): Rect {
+        const left = Math.max(this.left, rect.left);
+        const top = Math.max(this.top, rect.top);
+        const right = Math.min(this.right, rect.right);
+        const bottom = Math.min(this.bottom, rect.bottom);
+
+        return new Rect(left, top, right, bottom);
+    }
 }
