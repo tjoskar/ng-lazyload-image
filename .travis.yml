@@ -24,7 +24,7 @@ before_deploy:
   - "ls ${TRAVIS_BUILD_DIR}/example-dist"
   - "echo $SEDARG"
   - echo "sed -i '' -e '$SEDARG' ${TRAVIS_BUILD_DIR}/example-dist/index.html"
-  - sed -i '' -e "${SEDARG}" ${TRAVIS_BUILD_DIR}/example-dist/index.html
+  - echo "sed -i '' -e '$SEDARG' ${TRAVIS_BUILD_DIR}/example-dist/index.html" | sh
 
 deploy:
   provider: pages
