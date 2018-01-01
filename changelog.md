@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.4.0 (2018-01-01)
+
+### Feature
+* Add support for srcset. Closes [#175](https://github.com/tjoskar/ng-lazyload-image/issues/175) Thanks to [sapierens](https://github.com/sapierens) :tada:
+
 ## 3.3.5 (2017-11-12)
 
 * Downgrade typescript. Closes [#222](https://github.com/tjoskar/ng-lazyload-image/issues/222)
