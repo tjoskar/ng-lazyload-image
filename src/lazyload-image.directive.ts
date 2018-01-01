@@ -27,6 +27,7 @@ interface LazyLoadImageDirectiveProps {
     scrollTarget: Object;
     scrollObservable: Observable<Event>;
     offset: number;
+    useSrcset: boolean;
 }
 
 @Directive({
@@ -39,6 +40,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
     @Input() scrollTarget = target; // Change the node we should listen for scroll events on, default is window
     @Input() scrollObservable;      // Pass your own scroll emitter
     @Input() offset: number;        // The number of px a image should be loaded before it is in view port
+    @Input() useSrcset: boolean;    // Whether srcset attribute should be used instead of src
     @Output() onLoad: EventEmitter<boolean> = new EventEmitter(); // Callback when an image is loaded
     private propertyChanges$: ReplaySubject<LazyLoadImageDirectiveProps>;
     private elementRef: ElementRef;
@@ -59,7 +61,8 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
             errorImage: this.errorImage,
             scrollTarget: this.scrollTarget,
             scrollObservable: this.scrollObservable,
-            offset: this.offset | 0
+            offset: this.offset | 0,
+            useSrcset: this.useSrcset
         });
     }
 
@@ -88,7 +91,8 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
                         props.lazyImage,
                         props.defaultImage,
                         props.errorImage,
-                        props.offset
+                        props.offset,
+                        props.useSrcset
                     )
                 ))
                 .subscribe(success => this.onLoad.emit(success));

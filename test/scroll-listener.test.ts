@@ -5,9 +5,18 @@ import { expectObservable, hot, getRxTestScheduler } from './helpers/marble-test
 import { test } from './helpers/test-helper';
 import { getScrollListener, sampleObservable } from '../src/scroll-listener';
 
-console.warn = () => undefined;
-
 describe('Scroll listener', () => {
+
+    const consoleWarnOrg = console.warn;
+    const noop = () => undefined;
+
+    before(() => {
+        console.warn = noop;
+    });
+
+    after(() => {
+        console.warn = consoleWarnOrg;
+    })
 
     test('Should return an empty observable', () => {
         // Arrange

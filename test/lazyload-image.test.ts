@@ -1,8 +1,6 @@
 import { is, isNot } from './helpers/assert';
 import { lazyLoadImage, isVisible } from '../src/lazyload-image';
 
-console.warn = () => undefined;
-
 describe('Lazy load image', () => {
 
     it('Should set default image if defined', () => {
@@ -37,6 +35,49 @@ describe('Lazy load image', () => {
 
         // Assert
         is(element.src, '');
+    });
+
+    it('Should use srcset instead of src if useSrcset is true', () => {
+        // Arrange
+        const element = {
+            nodeName: {
+                toLowerCase: () => 'img'
+            },
+            src: '',
+            srcset: ''
+        }
+        const imagePath = 'https://some-path/image.jpg';
+
+        // Act
+        const listener = lazyLoadImage(element as any, null, imagePath, null, 0, true);
+
+        // Assert
+        is(element.src, '');
+        is(element.srcset, imagePath)
+    });
+
+    it('Should set default image for img and all picture source elements', () => {
+        // Arrange
+        const imagePath1 = 'https://some-path/image1.jpg';
+        const imagePath2 = 'https://some-path/image2.jpg';
+        const imagePath3 = 'https://some-path/image3.jpg';
+        const picture = document.createElement('picture');
+        const source1 = document.createElement('source');
+        const source2 = document.createElement('source');
+        const img = document.createElement('img');
+        source1.setAttribute('defaultImage', imagePath2);
+        source2.setAttribute('defaultImage', imagePath3);
+        picture.appendChild(source1);
+        picture.appendChild(source2);
+        picture.appendChild(img);
+
+        // Act
+        const listener = lazyLoadImage(img, null, imagePath1, null, 0, false);
+
+        // Assert
+        is(img.src, imagePath1);
+        is(source1.srcset, imagePath2);
+        is(source2.srcset, imagePath3);
     });
 
     describe('isVisible', () => {
@@ -144,7 +185,6 @@ describe('Lazy load image', () => {
 
         it('Should be vissible when only left side with no corners is in the viewport', () => {
             const element = generateElement(-100, 500, 1200, 1200);
-            debugger;
             const result = isVisible(element, 0, _window);
 
             is(result, true);
@@ -152,7 +192,6 @@ describe('Lazy load image', () => {
 
         it('Should be vissible when only top side with no corners is in the viewport', () => {
             const element = generateElement(500, -100, 1200, 1200);
-            debugger;
             const result = isVisible(element, 0, _window);
 
             is(result, true);
@@ -160,7 +199,6 @@ describe('Lazy load image', () => {
 
         it('Should be vissible when only right side with no corners is in the viewport', () => {
             const element = generateElement(-100, -500, 1200, 1200);
-            debugger;
             const result = isVisible(element, 0, _window);
 
             is(result, true);
@@ -168,7 +206,6 @@ describe('Lazy load image', () => {
 
         it('Should be vissible when only bottom side with no corners is in the viewport', () => {
             const element = generateElement(-500, -100, 1200, 1200);
-            debugger;
             const result = isVisible(element, 0, _window);
 
             is(result, true);

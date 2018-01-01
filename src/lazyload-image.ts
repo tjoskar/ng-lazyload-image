@@ -17,11 +17,35 @@ export function isVisible(element: HTMLElement, threshold = 0, _window = window)
     return elementBounds.intersectsWith(windowBounds);
 }
 
-function loadImage(imagePath: string): Observable<HTMLImageElement> {
+export function isChildOfPicture(element: HTMLImageElement | HTMLDivElement): boolean {
+    return Boolean(element.parentElement && element.parentElement.nodeName.toLowerCase() === 'picture');
+}
+
+export function isImageElement(element: HTMLImageElement | HTMLDivElement): element is HTMLImageElement {
+    return element.nodeName.toLowerCase() === 'img';
+}
+
+function loadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset: boolean): Observable<string> {
+    let img: HTMLImageElement;
+    if (isImageElement(element) && isChildOfPicture(element)) {
+        const parentClone = element.parentNode.cloneNode(true) as HTMLPictureElement;
+        img = parentClone.getElementsByTagName('img')[0];
+        setSourcesToLazy(img);
+        setImage(img, imagePath, useSrcset);
+    } else {
+        img = new Image();
+        if (isImageElement(element) && element.sizes) {
+            img.sizes = element.sizes;
+        }
+        if (useSrcset) {
+            img.srcset = imagePath;
+        } else {
+            img.src = imagePath;
+        }
+    }
+
     return Observable
         .create(observer => {
-            const img = new Image();
-            img.src = imagePath;
             img.onload = () => {
                 observer.next(imagePath);
                 observer.complete();
@@ -32,17 +56,51 @@ function loadImage(imagePath: string): Observable<HTMLImageElement> {
         });
 }
 
-function setImage(element: HTMLElement, imagePath: string) {
-    const isImgNode = element.nodeName.toLowerCase() === 'img';
-    if (isImgNode) {
-        (<HTMLImageElement>element).src = imagePath;
+function setImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset: boolean) {
+    if (isImageElement(element)) {
+        if (useSrcset) {
+            element.srcset = imagePath;
+        } else {
+            element.src = imagePath;
+        }
     } else {
         element.style.backgroundImage = `url('${imagePath}')`;
     }
     return element;
 }
 
-function setLoadedStyle(element: HTMLElement) {
+function setSources(attrName: string) {
+    return (image: HTMLImageElement) => {
+        const sources = image.parentElement.getElementsByTagName('source');
+        for (let i = 0; i < sources.length; i++) {
+            const attrValue = sources[i].getAttribute(attrName);
+            if (attrValue) {
+                sources[i].srcset = attrValue;
+            }
+        }
+    }
+}
+
+const setSourcesToDefault = setSources('defaultImage');
+const setSourcesToLazy = setSources('lazyLoad');
+const setSourcesToError = setSources('errorImage');
+
+function setImageAndSources(setSourcesFn: (image: HTMLImageElement) => void) {
+    return (element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset: boolean) => {
+        if (isImageElement(element) && isChildOfPicture(element)) {
+            setSourcesFn(element);
+        }
+        if (imagePath) {
+            setImage(element, imagePath, useSrcset);
+        }
+    }
+}
+
+const setImageAndSourcesToDefault = setImageAndSources(setSourcesToDefault);
+const setImageAndSourcesToLazy = setImageAndSources(setSourcesToLazy);
+const setImageAndSourcesToError = setImageAndSources(setSourcesToError);
+
+function setLoadedStyle(element: HTMLImageElement | HTMLDivElement) {
     const styles = element.className
         .split(' ')
         .filter(s => !!s)
@@ -52,27 +110,24 @@ function setLoadedStyle(element: HTMLElement) {
     return element;
 }
 
-export function lazyLoadImage(image: HTMLElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number) {
-    if (defaultImagePath) {
-        setImage(image, defaultImagePath);
+export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number, useSrcset: boolean = false) {
+    setImageAndSourcesToDefault(element, defaultImagePath, useSrcset);
+    if (element.className && element.className.includes('ng-lazyloaded')) {
+        element.className = element.className.replace('ng-lazyloaded', '');
     }
-    if (image.className && image.className.includes('ng-lazyloaded')) {
-        image.className = image.className.replace('ng-lazyloaded', '');
-    }
+
     return (scrollObservable: Observable<Event>) => {
         return scrollObservable
-            .filter(() => isVisible(image, offset))
+            .filter(() => isVisible(element, offset))
             .take(1)
-            .mergeMap(() => loadImage(imagePath))
-            .do(() => setImage(image, imagePath))
+            .mergeMap(() => loadImage(element, imagePath, useSrcset))
+            .do(() => setImageAndSourcesToLazy(element, imagePath, useSrcset))
             .map(() => true)
             .catch(() => {
-                if (errorImgPath) {
-                    setImage(image, errorImgPath);
-                }
-                image.className += ' ng-failed-lazyloaded';
+                setImageAndSourcesToError(element, errorImgPath, useSrcset);
+                element.className += ' ng-failed-lazyloaded';
                 return Observable.of(false);
             })
-            .do(() => setLoadedStyle(image));
+            .do(() => setLoadedStyle(element));
     };
 }
