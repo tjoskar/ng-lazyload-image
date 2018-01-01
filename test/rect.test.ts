@@ -164,7 +164,7 @@ describe('Rect', () => {
             // Assert
             is(result, true);
         });
-        
+
         it('Should be true if first rectangle\'s top right corner is inside second rectangle', () => {
             // Arrange
             const rectA = new Rect(-10, 10, 10, 30);
@@ -176,7 +176,7 @@ describe('Rect', () => {
             // Assert
             is(result, true);
         });
-        
+
         it('Should be true if first rectangle\'s bottom left corner is inside second rectangle', () => {
             // Arrange
             const rectA = new Rect(10, -10, 30, 10);
@@ -188,7 +188,7 @@ describe('Rect', () => {
             // Assert
             is(result, true);
         });
-        
+
         it('Should be true if first rectangle\'s bottom right corner is inside second rectangle', () => {
             // Arrange
             const rectA = new Rect(-10, -10, 10, 10);
@@ -201,7 +201,7 @@ describe('Rect', () => {
             is(result, true);
         });
         ////
-        
+
         it('Should be true if second rectangle\'s top left corner is inside first rectangle', () => {
             // Arrange
             const rectA = new Rect(0, 0, 20, 20);
@@ -213,7 +213,7 @@ describe('Rect', () => {
             // Assert
             is(result, true);
         });
-        
+
         it('Should be true if second rectangle\'s top right corner is inside first rectangle', () => {
             // Arrange
             const rectA = new Rect(0, 0, 20, 20);
@@ -225,7 +225,7 @@ describe('Rect', () => {
             // Assert
             is(result, true);
         });
-        
+
         it('Should be true if second rectangle\'s bottom left corner is inside first rectangle', () => {
             // Arrange
             const rectA = new Rect(0, 0, 20, 20);
@@ -237,7 +237,7 @@ describe('Rect', () => {
             // Assert
             is(result, true);
         });
-        
+
         it('Should be true if second rectangle\'s bottom right corner is inside first rectangle', () => {
             // Arrange
             const rectA = new Rect(0, 0, 20, 20);
@@ -285,7 +285,7 @@ describe('Rect', () => {
             // Assert
             is(result, true);
         });
-        
+
         it('Should be true if second rectangle completely contains first rectangle', () => {
             // Arrange
             const rectA = new Rect(5, 5, 15, 15);
