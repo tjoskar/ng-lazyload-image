@@ -1,4 +1,6 @@
 export class Rect {
+    static empty: Rect = new Rect(0, 0, 0, 0);
+
     left: number;
     top: number;
     right: number;
@@ -40,6 +42,10 @@ export class Rect {
         const right = Math.min(this.right, rect.right);
         const bottom = Math.min(this.bottom, rect.bottom);
 
-        return new Rect(left, top, right, bottom);
+        if (right >= left && bottom >= top) {
+            return new Rect(left, top, right, bottom);
+        } else {
+            return Rect.empty;
+        }
     }
 }

@@ -342,5 +342,20 @@ describe('Rect', () => {
             is(result.bottom, 20);
             is(result.left, 10);
         });
+
+        it('Should return an empty Rect if two Rect\'s don\'t intersect', () => {
+            // Arrange
+            const rectA = new Rect(0, 0, 20, 20);
+            const rectB = new Rect(30, 30, 50, 50);
+
+            // Act
+            const result = rectA.getIntersectionWith(rectB);
+
+            // Assert
+            is(result.top, 0);
+            is(result.right, 0);
+            is(result.bottom, 0);
+            is(result.left, 0);
+        });
     });
 });

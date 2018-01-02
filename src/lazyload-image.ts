@@ -16,12 +16,8 @@ export function isVisible(element: HTMLElement, threshold = 0, _window: Window, 
 
     if (scrollContainer) {
         const scrollContainerBounds = Rect.fromElement(scrollContainer);
-        if (scrollContainerBounds.intersectsWith(windowBounds)) {
-            const intersection = scrollContainerBounds.getIntersectionWith(windowBounds);
-            return elementBounds.intersectsWith(intersection);
-        } else {
-            return false;
-        }
+        const intersection = scrollContainerBounds.getIntersectionWith(windowBounds);
+        return elementBounds.intersectsWith(intersection);
     } else {
         return elementBounds.intersectsWith(windowBounds);
     }
