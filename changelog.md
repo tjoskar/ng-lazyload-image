@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.4.1 (2018-01-07)
+
+### Bugfix
+* Check against container bounds if given. Closes [#241](https://github.com/tjoskar/ng-lazyload-image/issues/241) Thanks to [sapierens](https://github.com/sapierens) :tada:
+
 ## 3.4.0 (2018-01-01)
 
 ### Feature
