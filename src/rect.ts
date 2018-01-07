@@ -1,4 +1,6 @@
 export class Rect {
+    static empty: Rect = new Rect(0, 0, 0, 0);
+
     left: number;
     top: number;
     right: number;
@@ -32,5 +34,18 @@ export class Rect {
                (this.left < rect. right) &&
                (rect.top < this.bottom) &&
                (this.top < rect.bottom);
+    }
+
+    getIntersectionWith(rect: Rect): Rect {
+        const left = Math.max(this.left, rect.left);
+        const top = Math.max(this.top, rect.top);
+        const right = Math.min(this.right, rect.right);
+        const bottom = Math.min(this.bottom, rect.bottom);
+
+        if (right >= left && bottom >= top) {
+            return new Rect(left, top, right, bottom);
+        } else {
+            return Rect.empty;
+        }
     }
 }

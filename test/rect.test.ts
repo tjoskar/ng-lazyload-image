@@ -296,4 +296,66 @@ describe('Rect', () => {
             is(result, true);
         });
     });
+
+    describe('getIntersectionWith', () => {
+        it('Should return a correctly sized Rect if two Rect\'s intersect horizontally', () => {
+            // Arrange
+            const rectA = new Rect(0, 0, 20, 20);
+            const rectB = new Rect(0, 10, 20, 30);
+
+            // Act
+            const result = rectA.getIntersectionWith(rectB);
+
+            // Assert
+            is(result.top, 10);
+            is(result.right, 20);
+            is(result.bottom, 20);
+            is(result.left, 0);
+        });
+
+        it('Should return a correctly sized Rect if two Rect\'s intersect vertically', () => {
+            // Arrange
+            const rectA = new Rect(0, 0, 20, 20);
+            const rectB = new Rect(10, 0, 30, 20);
+
+            // Act
+            const result = rectA.getIntersectionWith(rectB);
+
+            // Assert
+            is(result.top, 0);
+            is(result.right, 20);
+            is(result.bottom, 20);
+            is(result.left, 10);
+        });
+
+        it('Should return a correctly sized Rect if two Rect\'s intersect corners', () => {
+            // Arrange
+            const rectA = new Rect(0, 0, 20, 20);
+            const rectB = new Rect(10, 10, 30, 30);
+
+            // Act
+            const result = rectA.getIntersectionWith(rectB);
+
+            // Assert
+            is(result.top, 10);
+            is(result.right, 20);
+            is(result.bottom, 20);
+            is(result.left, 10);
+        });
+
+        it('Should return an empty Rect if two Rect\'s don\'t intersect', () => {
+            // Arrange
+            const rectA = new Rect(0, 0, 20, 20);
+            const rectB = new Rect(30, 30, 50, 50);
+
+            // Act
+            const result = rectA.getIntersectionWith(rectB);
+
+            // Assert
+            is(result.top, 0);
+            is(result.right, 0);
+            is(result.bottom, 0);
+            is(result.left, 0);
+        });
+    });
 });

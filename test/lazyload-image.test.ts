@@ -210,6 +210,38 @@ describe('Lazy load image', () => {
 
             is(result, true);
         });
+
+        it('Should not be visible when image is horizontally in window\'s view, but not in scroll-container\'s', () => {
+            const element = generateElement(800, 0, 1200, 1200);
+            const scrollContainer = generateElement(0, 0, 700, 1200);
+            const result = isVisible(element, 0, _window, scrollContainer);
+
+            is(result, false);
+        });
+
+        it('Should not be visible when image is vertically in window\'s view, but not in scroll-container\'s', () => {
+            const element = generateElement(0, 800, 1200, 1200);
+            const scrollContainer = generateElement(0, 0, 1200, 700);
+            const result = isVisible(element, 0, _window, scrollContainer);
+
+            is(result, false);
+        });
+
+        it('Should not be visible when image is not in window\'s view, but is in scroll-container\'s', () => {
+            const element = generateElement(1400, 0, 1200, 1200);
+            const scrollContainer = generateElement(1300, 0, 1200, 1200);
+            const result = isVisible(element, 0, _window, scrollContainer);
+
+            is(result, false);
+        });
+
+        it('Should be visible when image is in window\'s and scroll-container\'s view', () => {
+            const element = generateElement(100, 0, 1200, 1200);
+            const scrollContainer = generateElement(0, 0, 700, 1200);
+            const result = isVisible(element, 0, _window, scrollContainer);
+
+            is(result, true);
+        });
     });
 
 });
