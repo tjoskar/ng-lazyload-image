@@ -48,7 +48,7 @@
     "@angular/router": "^4.2.6",
     "@types/core-js": "^0.9.41",
     "@types/mocha": "^2.2.45",
-    "@types/node": "^8.5.2",
+    "@types/node": "^9.3.0",
     "awesome-typescript-loader": "^3.4.1",
     "copyfiles": "^1.2.0",
     "core-js": "^2.5.3",
