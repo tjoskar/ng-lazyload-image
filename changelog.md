@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.4.2 (2018-01-09)
+
+### Bugfix
+* ReferenceError: HTMLElement is not defined. Closes [#271](https://github.com/tjoskar/ng-lazyload-image/issues/271) Thanks to [sapierens](https://github.com/sapierens) :tada:
+
 ## 3.4.1 (2018-01-07)
 
 ### Bugfix
