@@ -1,9 +1,3 @@
-export function isWindowExists() {
+export function isWindowDefined() {
     return typeof window !== 'undefined';
-}
-
-export const cssClassNames = {
-    loaded: 'ng-lazyloaded',
-    loading: 'ng-lazyloading',
-    failed: 'ng-failed-lazyloaded',
 }

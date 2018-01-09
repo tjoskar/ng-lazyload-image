@@ -17,9 +17,7 @@ import {
 } from '@angular/core';
 import { getScrollListener } from './scroll-listener';
 import { lazyLoadImage } from './lazyload-image';
-import { isWindowExists } from './utils';
-
-const windowTarget = isWindowExists() ? window : undefined;
+import { isWindowDefined } from './utils';
 
 interface LazyLoadImageDirectiveProps {
     lazyImage: string;
@@ -70,7 +68,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
         /**
          * Disable lazy load image in server side
          */
-        if (isWindowExists() === false) {
+        if (!isWindowDefined()) {
             return null;
         }
 
@@ -79,6 +77,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
             if (this.scrollObservable) {
                 scrollObservable = this.scrollObservable.startWith('');
             } else {
+                const windowTarget = isWindowDefined() ? window : undefined;
                 scrollObservable = getScrollListener(this.scrollTarget || windowTarget);
             }
             this.scrollSubscription = this.propertyChanges$

@@ -8,7 +8,7 @@ import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { getScrollListener } from './scroll-listener';
 import { Rect } from './rect';
-import { cssClassNames } from './utils';
+import { cssClassNames } from './constants';
 
 export function isVisible(element: HTMLElement, threshold = 0, _window: Window, scrollContainer?: HTMLElement) {
     const elementBounds = Rect.fromElement(element);
