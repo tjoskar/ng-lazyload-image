@@ -45,7 +45,6 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
     private propertyChanges$: ReplaySubject<LazyLoadImageDirectiveProps>;
     private elementRef: ElementRef;
     private ngZone: NgZone;
-    private platformId: string;
     private scrollSubscription;
 
     constructor(el: ElementRef, ngZone: NgZone) {
