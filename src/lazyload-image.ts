@@ -85,7 +85,7 @@ function setSources(attrName: string) {
                 sources[i].srcset = attrValue;
             }
         }
-    }
+    };
 }
 
 const setSourcesToDefault = setSources('defaultImage');
@@ -100,7 +100,7 @@ function setImageAndSources(setSourcesFn: (image: HTMLImageElement) => void) {
         if (imagePath) {
             setImage(element, imagePath, useSrcset);
         }
-    }
+    };
 }
 
 const setImageAndSourcesToDefault = setImageAndSources(setSourcesToDefault);
