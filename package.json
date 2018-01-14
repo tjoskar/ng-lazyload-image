@@ -72,5 +72,31 @@
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
     "zone.js": "^0.8.19"
+  },
+  "gitmoji": {
+    "blacklist": [
+      "rocket",
+      "tada",
+      "apple",
+      "penguin",
+      "checkered-flag",
+      "robot",
+      "green-apple",
+      "construction-worker",
+      "chart-with-upwards-trend",
+      "whale",
+      "globe-with-meridians",
+      "hankey",
+      "package",
+      "bento",
+      "wheelchair",
+      "beers",
+      "speech-balloon",
+      "card-file-box",
+      "loud-sound",
+      "mute",
+      "children-crossing",
+      "iphone"
+    ]
   }
 }
