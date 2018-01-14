@@ -17,8 +17,7 @@ import {
 } from '@angular/core';
 import { getScrollListener } from './scroll-listener';
 import { lazyLoadImage } from './lazyload-image';
-
-const windowTarget = typeof window !== 'undefined' ? window : undefined;
+import { isWindowDefined } from './utils';
 
 interface LazyLoadImageDirectiveProps {
     lazyImage: string;
@@ -45,7 +44,6 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
     private propertyChanges$: ReplaySubject<LazyLoadImageDirectiveProps>;
     private elementRef: ElementRef;
     private ngZone: NgZone;
-    private platformId: string;
     private scrollSubscription;
 
     constructor(el: ElementRef, ngZone: NgZone) {
@@ -67,12 +65,8 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
     }
 
     ngAfterContentInit() {
-        /**
-         * Disable lazy load image in server side
-         * @see https://github.com/tjoskar/ng-lazyload-image/issues/178
-         * @see https://github.com/tjoskar/ng-lazyload-image/issues/183
-         */
-        if (typeof window === 'undefined') {
+        // Disable lazy load image in server side
+        if (!isWindowDefined()) {
             return null;
         }
 
@@ -81,6 +75,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
             if (this.scrollObservable) {
                 scrollObservable = this.scrollObservable.startWith('');
             } else {
+                const windowTarget = isWindowDefined() ? window : undefined;
                 scrollObservable = getScrollListener(this.scrollTarget || windowTarget);
             }
             this.scrollSubscription = this.propertyChanges$

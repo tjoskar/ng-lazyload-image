@@ -8,6 +8,7 @@ import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { getScrollListener } from './scroll-listener';
 import { Rect } from './rect';
+import { cssClassNames } from './constants';
 
 export function isVisible(element: HTMLElement, threshold = 0, _window: Window, scrollContainer?: HTMLElement) {
     const elementBounds = Rect.fromElement(element);
@@ -84,7 +85,7 @@ function setSources(attrName: string) {
                 sources[i].srcset = attrValue;
             }
         }
-    }
+    };
 }
 
 const setSourcesToDefault = setSources('defaultImage');
@@ -99,7 +100,7 @@ function setImageAndSources(setSourcesFn: (image: HTMLImageElement) => void) {
         if (imagePath) {
             setImage(element, imagePath, useSrcset);
         }
-    }
+    };
 }
 
 const setImageAndSourcesToDefault = setImageAndSources(setSourcesToDefault);
@@ -110,16 +111,16 @@ function setLoadedStyle(element: HTMLImageElement | HTMLDivElement) {
     const styles = element.className
         .split(' ')
         .filter(s => !!s)
-        .filter(s => s !== 'ng-lazyloading');
-    styles.push('ng-lazyloaded');
+        .filter(s => s !== cssClassNames.loading);
+    styles.push(cssClassNames.loaded);
     element.className = styles.join(' ');
     return element;
 }
 
 export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number, useSrcset: boolean = false, scrollContainer?: HTMLElement) {
     setImageAndSourcesToDefault(element, defaultImagePath, useSrcset);
-    if (element.className && element.className.includes('ng-lazyloaded')) {
-        element.className = element.className.replace('ng-lazyloaded', '');
+    if (element.className && element.className.includes(cssClassNames.loaded)) {
+        element.className = element.className.replace(cssClassNames.loaded, '');
     }
 
     return (scrollObservable: Observable<Event>) => {
@@ -131,7 +132,7 @@ export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imageP
             .map(() => true)
             .catch(() => {
                 setImageAndSourcesToError(element, errorImgPath, useSrcset);
-                element.className += ' ng-failed-lazyloaded';
+                element.className += ' ' + cssClassNames.failed;
                 return Observable.of(false);
             })
             .do(() => setLoadedStyle(element));
