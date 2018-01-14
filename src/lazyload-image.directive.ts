@@ -65,9 +65,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
     }
 
     ngAfterContentInit() {
-        /**
-         * Disable lazy load image in server side
-         */
+        // Disable lazy load image in server side
         if (!isWindowDefined()) {
             return null;
         }
