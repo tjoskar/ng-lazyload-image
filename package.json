@@ -60,7 +60,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.3",
     "lodash.isequal": "^4.5.0",
-    "mocha": "^4.1.0",
+    "mocha": "^5.0.0",
     "null-loader": "^0.1.1",
     "protractor": "^5.2.2",
     "rimraf": "^2.6.1",
