@@ -8,7 +8,7 @@ export function removeCssClassName(element: HTMLImageElement | HTMLDivElement, c
 
 export function addCssClassName(element: HTMLImageElement | HTMLDivElement, cssClassName: string) {
     if (!element.className.includes(cssClassName)) {
-        element.className += `  ${cssClassName}`
+        element.className += ` ${cssClassName}`
     }
 }
 
