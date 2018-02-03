@@ -153,6 +153,10 @@ See example folder for more usages.
 
 **A** Yes, but ionic and some other library wraps the whole document inside an other div so you might need to create your own scroll listener. https://github.com/tjoskar/ng-lazyload-image/issues?utf8=%E2%9C%93&q=is%3Aissue+Ionic
 
+**Q** How can I add a transition effect between the default image and the lazy loaded image?
+
+**A** See: https://github.com/tjoskar/ng-lazyload-image/issues/300
+
 ### API
 
 ##### lazyLoad
