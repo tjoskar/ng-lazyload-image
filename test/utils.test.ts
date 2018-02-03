@@ -29,13 +29,13 @@ describe('Utils function', () => {
         is(element.className, expectCssClassName);
     });
 
-    it('Should return true', () => {
+    it('Should return true when element contains the class name', () => {
         const result = hasCssClassName(element, 'test2');
 
         is(result, true);
     });
 
-    it('Should return false', () => {
+    it(`Should return false when element don't contains the class name`, () => {
         const result = hasCssClassName(element, 'test3');
 
         is(result, false);
