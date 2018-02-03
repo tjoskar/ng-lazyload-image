@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { getScrollListener } from './scroll-listener';
 import { Rect } from './rect';
 import { cssClassNames } from './constants';
+import { hasCssClassName, removeCssClassName, addCssClassName } from './utils';
 
 export function isVisible(element: HTMLElement, threshold = 0, _window: Window, scrollContainer?: HTMLElement) {
     const elementBounds = Rect.fromElement(element);
@@ -107,20 +108,11 @@ const setImageAndSourcesToDefault = setImageAndSources(setSourcesToDefault);
 const setImageAndSourcesToLazy = setImageAndSources(setSourcesToLazy);
 const setImageAndSourcesToError = setImageAndSources(setSourcesToError);
 
-function setLoadedStyle(element: HTMLImageElement | HTMLDivElement) {
-    const styles = element.className
-        .split(' ')
-        .filter(s => !!s)
-        .filter(s => s !== cssClassNames.loading);
-    styles.push(cssClassNames.loaded);
-    element.className = styles.join(' ');
-    return element;
-}
-
 export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, defaultImagePath: string, errorImgPath: string, offset: number, useSrcset: boolean = false, scrollContainer?: HTMLElement) {
     setImageAndSourcesToDefault(element, defaultImagePath, useSrcset);
-    if (element.className && element.className.includes(cssClassNames.loaded)) {
-        element.className = element.className.replace(cssClassNames.loaded, '');
+
+    if (hasCssClassName(element, cssClassNames.loaded)) {
+        removeCssClassName(element, cssClassNames.loaded)
     }
 
     return (scrollObservable: Observable<Event>) => {
@@ -132,9 +124,9 @@ export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imageP
             .map(() => true)
             .catch(() => {
                 setImageAndSourcesToError(element, errorImgPath, useSrcset);
-                element.className += ' ' + cssClassNames.failed;
+                addCssClassName(element, cssClassNames.failed);
                 return Observable.of(false);
             })
-            .do(() => setLoadedStyle(element));
+            .do(() => addCssClassName(element, cssClassNames.loaded));
     };
 }
