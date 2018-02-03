@@ -6,7 +6,7 @@ describe('Utils function', () => {
 
     beforeEach(() => {
         element.className = 'test1 test2';
-    })
+    });
 
     it('Should remove css class name', () => {
         const expectCssClassName = 'test1 ';
@@ -40,4 +40,4 @@ describe('Utils function', () => {
 
         is(result, false);
     });
-})
+});
