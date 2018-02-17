@@ -1,17 +1,16 @@
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/sampleTime';
-import 'rxjs/add/operator/share';
-import 'rxjs/add/observable/empty';
+import { startWith, sampleTime, share } from 'rxjs/operators';
+import { empty } from 'rxjs/observable/empty';
 import { Observable } from 'rxjs/Observable';
 import { isWindowDefined } from './utils';
 
 const scrollListeners = new WeakMap<any, Observable<any>>();
 
 export function sampleObservable(obs: Observable<any>, scheduler?: any) {
-    return obs
-        .sampleTime(100, scheduler)
-        .share()
-        .startWith('');
+    return obs.pipe(
+        sampleTime(100, scheduler),
+        share(),
+        startWith(''),
+    );
 }
 
 // Only create one scroll listener per target and share the observable.
@@ -21,7 +20,7 @@ export const getScrollListener = (scrollTarget): Observable<any> => {
         if (isWindowDefined()) {
             console.warn('`addEventListener` on ' + scrollTarget + ' (scrollTarget) is not a function. Skipping this target');
         }
-        return Observable.empty();
+        return empty();
     }
     if (scrollListeners.has(scrollTarget)) {
         return scrollListeners.get(scrollTarget);

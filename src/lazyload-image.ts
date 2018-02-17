@@ -1,10 +1,12 @@
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
+import {
+  filter,
+  tap,
+  take,
+  map,
+  mergeMap,
+  catchError,
+} from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { getScrollListener } from './scroll-listener';
 import { Rect } from './rect';
@@ -116,17 +118,18 @@ export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imageP
     }
 
     return (scrollObservable: Observable<Event>) => {
-        return scrollObservable
-            .filter(() => isVisible(element, offset, window, scrollContainer))
-            .take(1)
-            .mergeMap(() => loadImage(element, imagePath, useSrcset))
-            .do(() => setImageAndSourcesToLazy(element, imagePath, useSrcset))
-            .map(() => true)
-            .catch(() => {
+        return scrollObservable.pipe(
+            filter(() => isVisible(element, offset, window, scrollContainer)),
+            take(1),
+            mergeMap(() => loadImage(element, imagePath, useSrcset)),
+            tap(() => setImageAndSourcesToLazy(element, imagePath, useSrcset)),
+            map(() => true),
+            catchError(() => {
                 setImageAndSourcesToError(element, errorImgPath, useSrcset);
                 addCssClassName(element, cssClassNames.failed);
                 return Observable.of(false);
-            })
-            .do(() => addCssClassName(element, cssClassNames.loaded));
+            }),
+            tap(() => addCssClassName(element, cssClassNames.loaded))
+        );
     };
 }

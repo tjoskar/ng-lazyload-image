@@ -1,8 +1,6 @@
-import 'rxjs/add/operator/let';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/debounceTime';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { switchMap, debounceTime } from 'rxjs/operators';
 import {
   AfterContentInit,
   Directive,
@@ -78,9 +76,9 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
                 const windowTarget = isWindowDefined() ? window : undefined;
                 scrollObservable = getScrollListener(this.scrollTarget || windowTarget);
             }
-            this.scrollSubscription = this.propertyChanges$
-                .debounceTime(10)
-                .switchMap(props => scrollObservable.let(
+            this.scrollSubscription = this.propertyChanges$.pipe(
+                debounceTime(10),
+                switchMap(props => scrollObservable.pipe(
                     lazyLoadImage(
                         this.elementRef.nativeElement,
                         props.lazyImage,
@@ -91,7 +89,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
                         props.scrollTarget
                     )
                 ))
-                .subscribe(success => this.onLoad.emit(success));
+            ).subscribe(success => this.onLoad.emit(success));
         });
     }
 
