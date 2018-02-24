@@ -25,7 +25,7 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  local_dir: ${TRAVIS_BUILD_DIR}/example-dist
+  local_dir: example-dist
   target_branch: gh-pages
   on:
     branch: master
