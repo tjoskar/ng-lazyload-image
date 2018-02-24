@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
     selector: 'fade-in-image',
