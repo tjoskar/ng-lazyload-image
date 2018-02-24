@@ -1,7 +1,6 @@
 declare var window;
 
 const isEqual = require('lodash.isequal');
-import './rx-operations';
 import { TestScheduler } from 'rxjs/testing/TestScheduler';
 
 const glonly = window.it.only;
