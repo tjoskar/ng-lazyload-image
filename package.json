@@ -45,7 +45,7 @@
     "@angular/platform-browser": "^4.2.6",
     "@angular/platform-browser-dynamic": "^4.2.6",
     "@angular/platform-server": "^4.2.6",
-    "@angular/router": "^4.2.6",
+    "@angular/router": "^5.2.4",
     "@types/core-js": "^0.9.46",
     "@types/mocha": "^2.2.48",
     "@types/node": "^9.4.0",
