@@ -70,7 +70,7 @@
     "typescript": "^2.4.2",
     "wallaby-webpack": "^3.9.4",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.1",
+    "webpack-dev-server": "^3.0.0",
     "zone.js": "^0.8.19"
   },
   "gitmoji": {
