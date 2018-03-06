@@ -50,7 +50,7 @@
     "@types/mocha": "^2.2.48",
     "@types/node": "^9.4.0",
     "awesome-typescript-loader": "^3.4.1",
-    "copyfiles": "^1.2.0",
+    "copyfiles": "^2.0.0",
     "core-js": "^2.5.3",
     "electron": "^1.7.12",
     "karma": "^2.0.0",
