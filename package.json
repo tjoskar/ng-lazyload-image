@@ -47,7 +47,7 @@
     "@angular/platform-server": "^4.2.6",
     "@angular/router": "^4.2.6",
     "@types/core-js": "^0.9.46",
-    "@types/mocha": "^2.2.48",
+    "@types/mocha": "^5.0.0",
     "@types/node": "^9.4.0",
     "awesome-typescript-loader": "^3.4.1",
     "copyfiles": "^1.2.0",
