@@ -157,6 +157,14 @@ See example folder for more usages.
 
 **A** See: https://github.com/tjoskar/ng-lazyload-image/issues/300
 
+**Q** I can't get it to work with electron. Can you help me?
+
+**A** Make sure you uses the [right file path](https://github.com/tjoskar/ng-lazyload-image/issues/308#issuecomment-368240550).
+
+**Q** I can't get it to work. Can you help me?
+
+**A** Sure, create an issue and describe your issue in as much detail as possible.
+
 ### API
 
 ##### lazyLoad
