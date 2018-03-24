@@ -7,6 +7,7 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'production';
 module.exports = Object.assign({}, devWebpackConfig, {
     devtool: 'source-map',
     cache: false,
+    mode: ENV,
 
     devServer: undefined,
     output: {
@@ -17,20 +18,6 @@ module.exports = Object.assign({}, devWebpackConfig, {
     },
 
     plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin(true),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            mangle: {
-                screw_ie8 : true,
-                keep_fnames: true
-            },
-            compress: {
-                screw_ie8: true
-            },
-            comments: false
-        }),
-        new webpack.optimize.CommonsChunkPlugin({ name: ['main', 'vendor', 'polyfills'], minChunks: Infinity }),
         new webpack.DefinePlugin({
             ENV: JSON.stringify(ENV)
         })

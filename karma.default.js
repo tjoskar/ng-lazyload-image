@@ -4,7 +4,7 @@ module.exports = config => {
     return {
         basePath: '',
         frameworks: ['mocha'],
-        exclude: [ ],
+        exclude: [],
         files: [
             // Only specify one entry point
             // and require all tests in there
@@ -17,11 +17,12 @@ module.exports = config => {
 
         webpack: {
             devtool: 'inline-source-map',
+            mode: 'development',
             resolve: {
                 extensions: ['.ts', '.js']
             },
             module: {
-                loaders: [
+                rules: [
                     {
                         test: /\.js$/,
                         loader: 'source-map-loader',
@@ -30,9 +31,7 @@ module.exports = config => {
                             path.resolve(__dirname, 'node_modules/rxjs'),
                             path.resolve(__dirname, 'node_modules/@angular')
                         ]
-                    }
-                ],
-                rules: [
+                    },
                     {
                         test: /\.ts$/,
                         loader: 'awesome-typescript-loader',
@@ -49,7 +48,7 @@ module.exports = config => {
         webpackServer: { noInfo: true, stats: 'errors-only' },
 
         // Available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: [ 'progress' ],
+        reporters: ['progress'],
 
         port: 9876,
         colors: true,

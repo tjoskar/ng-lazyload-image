@@ -12,8 +12,15 @@
     "sourceMap": true,
     "rootDir": ".",
     "outDir": "dist",
-    "lib": [ "dom", "es6" ],
-    "types": [ "node", "mocha" ]
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "types": [
+      "node",
+      "mocha"
+    ],
+    "suppressImplicitAnyIndexErrors": true
   },
   "compileOnSave": false,
   "include": [
