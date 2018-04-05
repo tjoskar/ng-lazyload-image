@@ -1,6 +1,6 @@
 import { startWith, sampleTime, share } from 'rxjs/operators';
-import { empty } from 'rxjs/observable/empty';
-import { Observable } from 'rxjs/Observable';
+import { empty } from 'rxjs';
+import { Observable } from 'rxjs';
 import { isWindowDefined } from './utils';
 
 const scrollListeners = new WeakMap<any, Observable<any>>();
