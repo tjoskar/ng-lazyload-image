@@ -71,7 +71,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
         this.ngZone.runOutsideAngular(() => {
             let scrollObservable: Observable<Event>;
             if (this.scrollObservable) {
-                scrollObservable = this.scrollObservable.startWith('');
+                scrollObservable = this.scrollObservable.pipe(startWith(''));
             } else {
                 const windowTarget = isWindowDefined() ? window : undefined;
                 scrollObservable = getScrollListener(this.scrollTarget || windowTarget);
