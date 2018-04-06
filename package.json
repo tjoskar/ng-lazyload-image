@@ -49,7 +49,7 @@
     "@types/core-js": "^0.9.46",
     "@types/mocha": "^5.0.0",
     "@types/node": "^9.4.0",
-    "awesome-typescript-loader": "^3.4.1",
+    "awesome-typescript-loader": "^5.0.0",
     "copyfiles": "^2.0.0",
     "core-js": "^2.5.3",
     "electron": "^1.7.12",
