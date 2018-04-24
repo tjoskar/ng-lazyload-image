@@ -141,6 +141,22 @@ export class AboutPage {
 }
 ```
 
+In case of using ion-slides in Ionic 2+, you can include your own scroll observable as below.
+
+```javascript
+@Component({
+    selector: 'page-image',
+    template: `
+      <ion-content #container padding>
+        <img [defaultImage]="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [scrollObservable]="container.ionSlideWillChange" />
+      </ion-content>
+    `
+})
+export class AboutPage {
+    lazyLoadImage = 'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5';
+}
+```
+
 See example folder for more usages.
 
 ### FAQ
