@@ -242,6 +242,21 @@ describe('Lazy load image', () => {
 
             is(result, true);
         });
+
+        it('Should not be visible when image\'s rect is empty', () => {
+            const element = generateElement(0, 0, 0, 0);
+            const result = isVisible(element, 0, _window);
+
+            is(result, false);
+        });
+
+        it('Should not be visible when image\'s rect is empty and has an offset', () => {
+            const element = generateElement(0, 0, 0, 0);
+            const offset = 100;
+            const result = isVisible(element, offset, _window);
+
+            is(result, false);
+        })
     });
 
 });
