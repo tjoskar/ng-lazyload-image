@@ -52,7 +52,7 @@
     "awesome-typescript-loader": "^3.4.1",
     "copyfiles": "^2.0.0",
     "core-js": "^2.5.3",
-    "electron": "^1.7.12",
+    "electron": "^2.0.0",
     "karma": "^2.0.0",
     "karma-electron-launcher": "^0.2.0",
     "karma-mocha": "^1.1.1",
