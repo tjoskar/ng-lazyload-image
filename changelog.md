@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.0.0 (2018-05-19)
+
+### Braking changes
+* Upgrade rxjs to version 6
+* Upgrade angular compiler to version 6
+
+### Bugfix
+* Empty rect with an offset shouldn't be loaded. Closes [#333](https://github.com/tjoskar/ng-lazyload-image/issues/333) Thanks to [sapierens](https://github.com/sapierens) :tada:
+
 ## 3.4.2 (2018-01-09)
 
 ### Bugfix
