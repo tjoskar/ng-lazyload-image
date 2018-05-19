@@ -1,10 +1,10 @@
 import {
-  filter,
-  tap,
-  take,
-  map,
-  mergeMap,
-  catchError,
+    filter,
+    tap,
+    take,
+    map,
+    mergeMap,
+    catchError,
 } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { getScrollListener } from './scroll-listener';
@@ -16,7 +16,7 @@ export function isVisible(element: HTMLElement, threshold = 0, _window: Window, 
     const elementBounds = Rect.fromElement(element);
     if (elementBounds === Rect.empty) {
         return false;
-    }   
+    }
     const windowBounds = Rect.fromWindow(_window);
     elementBounds.inflate(threshold);
 

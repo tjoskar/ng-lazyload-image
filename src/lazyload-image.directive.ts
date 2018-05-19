@@ -1,16 +1,16 @@
 import { Observable, ReplaySubject } from 'rxjs';
 import { switchMap, debounceTime, startWith } from 'rxjs/operators';
 import {
-  AfterContentInit,
-  Directive,
-  ElementRef,
-  EventEmitter,
-  Input,
-  NgZone,
-  Output,
-  OnChanges,
-  OnDestroy,
-  SimpleChanges
+    AfterContentInit,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgZone,
+    Output,
+    OnChanges,
+    OnDestroy,
+    SimpleChanges
 } from '@angular/core';
 import { getScrollListener } from './scroll-listener';
 import { lazyLoadImage } from './lazyload-image';
