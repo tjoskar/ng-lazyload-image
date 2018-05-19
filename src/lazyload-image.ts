@@ -6,8 +6,7 @@ import {
   mergeMap,
   catchError,
 } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { getScrollListener } from './scroll-listener';
 import { Rect } from './rect';
 import { cssClassNames } from './constants';
@@ -130,7 +129,7 @@ export function lazyLoadImage(element: HTMLImageElement | HTMLDivElement, imageP
             catchError(() => {
                 setImageAndSourcesToError(element, errorImgPath, useSrcset);
                 addCssClassName(element, cssClassNames.failed);
-                return Observable.of(false);
+                return of(false);
             }),
             tap(() => addCssClassName(element, cssClassNames.loaded))
         );

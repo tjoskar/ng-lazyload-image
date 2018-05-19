@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { switchMap, debounceTime } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { switchMap, debounceTime, startWith } from 'rxjs/operators';
 import {
   AfterContentInit,
   Directive,
@@ -71,7 +70,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
         this.ngZone.runOutsideAngular(() => {
             let scrollObservable: Observable<Event>;
             if (this.scrollObservable) {
-                scrollObservable = this.scrollObservable.startWith('');
+                scrollObservable = this.scrollObservable.pipe(startWith(''));
             } else {
                 const windowTarget = isWindowDefined() ? window : undefined;
                 scrollObservable = getScrollListener(this.scrollTarget || windowTarget);

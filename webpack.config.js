@@ -10,7 +10,6 @@ module.exports = {
 
     entry: {
         'polyfills': './example/polyfills.ts',
-        'vendor': './example/vendor.ts',
         'main': './example/boot.ts'
     },
 
