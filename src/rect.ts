@@ -15,7 +15,13 @@ export class Rect {
 
     static fromElement(element: HTMLElement): Rect {
         const { left, top, right, bottom } = element.getBoundingClientRect();
-        return new Rect(left, top, right, bottom);
+        
+        if (left === 0 && top === 0 && right === 0 && bottom === 0) {
+            return Rect.empty;
+        }
+        else {
+            return new Rect(left, top, right, bottom);
+        }
     }
 
     static fromWindow(_window: Window): Rect {

@@ -15,6 +15,9 @@ import { hasCssClassName, removeCssClassName, addCssClassName } from './utils';
 
 export function isVisible(element: HTMLElement, threshold = 0, _window: Window, scrollContainer?: HTMLElement) {
     const elementBounds = Rect.fromElement(element);
+    if (elementBounds === Rect.empty) {
+        return false;
+    }   
     const windowBounds = Rect.fromWindow(_window);
     elementBounds.inflate(threshold);
 
