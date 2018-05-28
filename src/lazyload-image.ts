@@ -6,12 +6,12 @@ import {
   mergeMap,
   catchError,
 } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { getScrollListener } from './scroll-listener';
 import { Rect } from './rect';
 import { cssClassNames } from './constants';
 import { hasCssClassName, removeCssClassName, addCssClassName } from './utils';
+import "rxjs/add/observable/of";
 
 export function isVisible(element: HTMLElement, threshold = 0, _window: Window, scrollContainer?: HTMLElement) {
     const elementBounds = Rect.fromElement(element);
