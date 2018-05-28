@@ -33,17 +33,19 @@ interface LazyLoadImageDirectiveProps {
 })
 export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDestroy {
     @Input('lazyLoad') lazyImage;   // The image to be lazy loaded
-    @Input() defaultImage: string = ZW_PLACEHOLDER_THUMB; // The image to be displayed before lazyImage is loaded
+    @Input() defaultImage: string   // The image to be displayed before lazyImage is loaded
     @Input() errorImage: string;    // The image to be displayed if lazyImage load fails
     @Input() scrollTarget: any;     // Scroll container that contains the image and emits scoll events
     @Input() scrollObservable;      // Pass your own scroll emitter
-    @Input() offset: number = DEFAULT_OFFSET;        // The number of px a image should be loaded before it is in view port, defaults to 300
+    @Input() offset: number         // The number of px a image should be loaded before it is in view port, defaults to 300
     @Input() useSrcset: boolean;    // Whether srcset attribute should be used instead of src
     @Output() onLoad: EventEmitter<boolean> = new EventEmitter(); // Callback when an image is loaded
     private propertyChanges$: ReplaySubject<LazyLoadImageDirectiveProps>;
     private elementRef: ElementRef;
     private ngZone: NgZone;
     private scrollSubscription;
+
+    private static _defaultConfig = {};
 
     constructor(el: ElementRef, ngZone: NgZone) {
         this.elementRef = el;
@@ -53,13 +55,13 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
 
     ngOnChanges(changes?: SimpleChanges) {
         this.propertyChanges$.next({
-            lazyImage: this.lazyImage,
-            defaultImage: this.defaultImage,
-            errorImage: this.errorImage,
-            scrollTarget: this.scrollTarget,
-            scrollObservable: this.scrollObservable,
-            offset: this.offset | 0,
-            useSrcset: this.useSrcset
+            lazyImage: this.lazyImage ? this.lazyImage : LazyLoadImageDirective._defaultConfig['lazyImage'],
+            defaultImage: this.defaultImage ? this.defaultImage : LazyLoadImageDirective._defaultConfig['defaultImage'],
+            errorImage: this.errorImage ? this.errorImage : LazyLoadImageDirective._defaultConfig['errorImage'],
+            scrollTarget: this.scrollTarget ? this.scrollTarget : LazyLoadImageDirective._defaultConfig['scrollTarget'],
+            scrollObservable: this.scrollObservable ? this.scrollObservable : LazyLoadImageDirective._defaultConfig['scrollObservable'],
+            offset: this.offset ? this.offset : LazyLoadImageDirective._defaultConfig['offset'] | 0,
+            useSrcset: this.useSrcset ? this.useSrcset : LazyLoadImageDirective._defaultConfig['useSrcset']
         });
     }
 
@@ -98,5 +100,9 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
         [this.scrollSubscription]
             .filter(subscription => subscription && !subscription.isUnsubscribed)
             .forEach(subscription => subscription.unsubscribe());
+    }
+
+    static setDefaultConfig(config) {
+        Object.assign(config, LazyLoadImageDirective._defaultConfig);
     }
 }
