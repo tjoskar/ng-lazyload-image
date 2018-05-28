@@ -33,7 +33,7 @@ interface LazyLoadImageDirectiveProps {
 })
 export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDestroy {
     @Input('lazyLoad') lazyImage;   // The image to be lazy loaded
-    @Input() defaultImage: string = ZW_PLACEHOLDER_THUMB;//'https://via.placeholder.com/80x80'; //  // The image to be displayed before lazyImage is loaded
+    @Input() defaultImage: string = ZW_PLACEHOLDER_THUMB; // The image to be displayed before lazyImage is loaded
     @Input() errorImage: string;    // The image to be displayed if lazyImage load fails
     @Input() scrollTarget: any;     // Scroll container that contains the image and emits scoll events
     @Input() scrollObservable;      // Pass your own scroll emitter
@@ -49,11 +49,9 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
         this.elementRef = el;
         this.ngZone = ngZone;
         this.propertyChanges$ = new ReplaySubject();
-        console.log('LLLLLLLLLAAAAAZZZZYYYYY');
     }
 
     ngOnChanges(changes?: SimpleChanges) {
-        console.log(this.defaultImage);
         this.propertyChanges$.next({
             lazyImage: this.lazyImage,
             defaultImage: this.defaultImage,
@@ -66,7 +64,6 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
     }
 
     ngAfterContentInit() {
-        console.log(this.defaultImage);
         // Disable lazy load image in server side
         if (!isWindowDefined()) {
             return null;
