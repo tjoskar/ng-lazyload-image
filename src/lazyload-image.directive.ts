@@ -1,4 +1,4 @@
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, SchedulerLike, MonoTypeOperatorFunction } from 'rxjs';
 import { switchMap, debounceTime, startWith, map } from 'rxjs/operators';
 import {
     AfterContentInit,
@@ -42,7 +42,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
     private elementRef: ElementRef;
     private ngZone: NgZone;
     private scrollSubscription;
-    private debounceTime: any;
+    private debounceTime: (dueTime: number, scheduler?: SchedulerLike) => MonoTypeOperatorFunction<any>;
 
     constructor(el: ElementRef, ngZone: NgZone) {
         this.elementRef = el;
