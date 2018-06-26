@@ -42,6 +42,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
     private elementRef: ElementRef;
     private ngZone: NgZone;
     private scrollSubscription;
+    private debounceTime: any;
 
     constructor(el: ElementRef, ngZone: NgZone) {
         this.elementRef = el;
@@ -76,7 +77,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
                 scrollObservable = getScrollListener(this.scrollTarget || windowTarget);
             }
             this.scrollSubscription = this.propertyChanges$.pipe(
-                debounceTime(10),
+                this.debounceTime ? this.debounceTime(10) : map(v => { this.debounceTime = debounceTime; return v }),
                 switchMap(props => scrollObservable.pipe(
                     lazyLoadImage(
                         this.elementRef.nativeElement,
