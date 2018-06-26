@@ -1,5 +1,5 @@
 import { Observable, ReplaySubject } from 'rxjs';
-import { switchMap, debounceTime, startWith } from 'rxjs/operators';
+import { switchMap, debounceTime, startWith, map } from 'rxjs/operators';
 import {
     AfterContentInit,
     Directive,
