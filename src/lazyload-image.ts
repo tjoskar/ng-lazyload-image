@@ -7,7 +7,6 @@ import {
     catchError,
 } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { getScrollListener } from './scroll-listener';
 import { Rect } from './rect';
 import { cssClassNames } from './constants';
 import { hasCssClassName, removeCssClassName, addCssClassName } from './utils';
@@ -43,6 +42,7 @@ function loadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string
         const parentClone = element.parentNode.cloneNode(true) as HTMLPictureElement;
         img = parentClone.getElementsByTagName('img')[0];
         setSourcesToLazy(img);
+        console.log(imagePath);
         setImage(img, imagePath, useSrcset);
     } else {
         img = new Image();
@@ -50,7 +50,11 @@ function loadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string
             img.sizes = element.sizes;
         }
         if (useSrcset) {
-            img.srcset = imagePath;
+            if (img.srcset) {
+                img.srcset = imagePath;
+            } else {
+                img.src = imagePath
+            }
         } else {
             img.src = imagePath;
         }
@@ -71,7 +75,11 @@ function loadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string
 function setImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset: boolean) {
     if (isImageElement(element)) {
         if (useSrcset) {
-            element.srcset = imagePath;
+            if (element.srcset) {
+                element.srcset = imagePath;
+            } else {
+                element.src = imagePath;
+            }
         } else {
             element.src = imagePath;
         }
