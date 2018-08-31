@@ -42,7 +42,6 @@ function loadImage(element: HTMLImageElement | HTMLDivElement, imagePath: string
         const parentClone = element.parentNode.cloneNode(true) as HTMLPictureElement;
         img = parentClone.getElementsByTagName('img')[0];
         setSourcesToLazy(img);
-        console.log(imagePath);
         setImage(img, imagePath, useSrcset);
     } else {
         img = new Image();
@@ -95,7 +94,11 @@ function setSources(attrName: string) {
         for (let i = 0; i < sources.length; i++) {
             const attrValue = sources[i].getAttribute(attrName);
             if (attrValue) {
-                sources[i].srcset = attrValue;
+                if (sources[i].srcset) {
+                    sources[i].srcset = attrValue;
+                } else {
+                    sources[i].src = attrValue;
+                }
             }
         }
     };
