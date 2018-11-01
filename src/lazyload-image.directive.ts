@@ -1,5 +1,5 @@
-import { Observable, ReplaySubject } from 'rxjs';
-import { switchMap, debounceTime, startWith } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
+import { switchMap, debounceTime } from 'rxjs/operators';
 import {
     AfterContentInit,
     Directive,
@@ -10,21 +10,13 @@ import {
     Output,
     OnChanges,
     OnDestroy,
-    SimpleChanges
+    Inject,
+    Optional
 } from '@angular/core';
-import { getScrollListener } from './scroll-listener';
 import { lazyLoadImage } from './lazyload-image';
-import { isWindowDefined } from './utils';
-
-interface LazyLoadImageDirectiveProps {
-    lazyImage: string;
-    defaultImage: string;
-    errorImage: string;
-    scrollTarget: any;
-    scrollObservable: Observable<Event>;
-    offset: number;
-    useSrcset: boolean;
-}
+import { isWindowDefined } from './util';
+import { Attributes, HookSet, ModuleOptions } from './types';
+import { cretateHooks } from './hooks-factory';
 
 @Directive({
     selector: '[lazyLoad]'
@@ -38,26 +30,29 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
     @Input() offset: number;        // The number of px a image should be loaded before it is in view port
     @Input() useSrcset: boolean;    // Whether srcset attribute should be used instead of src
     @Output() onLoad: EventEmitter<boolean> = new EventEmitter(); // Callback when an image is loaded
-    private propertyChanges$: ReplaySubject<LazyLoadImageDirectiveProps>;
+    private propertyChanges$: ReplaySubject<Attributes>;
     private elementRef: ElementRef;
     private ngZone: NgZone;
     private scrollSubscription;
+    private hooks: HookSet<any>;
 
-    constructor(el: ElementRef, ngZone: NgZone) {
+    constructor(el: ElementRef, ngZone: NgZone, @Optional() @Inject('options') options?: ModuleOptions) {
         this.elementRef = el;
         this.ngZone = ngZone;
         this.propertyChanges$ = new ReplaySubject();
+        this.hooks = cretateHooks(options);
     }
 
-    ngOnChanges(changes?: SimpleChanges) {
+    ngOnChanges() {
         this.propertyChanges$.next({
-            lazyImage: this.lazyImage,
-            defaultImage: this.defaultImage,
-            errorImage: this.errorImage,
-            scrollTarget: this.scrollTarget,
-            scrollObservable: this.scrollObservable,
+            element: this.elementRef.nativeElement,
+            imagePath: this.lazyImage,
+            defaultImagePath: this.defaultImage,
+            errorImagePath: this.errorImage,
+            useSrcset: this.useSrcset,
             offset: this.offset | 0,
-            useSrcset: this.useSrcset
+            scrollContainer: this.scrollTarget,
+            scrollObservable: this.scrollObservable,
         });
     }
 
@@ -68,26 +63,9 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
         }
 
         this.ngZone.runOutsideAngular(() => {
-            let scrollObservable: Observable<Event>;
-            if (this.scrollObservable) {
-                scrollObservable = this.scrollObservable.pipe(startWith(''));
-            } else {
-                const windowTarget = isWindowDefined() ? window : undefined;
-                scrollObservable = getScrollListener(this.scrollTarget || windowTarget);
-            }
             this.scrollSubscription = this.propertyChanges$.pipe(
-                debounceTime(10),
-                switchMap(props => scrollObservable.pipe(
-                    lazyLoadImage(
-                        this.elementRef.nativeElement,
-                        props.lazyImage,
-                        props.defaultImage,
-                        props.errorImage,
-                        props.offset,
-                        props.useSrcset,
-                        props.scrollTarget
-                    )
-                ))
+                debounceTime(10), // TODO: Do we need this?
+                switchMap(attributes => this.hooks.getObservable(attributes).pipe(lazyLoadImage(this.hooks, attributes)))
             ).subscribe(success => this.onLoad.emit(success));
         });
     }

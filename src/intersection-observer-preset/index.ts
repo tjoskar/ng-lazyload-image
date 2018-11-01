@@ -1,0 +1,1 @@
+export { intersectionObserverPreset } from './preset'

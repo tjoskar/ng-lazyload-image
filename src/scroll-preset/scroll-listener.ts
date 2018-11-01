@@ -1,6 +1,6 @@
 import { startWith, sampleTime, share } from 'rxjs/operators';
 import { Observable, empty } from 'rxjs';
-import { isWindowDefined } from './utils';
+import { isWindowDefined } from '../util';
 
 const scrollListeners = new WeakMap<any, Observable<any>>();
 
@@ -14,7 +14,7 @@ export function sampleObservable(obs: Observable<any>, scheduler?: any) {
 
 // Only create one scroll listener per target and share the observable.
 // Typical, there will only be one observable per application
-export const getScrollListener = (scrollTarget): Observable<any> => {
+export const getScrollListener = (scrollTarget): Observable<Event | String> => {
     if (!scrollTarget || typeof scrollTarget.addEventListener !== 'function') {
         if (isWindowDefined()) {
             console.warn('`addEventListener` on ' + scrollTarget + ' (scrollTarget) is not a function. Skipping this target');
