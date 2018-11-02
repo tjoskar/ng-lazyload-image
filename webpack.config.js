@@ -43,7 +43,7 @@ module.exports = {
             { test: /\.scss$/, loaders: ["style", "css", "sass"] },
 
             // support for .html as raw text
-            { test: /\.html$/, loader: 'raw-loader', exclude: ['./src/index.html'] }
+            { test: /\.html$/, loader: 'raw-loader', exclude: path.resolve(__dirname, 'src/index.html') }
         ],
     },
 
