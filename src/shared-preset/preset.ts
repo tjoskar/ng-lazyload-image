@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { cssClassNames, hasCssClassName, removeCssClassName, addCssClassName, isImageElement, isChildOfPicture, setSourcesToLazy, setImage, setImageAndSourcesToError, setImageAndSourcesToLazy, setImageAndSourcesToDefault, isWindowDefined } from '../util';
-import { HookSet, FinallyFn, LoadImageFn, GetObservableFn, SetImageFn, SetupFn } from '../types';
+import { FinallyFn, LoadImageFn, SetErrorImageFn, SetLoadedImageFn, SetupFn } from '../types';
 
 const end: FinallyFn = ({ element }) => addCssClassName(element, cssClassNames.loaded)
 
@@ -35,12 +35,12 @@ export const loadImage: LoadImageFn = ({ element, useSrcset, imagePath }) => {
         });
 }
 
-const setErrorImage: SetImageFn = ({ element, errorImagePath, useSrcset }) => {
+const setErrorImage: SetErrorImageFn = ({ element, errorImagePath, useSrcset }) => {
     setImageAndSourcesToError(element, errorImagePath, useSrcset);
     addCssClassName(element, cssClassNames.failed);
 }
 
-const setLoadedImage: SetImageFn = ({ element, imagePath, useSrcset }) => {
+const setLoadedImage: SetLoadedImageFn = ({ element, imagePath, useSrcset }) => {
     setImageAndSourcesToLazy(element, imagePath, useSrcset)
 }
 

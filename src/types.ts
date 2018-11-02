@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable, ObservableInput } from "rxjs";
 
 type IsVisibleProps<E> = {
     event: E
@@ -7,10 +7,14 @@ type IsVisibleProps<E> = {
     scrollContainer?: HTMLElement
 }
 
-type SetImageProps = {
+type SetLoadedImageProps = {
     element: HTMLImageElement | HTMLDivElement
     imagePath: string
-    defaultImagePath: string
+    useSrcset: boolean
+}
+
+type SetErrorImageProps = {
+    element: HTMLImageElement | HTMLDivElement
     errorImagePath: string
     useSrcset: boolean
 }
@@ -38,8 +42,9 @@ export type ObsEvent<T> = {
 }
 
 export type IsVisibleFn<E> = (args: IsVisibleProps<E>, getWindow?: () => Window) => boolean
-export type LoadImageFn = (args: LoadImageProps) => Observable<any>
-export type SetImageFn = (args: SetImageProps) => void
+export type LoadImageFn = (args: LoadImageProps) => ObservableInput<string>
+export type SetLoadedImageFn = (args: SetLoadedImageProps) => void
+export type SetErrorImageFn = (args: SetErrorImageProps) => void
 export type SetupFn = (attributes: Attributes) => void
 export type FinallyFn = (attributes: Attributes) => void
 export type GetObservableFn<E> = (attributes: Attributes) => Observable<E>
@@ -48,8 +53,8 @@ export interface HookSet<E> {
     getObservable: GetObservableFn<E>
     isVisible: IsVisibleFn<E>
     loadImage: LoadImageFn
-    setLoadedImage: SetImageFn
-    setErrorImage: SetImageFn
+    setLoadedImage: SetLoadedImageFn
+    setErrorImage: SetErrorImageFn
     setup: SetupFn
     finally: FinallyFn
 }

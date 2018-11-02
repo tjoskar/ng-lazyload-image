@@ -20,7 +20,11 @@ export function lazyLoadImage<E>(hookSet: HookSet<E>, attributes: Attributes) {
             })),
             take(1),
             mergeMap(() => hookSet.loadImage(attributes)),
-            tap(() => hookSet.setLoadedImage(attributes)),
+            tap(imagePath => hookSet.setLoadedImage({
+                element: attributes.element,
+                imagePath,
+                useSrcset: attributes.useSrcset
+            })),
             map(() => true),
             catchError(() => {
                 hookSet.setErrorImage(attributes);
