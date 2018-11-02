@@ -1,5 +1,5 @@
 import { ReplaySubject } from 'rxjs';
-import { switchMap, debounceTime } from 'rxjs/operators';
+import { switchMap, debounceTime, tap } from 'rxjs/operators';
 import {
     AfterContentInit,
     Directive,
@@ -65,6 +65,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
         this.ngZone.runOutsideAngular(() => {
             this.scrollSubscription = this.propertyChanges$.pipe(
                 debounceTime(10), // TODO: Do we need this?
+                tap(attributes => this.hooks.setup(attributes)),
                 switchMap(attributes => this.hooks.getObservable(attributes).pipe(lazyLoadImage(this.hooks, attributes)))
             ).subscribe(success => this.onLoad.emit(success));
         });
