@@ -1,25 +1,25 @@
 import { Observable, ObservableInput } from "rxjs";
 
-type IsVisibleProps<E> = {
+export type IsVisibleProps<E> = {
     event: E
     element: HTMLImageElement | HTMLDivElement
     offset: number
     scrollContainer?: HTMLElement
 }
 
-type SetLoadedImageProps = {
+export type SetLoadedImageProps = {
     element: HTMLImageElement | HTMLDivElement
     imagePath: string
     useSrcset: boolean
 }
 
-type SetErrorImageProps = {
+export type SetErrorImageProps = {
     element: HTMLImageElement | HTMLDivElement
     errorImagePath: string
     useSrcset: boolean
 }
 
-type LoadImageProps = {
+export type LoadImageProps = {
     element: HTMLImageElement | HTMLDivElement
     imagePath: string
     useSrcset: boolean
