@@ -258,7 +258,7 @@ function loadImage({ imagePath }) {
 }
 ```
 
-If you don't want to load but instead let the browser load it for you, then you can just return the imagePath (We will however not know if the image can't be loaded and the error image will not be used):
+If you don't want to load the image but instead let the browser load it for you, then you can just return the imagePath (We will however not know if the image can't be loaded and the error image will not be used):
 
 ```ts
 function loadImage({ imagePath }) {
