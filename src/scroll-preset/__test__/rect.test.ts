@@ -1,5 +1,5 @@
-import { is, isNot } from './helpers/assert';
-import { Rect } from '../src/rect';
+import { is } from '@tjoskar/assert';
+import { Rect } from '../rect';
 
 describe('Rect', () => {
 

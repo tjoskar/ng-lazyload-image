@@ -11,7 +11,6 @@ module.exports = config => {
             { pattern: './unit-test.bundle.js', watched: false }
         ],
         preprocessors: {
-            './test/helpers/test-helper.ts': ['webpack', 'sourcemap'],
             './unit-test.bundle.js': ['webpack', 'sourcemap']
         },
 

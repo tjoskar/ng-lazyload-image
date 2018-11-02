@@ -4,7 +4,7 @@ type IsVisibleProps<E> = {
     event: E
     element: HTMLImageElement | HTMLDivElement
     offset: number
-    scrollContainer: HTMLElement
+    scrollContainer?: HTMLElement
 }
 
 type SetImageProps = {
@@ -37,7 +37,7 @@ export type ObsEvent<T> = {
     attributes: Attributes
 }
 
-export type IsVisibleFn<E> = (args: IsVisibleProps<E>) => boolean
+export type IsVisibleFn<E> = (args: IsVisibleProps<E>, getWindow?: () => Window) => boolean
 export type LoadImageFn = (args: LoadImageProps) => Observable<any>
 export type SetImageFn = (args: SetImageProps) => void
 export type SetupFn = (attributes: Attributes) => void

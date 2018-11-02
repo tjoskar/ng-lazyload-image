@@ -1,9 +1,7 @@
 import { spy } from 'simple-spy';
-import { is, isNot } from './helpers/assert';
-import { noop } from './helpers/noop';
-import { expectObservable, hot, getRxTestScheduler } from './helpers/marble-testing';
-import { test } from './helpers/test-helper';
-import { getScrollListener, sampleObservable } from '../src/scroll-listener';
+import { is, isNot } from '@tjoskar/assert';
+import { createRxTestScheduler } from 'marble-test'
+import { getScrollListener, sampleObservable } from '../scroll-listener';
 
 describe('Scroll listener', () => {
 
@@ -18,8 +16,9 @@ describe('Scroll listener', () => {
         console.warn = consoleWarnOrg;
     })
 
-    test('Should return an empty observable', () => {
+    it('Should return an empty observable', () => {
         // Arrange
+        const scheduler = createRxTestScheduler()
         const element = {
             addEventListener: null
         };
@@ -29,7 +28,8 @@ describe('Scroll listener', () => {
         const listener = getScrollListener(element);
 
         // Assert
-        expectObservable(listener).toBe(expected);
+        scheduler.expectObservable(listener).toBe(expected)
+        scheduler.flush()
     });
 
     it('Should return the same observable for the same target', () => {
@@ -152,18 +152,20 @@ describe('Scroll listener', () => {
         subscriber2.unsubscribe();
     });
 
-    test(`Should sample the observable`, () => {
+    it(`Should sample the observable`, () => {
         // Arrange
+        const scheduler = createRxTestScheduler()
         const values = { a: '', b: 'b' };
-        const e1 =   hot('----b-^----b----------------------|', values);
-        const expected =       'a---------b-----------------|';
-        // timer                ----------!----------!---------
+        const e1 = scheduler.createHotObservable('----b-^----b----------------------|', values);
+        const expected =                               'a---------b-----------------|';
+        // timer                                  ----------!----------!---------
 
         // Act
-        const obs = sampleObservable(e1, getRxTestScheduler());
+        const obs = sampleObservable(e1, scheduler);
 
         // Assert
-        expectObservable(obs).toBe(expected, values);
+        scheduler.expectObservable(obs).toBe(expected, values)
+        scheduler.flush()
     });
 
     it(`Should emit event through the handler`, done => {

@@ -1,6 +1,6 @@
-// Require all modules ending in ".spec" from the
+// Require all modules ending in ".test" from the
 // current directory and all subdirectories
-var testContext = require.context('./test', true, /\.test\.ts/);
+var testContext = require.context('./src', true, /\.test\.ts/);
 
 // For each module, call the context function
 // that will require the file and load it up here.
