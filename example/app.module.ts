@@ -11,8 +11,6 @@ import { ScrollContainerComponent } from './scroll-container.component';
 import { ChangeImageComponent } from './changing-image.component';
 import { OnLoadComponent } from './onload.component';
 import { ResponsiveImageComponent } from './responsive-image.component';
-// import { scrollPreset } from '../src/scroll-preset';
-import { intersectionObserverPreset } from '../src/intersection-observer-preset';
 
 @NgModule({
     declarations: [
@@ -43,9 +41,7 @@ import { intersectionObserverPreset } from '../src/intersection-observer-preset'
         { path: 'on-load', component: OnLoadComponent },
         { path: 'responsive-image', component: ResponsiveImageComponent },
       ]),
-      LazyLoadImageModule.forRoot({
-          preset: intersectionObserverPreset
-      })
+      LazyLoadImageModule
     ],
     bootstrap: [ AppComponent ]
 })
