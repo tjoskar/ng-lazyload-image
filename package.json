@@ -76,6 +76,11 @@
     "webpack-dev-server": "^3.1.10",
     "zone.js": "^0.8.26"
   },
+  "prettier": {
+    "singleQuote": true,
+    "tabWidth": 2,
+    "printWidth": 200
+  },
   "gitmoji": {
     "blacklist": [
       "rocket",
