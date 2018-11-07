@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.0.0 (2018-11-07)
+
+### Braking changes
+* Compiling to ES2015 modules. Closes [#363](https://github.com/tjoskar/ng-lazyload-image/issues/363)
+
+## 4.1.0 (2018-11-07)
+
+### Feature
+* Introduce hooks. See [#365](https://github.com/tjoskar/ng-lazyload-image/issues/365)
+
 ## 4.0.0 (2018-05-19)
 
 ### Braking changes
