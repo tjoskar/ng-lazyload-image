@@ -14,6 +14,8 @@ Demo: http://tjoskar.github.io/ng-lazyload-image/
 ### Requirement
 The browser you targeting need to have support of `WeakMap` and `String.prototype.includes`. If you need to support an older browser (like IE) you will need to include polyfill for `WeakMap` and `String.prototype.includes` (see https://github.com/zloirock/core-js for example).
 
+If you want to use [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) and want to target Safari and/or IE; you need to include a polyfill: https://github.com/w3c/IntersectionObserver/tree/master/polyfill 
+
 ### Installation
 ```
 $ npm install ng-lazyload-image --save
@@ -33,6 +35,29 @@ import { AppComponent } from './app.component';
 })
 export class MyAppModule {}
 ```
+
+`ng-lazyload-image` is using a scroll listener by default but you can use IntersectionObserver if you want instead:
+
+```javascript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { AppComponent } from './app.component';
+
+@NgModule({
+    declarations: [ AppComponent ],
+    imports: [
+      BrowserModule,
+      LazyLoadImageModule.forRoot({
+        preset: intersectionObserverPreset
+      })
+    ],
+    bootstrap: [ AppComponent ]
+})
+export class MyAppModule {}
+```
+
+See hooks below for more information.
 
 ### Usages
 
@@ -120,12 +145,12 @@ class ImageComponent {
 ```
 
 
-You can (from 3.3.0) load image async or change the url on the fly, eg.
+You can load image async or change the url on the fly, eg.
 ```html
 <img [lazyLoad]="image$ | async">
 ```
 
-If you are using Ionic 2 you may need to include your own scroll observable or change the scroll target.
+If you are using Ionic 2 and **don't** want to use IntersectionObserver, you may need to include your own scroll observable or change the scroll target.
 
 ```javascript
 @Component({
@@ -158,6 +183,169 @@ export class AboutPage {
 ```
 
 See example folder for more usages.
+
+### Hooks
+
+It is possible to hook into the loading process by create your own functions.
+
+For example, let's say you want to fetch an image with some custom headers. If so, you can create a custom hook to fetch the image:
+
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { AppComponent } from './app.component';
+
+function loadImage({ imagePath }) {
+  return await fetch(imagePath, {
+    headers: {
+      Authorization: 'Bearer ...'
+    }
+  }).then(res => res.blob()).then(blob => URL.createObjectURL(blob));
+}
+
+@NgModule({
+    declarations: [ AppComponent ],
+    imports: [
+      BrowserModule,
+      LazyLoadImageModule.forRoot({ loadImage })
+    ],
+    bootstrap: [ AppComponent ]
+})
+export class MyAppModule {}
+```
+
+The following hooks are supported:
+
+#### getObservable
+
+Should return an observable that emits a new value every time `ng-lazyload-image` should check if the image is in viewport.
+
+Eg.
+
+```ts
+// This will trigger an event every second
+function getObservable(attributes: Attributes) {
+  return interval(1000);
+}
+```
+
+See [intersection-listener.ts](https://github.com/tjoskar/ng-lazyload-image/blob/master/src/intersection-observer-preset/intersection-listener.ts#L19) for example.
+
+#### isVisible
+
+Function to check if the element is vissible.
+
+Eg.
+```ts
+function isVisible({ event, element, scrollContainer, offset }) {
+  // `event` is form `getObservable`
+  return isElementInViewport(element, scrollContainer, offset);
+}
+```
+
+#### loadImage
+
+Function to load the image. It must return a path to the image (it can however be async, like the example below and/or return a observable).
+
+```ts
+function loadImage({ imagePath }) {
+  return await fetch(imagePath, {
+    headers: {
+      Authorization: 'Bearer ...'
+    }
+  }).then(res => res.blob()).then(blob => URL.createObjectURL(blob));
+}
+```
+
+If you don't want to load the image but instead let the browser load it for you, then you can just return the imagePath (We will however not know if the image can't be loaded and the error image will not be used):
+
+```ts
+function loadImage({ imagePath }) {
+  return imagePath; 
+}
+```
+
+#### setLoadedImage
+
+A function to set the image url to the DOM.
+
+Eg.
+
+```ts
+function setLoadedImage({ element, imagePath, useSrcset }) {
+  // `imagePath` comes from `loadImage`
+  element.src = imagePath;
+}
+```
+
+#### setErrorImage
+
+This function will be called if the lazy image cant be loaded.
+
+Eg.
+
+```ts
+function setErrorImage({ element, errorImagePath, useSrcset }) {
+  element.src = errorImagePath;
+}
+```
+
+#### setErrorImage
+
+This function will be called if the lazy image cant be loaded.
+
+Eg.
+
+```ts
+function setErrorImage({ element, errorImagePath, useSrcset }) {
+  element.src = errorImagePath;
+}
+```
+
+#### setup
+
+This function will be called on setup. Can be usefull for (re)setting css-classes and setting the default image.
+
+This function will be called every time an attrebute is changing.
+
+#### finally
+
+This function will be called on teardown. Can be usefull for setting css-classes.
+
+#### preset
+
+Preset can be usefull when you want to set multible of the functions above.
+
+eg.
+
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { AppComponent } from './app.component';
+
+@NgModule({
+    declarations: [ AppComponent ],
+    imports: [
+      BrowserModule,
+      LazyLoadImageModule.forRoot({
+        preset: intersectionObserverPreset
+      })
+    ],
+    bootstrap: [ AppComponent ]
+})
+export class MyAppModule {}
+```
+
+If you want to use the `intersectionObserverPreset` but overwride on of the functions, you can easily do that:
+
+```ts
+LazyLoadImageModule.forRoot({
+  preset: intersectionObserverPreset,
+  finally: ({ element }) => console.log('The image is loaded', element)
+})
+```
 
 ### FAQ
 

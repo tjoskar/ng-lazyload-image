@@ -1,6 +1,8 @@
-export function isWindowDefined() {
-    return typeof window !== 'undefined';
-}
+export const cssClassNames = {
+    loaded: 'ng-lazyloaded',
+    loading: 'ng-lazyloading',
+    failed: 'ng-failed-lazyloaded',
+};
 
 export function removeCssClassName(element: HTMLImageElement | HTMLDivElement, cssClassName: string) {
     element.className = element.className.replace(cssClassName, '');
