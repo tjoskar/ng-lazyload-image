@@ -150,7 +150,7 @@ You can load image async or change the url on the fly, eg.
 <img [lazyLoad]="image$ | async">
 ```
 
-If you are using Ionic 2 you may need to include your own scroll observable or change the scroll target.
+If you are using Ionic 2 and **don't** want to use IntersectionObserver, you may need to include your own scroll observable or change the scroll target.
 
 ```javascript
 @Component({
