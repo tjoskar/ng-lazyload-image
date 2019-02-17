@@ -1,8 +1,9 @@
 {
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "ng-lazyload-image",
-  "version": "5.0.0",
+  "version": "4.2.0",
   "description": "Lazy image loader for Angular > v2",
-  "main": "index.js",
+  "main": "bundles/ng-lazyload-image.umd.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tjoskar/ng-lazyload-image.git"
@@ -21,5 +22,89 @@
   "peerDependencies": {
     "@angular/core": ">=6.0.0",
     "rxjs": ">=6.0.0"
-  }
+  },
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "devDependencies": {
+    "@angular/animations": "^6.0.2",
+    "@angular/common": "^6.0.2",
+    "@angular/compiler": "^6.0.2",
+    "@angular/compiler-cli": "^6.0.2",
+    "@angular/core": "^6.0.2",
+    "@angular/platform-browser": "^6.0.2",
+    "@angular/platform-browser-dynamic": "^6.0.2",
+    "@angular/platform-server": "^6.0.2",
+    "@angular/router": "^6.0.2",
+    "@tjoskar/assert": "^1.0.0",
+    "@types/core-js": "^0.9.46",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.1.2",
+    "awesome-typescript-loader": "^5.0.0",
+    "copyfiles": "^2.1.0",
+    "core-js": "^2.5.6",
+    "electron": "^3.0.7",
+    "karma": "^3.1.1",
+    "karma-electron-launcher": "^0.2.0",
+    "karma-mocha": "^1.1.1",
+    "karma-sauce-launcher": "^1.1.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^3.0.5",
+    "lodash.isequal": "^4.5.0",
+    "marble-test": "^3.0.0",
+    "mocha": "^5.2.0",
+    "ng-packagr": "^4.7.1",
+    "null-loader": "^0.1.1",
+    "protractor": "^5.4.1",
+    "rimraf": "^2.6.1",
+    "rxjs": "6.1.0",
+    "simple-spy": "^2.1.1",
+    "source-map-loader": "^0.2.4",
+    "typescript": "2.7.2",
+    "wallaby-webpack": "^3.9.13",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "zone.js": "^0.8.26"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "tabWidth": 2,
+    "printWidth": 200
+  },
+  "gitmoji": {
+    "blacklist": [
+      "rocket",
+      "tada",
+      "apple",
+      "penguin",
+      "checkered-flag",
+      "robot",
+      "green-apple",
+      "construction-worker",
+      "chart-with-upwards-trend",
+      "whale",
+      "globe-with-meridians",
+      "hankey",
+      "package",
+      "bento",
+      "wheelchair",
+      "beers",
+      "speech-balloon",
+      "card-file-box",
+      "loud-sound",
+      "mute",
+      "children-crossing",
+      "iphone"
+    ]
+  },
+  "module": "fesm5/ng-lazyload-image.js",
+  "es2015": "fesm2015/ng-lazyload-image.js",
+  "esm5": "esm5/ng-lazyload-image.js",
+  "esm2015": "esm2015/ng-lazyload-image.js",
+  "fesm5": "fesm5/ng-lazyload-image.js",
+  "fesm2015": "fesm2015/ng-lazyload-image.js",
+  "typings": "ng-lazyload-image.d.ts",
+  "metadata": "ng-lazyload-image.metadata.json",
+  "sideEffects": false
 }
