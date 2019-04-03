@@ -193,10 +193,10 @@ For example, let's say you want to fetch an image with some custom headers. If s
 ```ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { LazyLoadImageModule, intersectionObserverPreset, LoadImageProps } from 'ng-lazyload-image';
 import { AppComponent } from './app.component';
 
-function loadImage({ imagePath }) {
+function loadImage({ imagePath }: LoadImageProps) {
   return await fetch(imagePath, {
     headers: {
       Authorization: 'Bearer ...'
@@ -224,6 +224,8 @@ Should return an observable that emits a new value every time `ng-lazyload-image
 Eg.
 
 ```ts
+import { Attributes } from 'ng-lazyload-image';
+
 // This will trigger an event every second
 function getObservable(attributes: Attributes) {
   return interval(1000);
@@ -238,7 +240,9 @@ Function to check if the element is vissible.
 
 Eg.
 ```ts
-function isVisible({ event, element, scrollContainer, offset }) {
+import { IsVisibleProps } from 'ng-lazyload-image';
+
+function isVisible({ event, element, scrollContainer, offset }: IsVisibleProps<SomeEvent>) {
   // `event` is form `getObservable`
   return isElementInViewport(element, scrollContainer, offset);
 }
@@ -249,7 +253,9 @@ function isVisible({ event, element, scrollContainer, offset }) {
 Function to load the image. It must return a path to the image (it can however be async, like the example below and/or return a observable).
 
 ```ts
-function loadImage({ imagePath }) {
+import { LoadImageProps } from 'ng-lazyload-image';
+
+function loadImage({ imagePath }: LoadImageProps) {
   return await fetch(imagePath, {
     headers: {
       Authorization: 'Bearer ...'
@@ -261,8 +267,8 @@ function loadImage({ imagePath }) {
 If you don't want to load the image but instead let the browser load it for you, then you can just return the imagePath (We will however not know if the image can't be loaded and the error image will not be used):
 
 ```ts
-function loadImage({ imagePath }) {
-  return imagePath; 
+function loadImage({ imagePath }: LoadImageProps) {
+  return imagePath;
 }
 ```
 
@@ -273,7 +279,9 @@ A function to set the image url to the DOM.
 Eg.
 
 ```ts
-function setLoadedImage({ element, imagePath, useSrcset }) {
+import { SetLoadedImageProps } from 'ng-lazyload-image';
+
+function setLoadedImage({ element, imagePath, useSrcset }: SetLoadedImageProps) {
   // `imagePath` comes from `loadImage`
   element.src = imagePath;
 }
@@ -286,19 +294,9 @@ This function will be called if the lazy image cant be loaded.
 Eg.
 
 ```ts
-function setErrorImage({ element, errorImagePath, useSrcset }) {
-  element.src = errorImagePath;
-}
-```
+import { SetErrorImageProps } from 'ng-lazyload-image';
 
-#### setErrorImage
-
-This function will be called if the lazy image cant be loaded.
-
-Eg.
-
-```ts
-function setErrorImage({ element, errorImagePath, useSrcset }) {
+function setErrorImage({ element, errorImagePath, useSrcset }: SetErrorImageProps) {
   element.src = errorImagePath;
 }
 ```
@@ -309,9 +307,29 @@ This function will be called on setup. Can be usefull for (re)setting css-classe
 
 This function will be called every time an attrebute is changing.
 
+Eg.
+
+```ts
+import { Attributes } from 'ng-lazyload-image';
+
+function setup(atter: Attributes) {
+  // Do something
+}
+```
+
 #### finally
 
 This function will be called on teardown. Can be usefull for setting css-classes.
+
+Eg.
+
+```ts
+import { Attributes } from 'ng-lazyload-image';
+
+function finally(atter: Attributes) {
+  // Do something
+}
+```
 
 #### preset
 
