@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.1.0 (2019-04-01)
+
+### Feature
+* Build releases for modules, comonjs and more. Closes [#373](https://github.com/tjoskar/ng-lazyload-image/issues/373) and [#368](https://github.com/tjoskar/ng-lazyload-image/issues/368)
+* Export types for hooks. Closes [#383](https://github.com/tjoskar/ng-lazyload-image/issues/383)
+
+### Bugfix
+* Update docs. Closes [#373](https://github.com/tjoskar/ng-lazyload-image/issues/373)
+
+### Braking changes
+* Compiling to ES2015 modules. Closes [#363](https://github.com/tjoskar/ng-lazyload-image/issues/363)
+
 ## 5.0.0 (2018-11-07)
 
 ### Braking changes
