@@ -268,7 +268,7 @@ If you don't want to load the image but instead let the browser load it for you,
 
 ```ts
 function loadImage({ imagePath }: LoadImageProps) {
-  return imagePath;
+  return [ imagePath ];
 }
 ```
 
