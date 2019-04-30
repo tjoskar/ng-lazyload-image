@@ -14,7 +14,7 @@ Demo: http://tjoskar.github.io/ng-lazyload-image/
 ### Requirement
 The browser you targeting need to have support of `WeakMap` and `String.prototype.includes`. If you need to support an older browser (like IE) you will need to include polyfill for `WeakMap` and `String.prototype.includes` (see https://github.com/zloirock/core-js for example).
 
-If you want to use [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) and want to target Safari and/or IE; you need to include a polyfill: https://github.com/w3c/IntersectionObserver/tree/master/polyfill 
+If you want to use [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) and want to target Safari and/or IE; you need to include a polyfill: https://github.com/w3c/IntersectionObserver/tree/master/polyfill (see [#387](https://github.com/tjoskar/ng-lazyload-image/issues/387))
 
 ### Installation
 ```
