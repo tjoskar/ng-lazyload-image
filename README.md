@@ -120,7 +120,7 @@ class ImageComponent {
 }
 ```
 
-### background images
+### Background images
 
 It also supports background images, by using `backgroundImage`:
 
@@ -190,7 +190,7 @@ You can load image async or change the url on the fly, eg.
 
 ### Scroll observable
 
-Sometimes you want to get more controll over the scroll event. You 
+Sometimes you want to get more controll over the scroll event. `scrollObservable` lets you create your own scroll observable.
 
 ```ts
 import { merge, fromEvent } from 'rxjs'
