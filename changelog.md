@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.0.0 (2019-06-27)
+
+### Braking changes
+* Building with angular@8. angular@6 is no longer supported.
+
 ## 5.1.0 (2019-04-01)
 
 ### Feature
