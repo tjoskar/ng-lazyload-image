@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {
   cssClassNames,
   hasCssClassName,
@@ -10,22 +10,16 @@ import {
   setImage,
   setImageAndSourcesToError,
   setImageAndSourcesToLazy,
-  setImageAndSourcesToDefault,
+  setImageAndSourcesToDefault
 } from '../util';
-import {
-  FinallyFn,
-  LoadImageFn,
-  SetErrorImageFn,
-  SetLoadedImageFn,
-  SetupFn
-} from '../types';
+import { FinallyFn, LoadImageFn, SetErrorImageFn, SetLoadedImageFn, SetupFn } from '../types';
 
 const end: FinallyFn = ({ element }) => addCssClassName(element, cssClassNames.loaded);
 
 export const loadImage: LoadImageFn = ({ element, useSrcset, imagePath }) => {
   let img: HTMLImageElement;
   if (isImageElement(element) && isChildOfPicture(element)) {
-    const parentClone = element.parentNode.cloneNode(true) as HTMLPictureElement;
+    const parentClone = element.parentNode!.cloneNode(true) as HTMLPictureElement;
     img = parentClone.getElementsByTagName('img')[0];
     setSourcesToLazy(img);
     setImage(img, imagePath, useSrcset);
@@ -41,7 +35,7 @@ export const loadImage: LoadImageFn = ({ element, useSrcset, imagePath }) => {
     }
   }
 
-  return Observable.create(observer => {
+  return Observable.create((observer: Subject<string>) => {
     img.onload = () => {
       observer.next(imagePath);
       observer.complete();

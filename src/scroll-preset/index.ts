@@ -1,1 +1,1 @@
-export { scrollPreset } from './preset'
+export { scrollPreset } from './preset';

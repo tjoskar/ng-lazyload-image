@@ -5,7 +5,7 @@ import { isWindowDefined } from '../util';
 import { Rect } from './rect';
 import { getScrollListener } from './scroll-listener';
 
-export const isVisible: IsVisibleFn<Event> = ({ element, offset, scrollContainer }, getWindow = () => window) => {
+export const isVisible: IsVisibleFn<Event | string> = ({ element, offset, scrollContainer }, getWindow = () => window) => {
   const elementBounds = Rect.fromElement(element);
   if (elementBounds === Rect.empty) {
     return false;
@@ -22,7 +22,7 @@ export const isVisible: IsVisibleFn<Event> = ({ element, offset, scrollContainer
   }
 };
 
-const getObservable: GetObservableFn<Event | String> = (attributes: Attributes) => {
+const getObservable: GetObservableFn<Event | string> = (attributes: Attributes) => {
   if (attributes.scrollObservable) {
     return attributes.scrollObservable.pipe(startWith(''));
   }
@@ -32,7 +32,7 @@ const getObservable: GetObservableFn<Event | String> = (attributes: Attributes) 
   return getScrollListener(isWindowDefined() ? window : undefined);
 };
 
-export const scrollPreset: HookSet<Event | String> = Object.assign({}, sharedPreset, {
+export const scrollPreset: HookSet<Event | string> = Object.assign({}, sharedPreset, {
   isVisible,
   getObservable
 });

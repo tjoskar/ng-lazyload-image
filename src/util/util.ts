@@ -10,7 +10,7 @@ export function isImageElement(element: HTMLImageElement | HTMLDivElement): elem
   return element.nodeName.toLowerCase() === 'img';
 }
 
-export function setImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset: boolean) {
+export function setImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset?: boolean) {
   if (isImageElement(element)) {
     if (useSrcset) {
       element.srcset = imagePath;
@@ -25,7 +25,7 @@ export function setImage(element: HTMLImageElement | HTMLDivElement, imagePath: 
 
 function setSources(attrName: string) {
   return (image: HTMLImageElement) => {
-    const sources = image.parentElement.getElementsByTagName('source');
+    const sources = image.parentElement!.getElementsByTagName('source');
     for (let i = 0; i < sources.length; i++) {
       const attrValue = sources[i].getAttribute(attrName);
       if (attrValue) {
@@ -40,7 +40,7 @@ export const setSourcesToLazy = setSources('lazyLoad');
 const setSourcesToError = setSources('errorImage');
 
 function setImageAndSources(setSourcesFn: (image: HTMLImageElement) => void) {
-  return (element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset: boolean) => {
+  return (element: HTMLImageElement | HTMLDivElement, imagePath?: string, useSrcset?: boolean) => {
     if (isImageElement(element) && isChildOfPicture(element)) {
       setSourcesFn(element);
     }

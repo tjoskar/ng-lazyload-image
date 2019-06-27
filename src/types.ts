@@ -10,27 +10,27 @@ export type IsVisibleProps<E> = {
 export type SetLoadedImageProps = {
   element: HTMLImageElement | HTMLDivElement;
   imagePath: string;
-  useSrcset: boolean;
+  useSrcset?: boolean;
 };
 
 export type SetErrorImageProps = {
   element: HTMLImageElement | HTMLDivElement;
-  errorImagePath: string;
-  useSrcset: boolean;
+  errorImagePath?: string;
+  useSrcset?: boolean;
 };
 
 export type LoadImageProps = {
   element: HTMLImageElement | HTMLDivElement;
   imagePath: string;
-  useSrcset: boolean;
+  useSrcset?: boolean;
 };
 
 export type Attributes<T = any> = {
   element: HTMLImageElement | HTMLDivElement;
   imagePath: string;
-  defaultImagePath: string;
-  errorImagePath: string;
-  useSrcset: boolean;
+  defaultImagePath?: string;
+  errorImagePath?: string;
+  useSrcset?: boolean;
   offset: number;
   scrollContainer?: HTMLElement;
   scrollObservable?: Observable<T>;
@@ -41,10 +41,7 @@ export type ObsEvent<T> = {
   attributes: Attributes;
 };
 
-export type IsVisibleFn<E> = (
-  args: IsVisibleProps<E>,
-  getWindow?: () => Window
-) => boolean;
+export type IsVisibleFn<E> = (args: IsVisibleProps<E>, getWindow?: () => Window) => boolean;
 
 export type LoadImageFn = (args: LoadImageProps) => ObservableInput<string>;
 export type SetLoadedImageFn = (args: SetLoadedImageProps) => void;

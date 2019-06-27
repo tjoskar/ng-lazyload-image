@@ -31,7 +31,7 @@ export class OnLoadComponent {
 
     constructor(private cd: ChangeDetectorRef) {}
 
-    onLoadImage(success) {
+    onLoadImage(success: boolean) {
         if (success) {
             this.isLoading = false;
             this.cd.detectChanges();

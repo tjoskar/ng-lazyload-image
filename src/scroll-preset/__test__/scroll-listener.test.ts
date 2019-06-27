@@ -23,7 +23,7 @@ describe('Scroll listener', () => {
     const expected = '|';
 
     // Act
-    const listener = getScrollListener(element);
+    const listener = getScrollListener(element as any);
 
     // Assert
     scheduler.expectObservable(listener).toBe(expected);
@@ -37,8 +37,8 @@ describe('Scroll listener', () => {
     };
 
     // Act
-    const listener1 = getScrollListener(element);
-    const listener2 = getScrollListener(element);
+    const listener1 = getScrollListener(element as any);
+    const listener2 = getScrollListener(element as any);
 
     // Assert
     expect(listener1).toBe(listener2);
@@ -54,8 +54,8 @@ describe('Scroll listener', () => {
     };
 
     // Act
-    const listener1 = getScrollListener(element1);
-    const listener2 = getScrollListener(element2);
+    const listener1 = getScrollListener(element1 as any);
+    const listener2 = getScrollListener(element2 as any);
 
     // Assert
     expect(listener1).not.toBe(listener2);
@@ -67,16 +67,16 @@ describe('Scroll listener', () => {
       eventName: '',
       handler: null,
       options: null
-    };
+    } as any;
     const element = {
-      addEventListener(eventName, handler, options) {
+      addEventListener(eventName: any, handler: any, options: any) {
         argumants = { eventName, handler, options };
       },
       removeEventListener: noop
     };
 
     // Act
-    const subscription = getScrollListener(element).subscribe();
+    const subscription = getScrollListener(element as any).subscribe();
 
     // Assert
     expect(argumants.eventName).toBe('scroll');
@@ -92,9 +92,9 @@ describe('Scroll listener', () => {
       eventName: '',
       handler: null,
       options: null
-    };
+    } as any;
     const element = {
-      addEventListener(eventName, handler, options) {
+      addEventListener(eventName: any, handler: any, options: any) {
         argumants = { eventName, handler, options };
       },
       removeEventListener: spy((eventName, handler, options) => {
@@ -106,7 +106,7 @@ describe('Scroll listener', () => {
     };
 
     // Act
-    const subscription = getScrollListener(element).subscribe();
+    const subscription = getScrollListener(element as any).subscribe();
     subscription.unsubscribe();
 
     // Assert
@@ -121,7 +121,7 @@ describe('Scroll listener', () => {
     };
 
     // Act and assert
-    const subscriber = getScrollListener(element).subscribe(d => {
+    const subscriber = getScrollListener(element as any).subscribe(d => {
       expect(d).toBe('');
       done();
     });
@@ -140,8 +140,8 @@ describe('Scroll listener', () => {
     };
 
     // Act
-    const subscriber1 = getScrollListener(element).subscribe();
-    const subscriber2 = getScrollListener(element).subscribe();
+    const subscriber1 = getScrollListener(element as any).subscribe();
+    const subscriber2 = getScrollListener(element as any).subscribe();
 
     // Assert
     expect(subscriptionCounter).toBe(1);
@@ -153,10 +153,7 @@ describe('Scroll listener', () => {
     // Arrange
     const scheduler = createRxTestScheduler();
     const values = { a: '', b: 'b' };
-    const e1 = scheduler.createHotObservable(
-      '----b-^----b----------------------|',
-      values
-    );
+    const e1 = scheduler.createHotObservable('----b-^----b----------------------|', values);
     const expected = 'a---------b-----------------|';
     // timer                                  ----------!----------!---------
 
@@ -170,17 +167,17 @@ describe('Scroll listener', () => {
 
   it(`Should emit event through the handler`, done => {
     // Arrange
-    let eventHandler = null;
-    const events = [];
+    let eventHandler: any = null;
+    const events: any[] = [];
     const element = {
-      addEventListener: (eventName, handler, options) => {
+      addEventListener: (eventName: any, handler: any, options: any) => {
         eventHandler = handler;
       },
       removeEventListener: noop
     };
 
     // Act and assert
-    const subscriber = getScrollListener(element).subscribe(d => {
+    const subscriber = getScrollListener(element as any).subscribe(d => {
       events.push(d);
       if (events.length === 2) {
         expect(events[0]).toBe('');

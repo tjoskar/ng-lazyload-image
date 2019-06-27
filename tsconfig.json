@@ -7,11 +7,12 @@
     "noEmit": true,
     "noEmitOnError": true,
     "esModuleInterop": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
+    "strict": true,
     "rootDir": ".",
     "outDir": "dist",
     "lib": [

@@ -16,7 +16,7 @@ function loadingCallback(entrys: IntersectionObserverEntry[]) {
   entrys.forEach(entry => intersectionSubject.next(entry));
 }
 
-export const getIntersectionObserver = (attributes: Attributes) => {
+export const getIntersectionObserver = (attributes: Attributes): Observable<IntersectionObserverEntry> => {
   if (!attributes.scrollContainer && !isWindowDefined()) {
     return empty();
   }
@@ -39,11 +39,11 @@ export const getIntersectionObserver = (attributes: Attributes) => {
 
   observer.observe(attributes.element);
 
-  return Observable.create(obs => {
+  return Observable.create((obs: Subject<IntersectionObserverEntry>) => {
     const subscription = intersectionSubject.pipe(filter(entry => entry.target === attributes.element)).subscribe(obs);
     return () => {
       subscription.unsubscribe();
-      observer.unobserve(attributes.element);
+      observer!.unobserve(attributes.element);
     };
   });
 };

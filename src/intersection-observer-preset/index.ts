@@ -1,1 +1,1 @@
-export { intersectionObserverPreset } from './preset'
+export { intersectionObserverPreset } from './preset';

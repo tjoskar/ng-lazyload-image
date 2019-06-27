@@ -49,7 +49,7 @@ import { Component, ChangeDetectionStrategy, ElementRef } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrollContainerComponent {
-    myScrollContainer;
+    myScrollContainer!: HTMLElement;
     images = [
         'https://images.unsplash.com/photo-1467932760935-519284fc87fa?dpr=2&auto=compress,format&fit=crop&w=1199&h=800&q=80',
         'https://images.unsplash.com/photo-1468103933896-2c34a78104c2?dpr=2&auto=compress,format&fit=crop&w=1199&h=799&q=80',

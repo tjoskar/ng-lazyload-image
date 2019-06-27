@@ -1,10 +1,10 @@
-import { empty, Observable } from 'rxjs';
+import { empty, Observable, Subject } from 'rxjs';
 import { sampleTime, share, startWith } from 'rxjs/operators';
 import { isWindowDefined } from '../util';
 
 const scrollListeners = new WeakMap<any, Observable<any>>();
 
-export function sampleObservable(obs: Observable<any>, scheduler?: any) {
+export function sampleObservable<T>(obs: Observable<T>, scheduler?: any): Observable<T | ''> {
   return obs.pipe(
     sampleTime(100, scheduler),
     share(),
@@ -14,20 +14,21 @@ export function sampleObservable(obs: Observable<any>, scheduler?: any) {
 
 // Only create one scroll listener per target and share the observable.
 // Typical, there will only be one observable per application
-export const getScrollListener = (scrollTarget): Observable<Event | String> => {
+export const getScrollListener = (scrollTarget?: HTMLElement | Window): Observable<Event | ''> => {
   if (!scrollTarget || typeof scrollTarget.addEventListener !== 'function') {
     if (isWindowDefined()) {
       console.warn('`addEventListener` on ' + scrollTarget + ' (scrollTarget) is not a function. Skipping this target');
     }
     return empty();
   }
-  if (scrollListeners.has(scrollTarget)) {
-    return scrollListeners.get(scrollTarget);
+  const scrollListener = scrollListeners.get(scrollTarget);
+  if (scrollListener) {
+    return scrollListener;
   }
 
-  const srollEvent = Observable.create(observer => {
+  const srollEvent: Observable<Event> = Observable.create((observer: Subject<Event>) => {
     const eventName = 'scroll';
-    const handler = event => observer.next(event);
+    const handler = (event: Event) => observer.next(event);
     const options = { passive: true, capture: false };
     scrollTarget.addEventListener(eventName, handler, options);
     return () => scrollTarget.removeEventListener(eventName, handler, options);
