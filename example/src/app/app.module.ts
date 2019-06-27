@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule }   from '@angular/router';
-import { LazyLoadImageModule } from '../src/lazyload-image.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { AppComponent } from './app.component';
-import { FadeInImageComponent } from './fade-in-image.component';
-import { BgImageComponent } from './bg-image.component';
-import { DefaultImageComponent } from './default-image.component';
-import { PixelatedImageComponent } from './pixelated-image.component';
-import { ScrollContainerComponent } from './scroll-container.component';
-import { ChangeImageComponent } from './changing-image.component';
-import { OnLoadComponent } from './onload.component';
-import { ResponsiveImageComponent } from './responsive-image.component';
+import { FadeInImageComponent } from './pages/fade-in-image.component';
+import { BgImageComponent } from './pages/bg-image.component';
+import { DefaultImageComponent } from './pages/default-image.component';
+import { PixelatedImageComponent } from './pages/pixelated-image.component';
+import { ScrollContainerComponent } from './pages/scroll-container.component';
+import { ChangeImageComponent } from './pages/changing-image.component';
+import { OnLoadComponent } from './pages/onload.component';
+import { ResponsiveImageComponent } from './pages/responsive-image.component';
 
 @NgModule({
     declarations: [

@@ -1,4 +1,3 @@
-import { is, isNot } from '@tjoskar/assert';
 import { createRxTestScheduler } from 'marble-test';
 import { spy } from 'simple-spy';
 import { getScrollListener, sampleObservable } from '../scroll-listener';
@@ -7,11 +6,11 @@ describe('Scroll listener', () => {
   const consoleWarnOrg = console.warn;
   const noop = () => undefined;
 
-  before(() => {
+  beforeEach(() => {
     console.warn = noop;
   });
 
-  after(() => {
+  afterEach(() => {
     console.warn = consoleWarnOrg;
   });
 
@@ -42,7 +41,7 @@ describe('Scroll listener', () => {
     const listener2 = getScrollListener(element);
 
     // Assert
-    is(listener1, listener2);
+    expect(listener1).toBe(listener2);
   });
 
   it('Should return diffrent observables for diffrent target', () => {
@@ -59,7 +58,7 @@ describe('Scroll listener', () => {
     const listener2 = getScrollListener(element2);
 
     // Assert
-    isNot(listener1, listener2);
+    expect(listener1).not.toBe(listener2);
   });
 
   it('Should pass eventname, handler and options as argument', () => {
@@ -80,10 +79,10 @@ describe('Scroll listener', () => {
     const subscription = getScrollListener(element).subscribe();
 
     // Assert
-    is(argumants.eventName, 'scroll');
-    is(argumants.options.passive, true);
-    is(argumants.options.capture, false);
-    is(typeof argumants.handler, 'function');
+    expect(argumants.eventName).toBe('scroll');
+    expect(argumants.options.passive).toBe(true);
+    expect(argumants.options.capture).toBe(false);
+    expect(typeof argumants.handler).toBe('function');
     subscription.unsubscribe();
   });
 
@@ -99,10 +98,10 @@ describe('Scroll listener', () => {
         argumants = { eventName, handler, options };
       },
       removeEventListener: spy((eventName, handler, options) => {
-        is(argumants.eventName, eventName);
-        is(argumants.options.passive, options.passive);
-        is(argumants.options.capture, options.capture);
-        is(argumants.handler, handler);
+        expect(argumants.eventName).toBe(eventName);
+        expect(argumants.options.passive).toBe(options.passive);
+        expect(argumants.options.capture).toBe(options.capture);
+        expect(argumants.handler).toBe(handler);
       })
     };
 
@@ -111,11 +110,7 @@ describe('Scroll listener', () => {
     subscription.unsubscribe();
 
     // Assert
-    is(
-      element.removeEventListener.callCount,
-      1,
-      'Should call removeEventListener one time'
-    );
+    expect(element.removeEventListener.callCount).toBe(1);
   });
 
   it(`Should start stream with ''`, done => {
@@ -127,7 +122,7 @@ describe('Scroll listener', () => {
 
     // Act and assert
     const subscriber = getScrollListener(element).subscribe(d => {
-      is(d, '');
+      expect(d).toBe('');
       done();
     });
 
@@ -149,7 +144,7 @@ describe('Scroll listener', () => {
     const subscriber2 = getScrollListener(element).subscribe();
 
     // Assert
-    is(subscriptionCounter, 1);
+    expect(subscriptionCounter).toBe(1);
     subscriber1.unsubscribe();
     subscriber2.unsubscribe();
   });
@@ -188,8 +183,8 @@ describe('Scroll listener', () => {
     const subscriber = getScrollListener(element).subscribe(d => {
       events.push(d);
       if (events.length === 2) {
-        is(events[0], '');
-        is(events[1], 'oskar');
+        expect(events[0]).toBe('');
+        expect(events[1]).toBe('oskar');
         subscriber.unsubscribe();
         done();
       }

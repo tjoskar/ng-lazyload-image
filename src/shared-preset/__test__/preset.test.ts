@@ -1,4 +1,3 @@
-import { is } from '@tjoskar/assert';
 import { sharedPreset } from '../preset';
 
 describe('Setup', () => {
@@ -22,7 +21,7 @@ describe('Setup', () => {
     sharedPreset.setup(attribute as any);
 
     // Assert
-    is(element.src, defaultImagePath);
+    expect(element.src).toBe(defaultImagePath);
   });
 
   it('Should not set default image if not defined', () => {
@@ -45,7 +44,7 @@ describe('Setup', () => {
     sharedPreset.setup(attribute as any);
 
     // Assert
-    is(element.src, '');
+    expect(element.src).toBe('');
   });
 
   it('Should use srcset instead of src if useSrcset is true', () => {
@@ -69,8 +68,8 @@ describe('Setup', () => {
     sharedPreset.setup(attribute as any);
 
     // Assert
-    is(element.src, '');
-    is(element.srcset, defaultImagePath);
+    expect(element.src).toBe('');
+    expect(element.srcset).toBe(defaultImagePath);
   });
 
   it('Should set default image for img and all picture source elements', () => {
@@ -98,8 +97,8 @@ describe('Setup', () => {
     sharedPreset.setup(attribute as any);
 
     // Assert
-    is(img.src, imagePath1);
-    is(source1.srcset, imagePath2);
-    is(source2.srcset, imagePath3);
+    expect(img.src).toBe(imagePath1);
+    expect(source1.srcset).toBe(imagePath2);
+    expect(source2.srcset).toBe(imagePath3);
   });
 });

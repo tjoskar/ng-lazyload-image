@@ -4,7 +4,9 @@
     "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
+    "noEmit": true,
     "noEmitOnError": true,
+    "esModuleInterop": true,
     "noImplicitAny": false,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -15,10 +17,6 @@
     "lib": [
       "dom",
       "es6"
-    ],
-    "types": [
-      "node",
-      "mocha"
     ],
     "suppressImplicitAnyIndexErrors": true
   },

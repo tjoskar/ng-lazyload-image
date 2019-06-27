@@ -5,17 +5,10 @@
   "description": "Lazy image loader for Angular > v2",
   "main": "index.js",
   "scripts": {
-    "prepare": "npm run build",
-    "test": "karma start karma.local.js",
-    "test:ci": "karma start karma.ci.js",
-    "start": "webpack-dev-server --progress --profile --colors --watch",
-    "build": "ng-packagr -p package.json",
-    "build:example": "rimraf example-dist && webpack --config webpack.prod.config.js --profile && rimraf example-dist/example example-dist/src && copyfiles -u 1 example/style.css example/index.html example-dist",
-    "e2e": "protractor",
-    "e2e:ci": "protractor protractor.ci.conf.js",
-    "webdriver:update": "webdriver-manager update",
-    "webdriver:start": "webdriver-manager start",
-    "e2e:debug": "protractor --elementExplorer"
+    "preversion": "npm run test && npm run build",
+    "postversion": "git push && git push --tags",
+    "test": "jest",
+    "build": "rm -rf dist && ng-packagr -p package.json"
   },
   "ngPackage": {
     "lib": {
@@ -38,55 +31,37 @@
   },
   "homepage": "https://github.com/tjoskar/ng-lazyload-image#readme",
   "peerDependencies": {
-    "@angular/core": ">=6.0.0",
+    "@angular/core": ">=7.0.0",
     "rxjs": ">=6.0.0"
   },
   "dependencies": {},
   "devDependencies": {
-    "@angular/animations": "^6.0.2",
-    "@angular/common": "^6.0.2",
-    "@angular/compiler": "^6.0.2",
-    "@angular/compiler-cli": "^6.0.2",
-    "@angular/core": "^6.0.2",
-    "@angular/platform-browser": "^6.0.2",
-    "@angular/platform-browser-dynamic": "^6.0.2",
-    "@angular/platform-server": "^6.0.2",
-    "@angular/router": "^6.0.2",
-    "@tjoskar/assert": "^1.0.0",
-    "@types/core-js": "^0.9.46",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.1.2",
-    "awesome-typescript-loader": "^5.0.0",
-    "copyfiles": "^2.1.0",
-    "core-js": "^2.5.6",
-    "electron": "^3.0.7",
-    "karma": "^3.1.1",
-    "karma-electron-launcher": "^0.2.0",
-    "karma-mocha": "^1.1.1",
-    "karma-sauce-launcher": "^1.1.0",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^3.0.5",
-    "lodash.isequal": "^4.5.0",
-    "marble-test": "^3.0.0",
-    "mocha": "^5.2.0",
-    "ng-packagr": "^4.7.1",
-    "null-loader": "^0.1.1",
-    "protractor": "^5.4.1",
-    "rimraf": "^2.6.1",
-    "rxjs": "6.1.0",
-    "simple-spy": "^2.1.1",
-    "source-map-loader": "^0.2.4",
-    "typescript": "2.7.2",
-    "wallaby-webpack": "^3.9.13",
-    "webpack": "^4.23.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10",
-    "zone.js": "^0.8.26"
+    "@angular/compiler": "^8.0.3",
+    "@angular/compiler-cli": "^8.0.3",
+    "@angular/core": "^8.0.3",
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0",
+    "marble-test": "^3.1.1",
+    "ng-packagr": "^5.3.0",
+    "rxjs": "^6.5.2",
+    "simple-spy": "^3.0.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "3.4.5"
   },
   "prettier": {
     "singleQuote": true,
     "tabWidth": 2,
     "printWidth": 200
+  },
+  "browserslist": [
+    "ie 11",
+    "last 1 Chrome version",
+    "last 1 Firefox version",
+    "last 1 Safari version",
+    "last 1 iOS version"
+  ],
+  "jest": {
+    "preset": "ts-jest"
   },
   "gitmoji": {
     "blacklist": [

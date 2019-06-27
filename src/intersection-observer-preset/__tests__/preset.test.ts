@@ -1,4 +1,3 @@
-import { is } from '@tjoskar/assert';
 import { getObservable, isVisible } from '../preset';
 
 describe('isVisible', () => {
@@ -14,7 +13,7 @@ describe('isVisible', () => {
     const result = isVisible(args as any);
 
     // Assert
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should not be visible if isIntersecting is false', () => {
@@ -29,7 +28,7 @@ describe('isVisible', () => {
     const result = isVisible(args as any);
 
     // Assert
-    is(result, false);
+    expect(result).toBe(false);
   });
 });
 
@@ -42,7 +41,7 @@ describe('getObservable', () => {
     const result = (getObservable as any)({ scrollObservable: observable } as any, null);
 
     // Assert
-    is(result, observable);
+    expect(result).toBe(observable);
   });
 
   it('Should return IntersectionObserver', () => {
@@ -54,6 +53,6 @@ describe('getObservable', () => {
     const result = (getObservable as any)({} as any, getIntersectionObserver);
 
     // Assert
-    is(result, observable);
+    expect(result).toBe(observable);
   });
 });

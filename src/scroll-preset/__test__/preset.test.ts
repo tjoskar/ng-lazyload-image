@@ -1,4 +1,3 @@
-import { is } from '@tjoskar/assert';
 import { isVisible } from '../preset';
 
 describe('isVisible', () => {
@@ -8,7 +7,7 @@ describe('isVisible', () => {
       innerWidth: 1000
     } as any);
 
-  const generateElement = (top, left, height = 300, width = 300): any => ({
+  const generateElement = (top: number, left: number, height = 300, width = 300): any => ({
     getBoundingClientRect: () => ({
       top,
       left,
@@ -26,7 +25,7 @@ describe('isVisible', () => {
 
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should not be vissible when the image is outside viewport', () => {
@@ -38,7 +37,7 @@ describe('isVisible', () => {
 
     const result = isVisible(attribute, getWindow);
 
-    is(result, false);
+    expect(result).toBe(false);
   });
 
   it('Should be vissible when the image is outside viewport but have a offset', () => {
@@ -50,7 +49,7 @@ describe('isVisible', () => {
 
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should not be vissible when the image is inside viewport but have a offset', () => {
@@ -61,7 +60,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, false);
+    expect(result).toBe(false);
   });
 
   it('Should be vissible when the image is inside viewport and have a offset', () => {
@@ -73,7 +72,7 @@ describe('isVisible', () => {
 
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should not be vissible when the bottom of the image is inside viewport but have a offset', () => {
@@ -85,7 +84,7 @@ describe('isVisible', () => {
 
     const result = isVisible(attribute, getWindow);
 
-    is(result, false);
+    expect(result).toBe(false);
   });
 
   it('Should be vissible when the bottom of the image is inside viewport and have a offset', () => {
@@ -96,7 +95,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should be vissible when the image is larger than the viewport', () => {
@@ -107,7 +106,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should not be vissible when the image is to the left of the viewport', () => {
@@ -118,7 +117,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, false);
+    expect(result).toBe(false);
   });
 
   it('Should not be vissible when the image is to the right of the viewport', () => {
@@ -129,7 +128,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, false);
+    expect(result).toBe(false);
   });
 
   it('Should be vissible when the left side is in viewport', () => {
@@ -140,7 +139,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should be vissible when the right side is in viewport', () => {
@@ -151,7 +150,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should be vissible when only left side with no corners is in the viewport', () => {
@@ -162,7 +161,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should be vissible when only top side with no corners is in the viewport', () => {
@@ -173,7 +172,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should be vissible when only right side with no corners is in the viewport', () => {
@@ -184,7 +183,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it('Should be vissible when only bottom side with no corners is in the viewport', () => {
@@ -195,7 +194,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it("Should not be visible when image is horizontally in window's view, but not in scroll-container's", () => {
@@ -207,7 +206,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, false);
+    expect(result).toBe(false);
   });
 
   it("Should not be visible when image is vertically in window's view, but not in scroll-container's", () => {
@@ -219,7 +218,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, false);
+    expect(result).toBe(false);
   });
 
   it("Should not be visible when image is not in window's view, but is in scroll-container's", () => {
@@ -231,7 +230,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, false);
+    expect(result).toBe(false);
   });
 
   it("Should be visible when image is in window's and scroll-container's view", () => {
@@ -243,7 +242,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, true);
+    expect(result).toBe(true);
   });
 
   it("Should not be visible when image's rect is empty", () => {
@@ -254,7 +253,7 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, false);
+    expect(result).toBe(false);
   });
 
   it("Should not be visible when image's rect is empty and has an offset", () => {
@@ -265,6 +264,6 @@ describe('isVisible', () => {
     };
     const result = isVisible(attribute, getWindow);
 
-    is(result, false);
+    expect(result).toBe(false);
   });
 });

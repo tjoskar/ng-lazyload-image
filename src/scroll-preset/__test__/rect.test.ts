@@ -1,4 +1,3 @@
-import { is } from '@tjoskar/assert';
 import { Rect } from '../rect';
 
 describe('Rect', () => {
@@ -17,10 +16,10 @@ describe('Rect', () => {
     const rect = Rect.fromElement(element as HTMLElement);
 
     // Assert
-    is(rect.left, element.getBoundingClientRect().left);
-    is(rect.top, element.getBoundingClientRect().top);
-    is(rect.right, element.getBoundingClientRect().right);
-    is(rect.bottom, element.getBoundingClientRect().bottom);
+    expect(rect.left).toBe(element.getBoundingClientRect().left);
+    expect(rect.top).toBe(element.getBoundingClientRect().top);
+    expect(rect.right).toBe(element.getBoundingClientRect().right);
+    expect(rect.bottom).toBe(element.getBoundingClientRect().bottom);
   });
 
   it('Should create a correctly sized Rect from a Window object', () => {
@@ -34,10 +33,10 @@ describe('Rect', () => {
     const rect = Rect.fromWindow(_window as any);
 
     // Assert
-    is(rect.left, 0);
-    is(rect.top, 0);
-    is(rect.right, _window.innerWidth);
-    is(rect.bottom, _window.innerHeight);
+    expect(rect.left).toBe(0);
+    expect(rect.top).toBe(0);
+    expect(rect.right).toBe(_window.innerWidth);
+    expect(rect.bottom).toBe(_window.innerHeight);
   });
 
   describe('inflate', () => {
@@ -54,10 +53,10 @@ describe('Rect', () => {
       rect.inflate(inflateBy);
 
       // Assert
-      is(rect.left, left - inflateBy);
-      is(rect.top, top - inflateBy);
-      is(rect.right, right + inflateBy);
-      is(rect.bottom, bottom + inflateBy);
+      expect(rect.left).toBe(left - inflateBy);
+      expect(rect.top).toBe(top - inflateBy);
+      expect(rect.right).toBe(right + inflateBy);
+      expect(rect.bottom).toBe(bottom + inflateBy);
     });
 
     it('Should inflate correctly with a negative value', () => {
@@ -73,10 +72,10 @@ describe('Rect', () => {
       rect.inflate(inflateBy);
 
       // Assert
-      is(rect.left, left - inflateBy);
-      is(rect.top, top - inflateBy);
-      is(rect.right, right + inflateBy);
-      is(rect.bottom, bottom + inflateBy);
+      expect(rect.left).toBe(left - inflateBy);
+      expect(rect.top).toBe(top - inflateBy);
+      expect(rect.right).toBe(right + inflateBy);
+      expect(rect.bottom).toBe(bottom + inflateBy);
     });
 
     it('Should should not change if 0 is passed', () => {
@@ -92,10 +91,10 @@ describe('Rect', () => {
       rect.inflate(inflateBy);
 
       // Assert
-      is(rect.left, left);
-      is(rect.top, top);
-      is(rect.right, right);
-      is(rect.bottom, bottom);
+      expect(rect.left).toBe(left);
+      expect(rect.top).toBe(top);
+      expect(rect.right).toBe(right);
+      expect(rect.bottom).toBe(bottom);
     });
   });
 
@@ -109,7 +108,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, false);
+      expect(result).toBe(false);
     });
 
     it('Should not be true if first rectangle is on top side without intersecting', () => {
@@ -121,7 +120,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, false);
+      expect(result).toBe(false);
     });
 
     it('Should not be true if second rectangle is on left side without intersecting', () => {
@@ -133,7 +132,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, false);
+      expect(result).toBe(false);
     });
 
     it('Should not be true if second rectangle is on top side without intersecting', () => {
@@ -145,7 +144,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, false);
+      expect(result).toBe(false);
     });
 
     it("Should be true if first rectangle's top left corner is inside second rectangle", () => {
@@ -157,7 +156,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
 
     it("Should be true if first rectangle's top right corner is inside second rectangle", () => {
@@ -169,7 +168,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
 
     it("Should be true if first rectangle's bottom left corner is inside second rectangle", () => {
@@ -181,7 +180,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
 
     it("Should be true if first rectangle's bottom right corner is inside second rectangle", () => {
@@ -193,7 +192,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
     ////
 
@@ -206,7 +205,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
 
     it("Should be true if second rectangle's top right corner is inside first rectangle", () => {
@@ -218,7 +217,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
 
     it("Should be true if second rectangle's bottom left corner is inside first rectangle", () => {
@@ -230,7 +229,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
 
     it("Should be true if second rectangle's bottom right corner is inside first rectangle", () => {
@@ -242,7 +241,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
 
     it("Should be true if first rectangle's side without corners is inside second rectangle", () => {
@@ -254,7 +253,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
 
     it("Shoult be true if second rectangle's side without corners is inside first rectangle", () => {
@@ -266,7 +265,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
 
     it('Should be true if first rectangle completely contains second rectangle', () => {
@@ -278,7 +277,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
 
     it('Should be true if second rectangle completely contains first rectangle', () => {
@@ -290,7 +289,7 @@ describe('Rect', () => {
       const result = rectA.intersectsWith(rectB);
 
       // Assert
-      is(result, true);
+      expect(result).toBe(true);
     });
   });
 
@@ -304,10 +303,10 @@ describe('Rect', () => {
       const result = rectA.getIntersectionWith(rectB);
 
       // Assert
-      is(result.top, 10);
-      is(result.right, 20);
-      is(result.bottom, 20);
-      is(result.left, 0);
+      expect(result.top).toBe(10);
+      expect(result.right).toBe(20);
+      expect(result.bottom).toBe(20);
+      expect(result.left).toBe(0);
     });
 
     it("Should return a correctly sized Rect if two Rect's intersect vertically", () => {
@@ -319,10 +318,10 @@ describe('Rect', () => {
       const result = rectA.getIntersectionWith(rectB);
 
       // Assert
-      is(result.top, 0);
-      is(result.right, 20);
-      is(result.bottom, 20);
-      is(result.left, 10);
+      expect(result.top).toBe(0);
+      expect(result.right).toBe(20);
+      expect(result.bottom).toBe(20);
+      expect(result.left).toBe(10);
     });
 
     it("Should return a correctly sized Rect if two Rect's intersect corners", () => {
@@ -334,10 +333,10 @@ describe('Rect', () => {
       const result = rectA.getIntersectionWith(rectB);
 
       // Assert
-      is(result.top, 10);
-      is(result.right, 20);
-      is(result.bottom, 20);
-      is(result.left, 10);
+      expect(result.top).toBe(10);
+      expect(result.right).toBe(20);
+      expect(result.bottom).toBe(20);
+      expect(result.left).toBe(10);
     });
 
     it("Should return an empty Rect if two Rect's don't intersect", () => {
@@ -349,10 +348,10 @@ describe('Rect', () => {
       const result = rectA.getIntersectionWith(rectB);
 
       // Assert
-      is(result.top, 0);
-      is(result.right, 0);
-      is(result.bottom, 0);
-      is(result.left, 0);
+      expect(result.top).toBe(0);
+      expect(result.right).toBe(0);
+      expect(result.bottom).toBe(0);
+      expect(result.left).toBe(0);
     });
   });
 });
