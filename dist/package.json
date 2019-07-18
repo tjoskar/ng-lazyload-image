@@ -1,0 +1,93 @@
+{
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
+  "name": "@ollca/ng-lazyload-image",
+  "version": "6.0.0",
+  "description": "Lazy image loader for Angular > v2",
+  "main": "bundles/ollca-ng-lazyload-image.umd.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjoskar/ng-lazyload-image.git"
+  },
+  "keywords": [
+    "lazy-load",
+    "lazy-image",
+    "angular"
+  ],
+  "author": "Oskar Karlsson <kontakta@oskarkarlsson.nu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjoskar/ng-lazyload-image/issues"
+  },
+  "homepage": "https://github.com/tjoskar/ng-lazyload-image#readme",
+  "peerDependencies": {
+    "@angular/core": ">=7.0.0",
+    "rxjs": ">=6.0.0"
+  },
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "devDependencies": {
+    "@angular/commons": "^8.0.3",
+    "@angular/compiler": "^8.0.3",
+    "@angular/compiler-cli": "^8.0.3",
+    "@angular/core": "^8.0.3",
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0",
+    "marble-test": "^3.1.1",
+    "ng-packagr": "^5.3.0",
+    "rxjs": "^6.5.2",
+    "simple-spy": "^3.0.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "3.4.5"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "tabWidth": 2,
+    "printWidth": 200
+  },
+  "browserslist": [
+    "ie 11",
+    "last 1 Chrome version",
+    "last 1 Firefox version",
+    "last 1 Safari version",
+    "last 1 iOS version"
+  ],
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "gitmoji": {
+    "blacklist": [
+      "rocket",
+      "tada",
+      "apple",
+      "penguin",
+      "checkered-flag",
+      "robot",
+      "green-apple",
+      "construction-worker",
+      "chart-with-upwards-trend",
+      "whale",
+      "globe-with-meridians",
+      "hankey",
+      "package",
+      "bento",
+      "wheelchair",
+      "beers",
+      "speech-balloon",
+      "card-file-box",
+      "loud-sound",
+      "mute",
+      "children-crossing",
+      "iphone"
+    ]
+  },
+  "module": "fesm5/ollca-ng-lazyload-image.js",
+  "es2015": "fesm2015/ollca-ng-lazyload-image.js",
+  "esm5": "esm5/ollca-ng-lazyload-image.js",
+  "esm2015": "esm2015/ollca-ng-lazyload-image.js",
+  "fesm5": "fesm5/ollca-ng-lazyload-image.js",
+  "fesm2015": "fesm2015/ollca-ng-lazyload-image.js",
+  "typings": "ollca-ng-lazyload-image.d.ts",
+  "metadata": "ollca-ng-lazyload-image.metadata.json",
+  "sideEffects": false
+}
