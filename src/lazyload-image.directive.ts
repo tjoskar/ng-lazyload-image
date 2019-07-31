@@ -1,10 +1,10 @@
-import { AfterContentInit, Directive, ElementRef, EventEmitter, Inject, Input, NgZone, OnChanges, OnDestroy, Optional, Output } from '@angular/core';
+import { AfterContentInit, Directive, ElementRef, EventEmitter, Inject, Input, NgZone, OnChanges, OnDestroy, Optional, Output, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from "@angular/common";
 import { ReplaySubject, Observable, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { cretateHooks } from './hooks-factory';
 import { lazyLoadImage } from './lazyload-image';
 import { Attributes, HookSet, ModuleOptions } from './types';
-import { isWindowDefined } from './util';
 
 @Directive({
   selector: '[lazyLoad]'
@@ -24,7 +24,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
   private scrollSubscription?: Subscription;
   private hooks: HookSet<any>;
 
-  constructor(el: ElementRef, ngZone: NgZone, @Optional() @Inject('options') options?: ModuleOptions) {
+  constructor(el: ElementRef, ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object, @Optional() @Inject('options') options?: ModuleOptions) {
     this.elementRef = el;
     this.ngZone = ngZone;
     this.propertyChanges$ = new ReplaySubject();
@@ -46,7 +46,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
 
   ngAfterContentInit() {
     // Disable lazy load image in server side
-    if (!isWindowDefined()) {
+    if (isPlatformServer(this.platformId)) {
       return null;
     }
 
