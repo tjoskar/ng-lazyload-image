@@ -1,4 +1,6 @@
 .vscode
-dist
+.idea
+ng-lazyload-image.iml
 example-dist
 node_modules
+dist
