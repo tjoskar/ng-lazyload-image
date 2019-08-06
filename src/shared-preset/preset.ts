@@ -35,14 +35,13 @@ export const loadImage: LoadImageFn = ({ element, useSrcset, imagePath }) => {
     }
   }
 
-  return Observable.create((observer: Subject<string>) => {
-    img.onload = () => {
-      observer.next(imagePath);
-      observer.complete();
-    };
-    img.onerror = err => {
-      observer.error(null);
-    };
+  if (img.decode) {
+    return img.decode().then(() => imagePath);
+  }
+
+  return new Promise((resolve, reject) => {
+    img.onload = () => resolve(imagePath);
+    img.onerror = () => reject(null);
   });
 };
 

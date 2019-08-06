@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { AppComponent } from './app.component';
 import { FadeInImageComponent } from './pages/fade-in-image.component';
 import { BgImageComponent } from './pages/bg-image.component';
@@ -11,6 +11,7 @@ import { ScrollContainerComponent } from './pages/scroll-container.component';
 import { ChangeImageComponent } from './pages/changing-image.component';
 import { OnLoadComponent } from './pages/onload.component';
 import { ResponsiveImageComponent } from './pages/responsive-image.component';
+import { BigImagesComponent } from './pages/big-images.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ResponsiveImageComponent } from './pages/responsive-image.component';
     ScrollContainerComponent,
     ChangeImageComponent,
     OnLoadComponent,
-    ResponsiveImageComponent
+    ResponsiveImageComponent,
+    BigImagesComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +41,10 @@ import { ResponsiveImageComponent } from './pages/responsive-image.component';
       { path: 'pixelated-image', component: PixelatedImageComponent },
       { path: 'scroll-container', component: ScrollContainerComponent },
       { path: 'on-load', component: OnLoadComponent },
-      { path: 'responsive-image', component: ResponsiveImageComponent }
+      { path: 'responsive-image', component: ResponsiveImageComponent },
+      { path: 'big-images', component: BigImagesComponent }
     ]),
-    LazyLoadImageModule
+    LazyLoadImageModule.forRoot(intersectionObserverPreset)
   ],
   bootstrap: [AppComponent]
 })
