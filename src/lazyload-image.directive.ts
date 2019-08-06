@@ -1,5 +1,5 @@
 import { AfterContentInit, Directive, ElementRef, EventEmitter, Inject, Input, NgZone, OnChanges, OnDestroy, Optional, Output, PLATFORM_ID } from '@angular/core';
-import { isPlatformServer } from "@angular/common";
+import { isPlatformServer } from '@angular/common';
 import { ReplaySubject, Observable, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { cretateHooks } from './hooks-factory';
@@ -23,11 +23,13 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
   private ngZone: NgZone;
   private scrollSubscription?: Subscription;
   private hooks: HookSet<any>;
+  private platformId: Object;
 
-  constructor(el: ElementRef, ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object, @Optional() @Inject('options') options?: ModuleOptions) {
+  constructor(el: ElementRef, ngZone: NgZone, @Inject(PLATFORM_ID) platformId: Object, @Optional() @Inject('options') options?: ModuleOptions) {
     this.elementRef = el;
     this.ngZone = ngZone;
     this.propertyChanges$ = new ReplaySubject();
+    this.platformId = platformId;
     this.hooks = cretateHooks(options);
   }
 
