@@ -1,14 +1,16 @@
 {
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "ng-lazyload-image",
-  "version": "6.0.0",
+  "version": "6.1.0-0",
   "description": "Lazy image loader for Angular > v2",
   "main": "index.js",
   "scripts": {
     "preversion": "npm run test && npm run build",
     "postversion": "git push && git push --tags",
     "test": "jest",
-    "build": "rm -rf dist && ng-packagr -p package.json"
+    "build": "npm run clean && ng-packagr -p package.json",
+    "clean": "rm -rf dist",
+    "build:dev": "tsc && cp package.json package-lock.json dist"
   },
   "ngPackage": {
     "lib": {

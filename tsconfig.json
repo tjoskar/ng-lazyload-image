@@ -4,7 +4,7 @@
     "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "noEmit": true,
+    "noEmit": false,
     "noEmitOnError": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
@@ -15,24 +15,12 @@
     "strict": true,
     "rootDir": ".",
     "outDir": "dist",
-    "lib": [
-      "dom",
-      "es6"
-    ],
+    "lib": ["dom", "es6"],
     "suppressImplicitAnyIndexErrors": true
   },
   "compileOnSave": false,
-  "include": [
-    "./index.ts",
-    "src/**/*.ts",
-    "test/**/*.ts",
-    "example/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "compiled"
-  ],
+  "include": ["./index.ts", "src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["node_modules", "dist", "compiled", "example/**/*.ts"],
   "angularCompilerOptions": {
     "genDir": "dist",
     "strictMetadataEmit": true

@@ -35,6 +35,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       <a routerLink="/on-load" routerLinkActive="active">OnLoad event</a>
       <a routerLink="/change-image" routerLinkActive="active">Change image</a>
       <a routerLink="/responsive-image" routerLinkActive="active">Responsive image</a>
+      <a routerLink="/big-images" routerLinkActive="active">Big images</a>
     </div>
 
     <router-outlet></router-outlet>
