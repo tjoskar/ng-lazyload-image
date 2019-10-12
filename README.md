@@ -325,6 +325,14 @@ Example: `true`
 You can set this to `true` if you need to lazy load images with `srcset` attribute, instead of `src`.  
 `<source>` tags are set to use `srcset` by default, so you don't need to set this option additionaly.
 
+##### decode (optional)
+
+Type: `boolean`
+
+Example: `true`
+
+You can set this to `true`, the image well be [decoded](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) before inserted into the DOM. This can be usefull for large images.
+
 ### Events
 
 ##### onLoad (optional)

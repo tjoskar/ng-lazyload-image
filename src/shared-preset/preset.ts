@@ -1,4 +1,3 @@
-import { Observable, Subject } from 'rxjs';
 import {
   cssClassNames,
   hasCssClassName,
@@ -16,7 +15,7 @@ import { FinallyFn, LoadImageFn, SetErrorImageFn, SetLoadedImageFn, SetupFn } fr
 
 const end: FinallyFn = ({ element }) => addCssClassName(element, cssClassNames.loaded);
 
-export const loadImage: LoadImageFn = ({ element, useSrcset, imagePath }) => {
+export const loadImage: LoadImageFn = ({ element, useSrcset, imagePath, decode }) => {
   let img: HTMLImageElement;
   if (isImageElement(element) && isChildOfPicture(element)) {
     const parentClone = element.parentNode!.cloneNode(true) as HTMLPictureElement;
@@ -35,7 +34,7 @@ export const loadImage: LoadImageFn = ({ element, useSrcset, imagePath }) => {
     }
   }
 
-  if (img.decode) {
+  if (decode && img.decode) {
     return img.decode().then(() => imagePath);
   }
 
