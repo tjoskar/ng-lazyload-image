@@ -102,3 +102,57 @@ describe('Setup', () => {
     expect(source2.srcset).toBe(imagePath3);
   });
 });
+
+describe('isBot', () => {
+  test('Google bot is a bot', () => {
+    // Arrange
+    const navigator = {
+      userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+    };
+
+    // Act
+    const result = sharedPreset.isBot(navigator as any);
+
+    // Assert
+    expect(result).toBe(true);
+  });
+
+  test('Firefox is not a bot', () => {
+    // Arrange
+    const navigator = {
+      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0'
+    };
+
+    // Act
+    const result = sharedPreset.isBot(navigator as any);
+
+    // Assert
+    expect(result).toBe(false);
+  });
+
+  test('Chrome is not a bot', () => {
+    // Arrange
+    const navigator = {
+      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'
+    };
+
+    // Act
+    const result = sharedPreset.isBot(navigator as any);
+
+    // Assert
+    expect(result).toBe(false);
+  });
+
+  test('Slack bot is a bot', () => {
+    // Arrange
+    const navigator = {
+      userAgent: 'Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)'
+    };
+
+    // Act
+    const result = sharedPreset.isBot(navigator as any);
+
+    // Assert
+    expect(result).toBe(true);
+  });
+});

@@ -1,10 +1,11 @@
-import { AfterContentInit, Directive, ElementRef, EventEmitter, Inject, Input, NgZone, OnChanges, OnDestroy, Optional, Output, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
-import { ReplaySubject, Observable, Subscription } from 'rxjs';
+import { AfterContentInit, Directive, ElementRef, EventEmitter, Inject, Input, NgZone, OnChanges, OnDestroy, Optional, Output, PLATFORM_ID } from '@angular/core';
+import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { cretateHooks } from './hooks-factory';
 import { lazyLoadImage } from './lazyload-image';
 import { Attributes, HookSet, ModuleOptions } from './types';
+import { getNavigator } from './util';
 
 @Directive({
   selector: '[lazyLoad]'
@@ -47,8 +48,8 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
   }
 
   ngAfterContentInit() {
-    // Disable lazy load image in server side
-    if (isPlatformServer(this.platformId)) {
+    // Don't do anything if SSR and the user isn't a bot
+    if (isPlatformServer(this.platformId) && !this.hooks.isBot(getNavigator())) {
       return null;
     }
 

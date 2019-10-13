@@ -1,5 +1,5 @@
-export function isWindowDefined() {
-  return typeof window !== 'undefined';
+export function getNavigator(): Navigator | undefined {
+  return typeof window !== 'undefined' ? window.navigator : undefined;
 }
 
 export function isChildOfPicture(element: HTMLImageElement | HTMLDivElement): boolean {

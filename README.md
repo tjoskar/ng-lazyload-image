@@ -23,6 +23,7 @@
 - [Setup](#setup)
 - [Usages](#usages)
 - [Hooks](#hooks)
+- [Search Engine Optimization (SEO)](#seo)
 - [FAQ](#faq)
 - [Contributing](#contributing)
 
@@ -482,6 +483,22 @@ function finally(atter: Attributes) {
 }
 ```
 
+### isBot
+
+A function to check if the current user is a bot or not. Can be usefull for SSR and SEO.
+
+Default function:
+```ts
+export const isBot: IsBotFn = navigator => {
+  if (navigator && navigator.userAgent) {
+    return /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp|duckduckbot/i.test(
+      navigator.userAgent
+    );
+  }
+  return false;
+};
+```
+
 ### preset
 
 Preset can be usefull when you want to set multible of the functions above.
@@ -515,6 +532,20 @@ LazyLoadImageModule.forRoot({
   finally: ({ element }) => console.log('The image is loaded', element)
 })
 ```
+
+## 🔎 Search Engine Optimization (SEO) <a name = "seo"></a>
+
+`ng-lazyload-image` are using the following strategy:
+
+### Server side rendering (SSR)
+
+- If the user is a bot (see `isBot` hook above), render all the images right away. (useful if the bot don't understand javascript)
+- If the user is not a bot (or if we can't decide), don't do anything and let the client fix the images (see below)
+
+### Client side
+
+- If the user is a bot (see `isBot` hook above), render all the images right away. (useful if the bot understand javascript)
+- If the user is not a bot (or if we can't decide), lazy load the images
 
 ## 🤔 FAQ <a name = "faq"></a>
 

@@ -1,7 +1,6 @@
 import { startWith } from 'rxjs/operators';
 import { sharedPreset } from '../shared-preset/preset';
 import { Attributes, GetObservableFn, HookSet, IsVisibleFn } from '../types';
-import { isWindowDefined } from '../util';
 import { Rect } from './rect';
 import { getScrollListener } from './scroll-listener';
 
@@ -29,7 +28,7 @@ const getObservable: GetObservableFn<Event | string> = (attributes: Attributes) 
   if (attributes.scrollContainer) {
     return getScrollListener(attributes.scrollContainer);
   }
-  return getScrollListener(isWindowDefined() ? window : undefined);
+  return getScrollListener(window);
 };
 
 export const scrollPreset: HookSet<Event | string> = Object.assign({}, sharedPreset, {

@@ -49,6 +49,7 @@ export type SetErrorImageFn = (args: SetErrorImageProps) => void;
 export type SetupFn = (attributes: Attributes) => void;
 export type FinallyFn = (attributes: Attributes) => void;
 export type GetObservableFn<E> = (attributes: Attributes) => Observable<E>;
+export type IsBotFn = (navigator?: Navigator) => boolean;
 
 export interface HookSet<E> {
   getObservable: GetObservableFn<E>;
@@ -58,6 +59,7 @@ export interface HookSet<E> {
   setErrorImage: SetErrorImageFn;
   setup: SetupFn;
   finally: FinallyFn;
+  isBot: IsBotFn;
 }
 
 export interface ModuleOptions<T = any> extends Partial<HookSet<T>> {
