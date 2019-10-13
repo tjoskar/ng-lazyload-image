@@ -12,7 +12,7 @@ export function isImageElement(element: HTMLImageElement | HTMLDivElement): elem
 
 export function setImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset?: boolean) {
   if (isImageElement(element)) {
-    if (useSrcset) {
+    if (useSrcset && 'srcset' in element) {
       element.srcset = imagePath;
     } else {
       element.src = imagePath;
@@ -29,7 +29,12 @@ function setSources(attrName: string) {
     for (let i = 0; i < sources.length; i++) {
       const attrValue = sources[i].getAttribute(attrName);
       if (attrValue) {
-        sources[i].srcset = attrValue;
+        // Check if `srcset` is supported by the current browser
+        if ('srcset' in sources[i]) {
+          sources[i].srcset = attrValue;
+        } else {
+          sources[i].src = attrValue;
+        }
       }
     }
   };

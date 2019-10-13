@@ -28,7 +28,7 @@ export const loadImage: LoadImageFn = ({ element, useSrcset, imagePath }) => {
     if (isImageElement(element) && element.sizes) {
       img.sizes = element.sizes;
     }
-    if (useSrcset) {
+    if (useSrcset && 'srcset' in img) {
       img.srcset = imagePath;
     } else {
       img.src = imagePath;
