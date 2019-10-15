@@ -23,6 +23,7 @@ export type LoadImageProps = {
   element: HTMLImageElement | HTMLDivElement;
   imagePath: string;
   useSrcset?: boolean;
+  decode?: boolean;
 };
 
 export type Attributes<T = any> = {
@@ -34,6 +35,7 @@ export type Attributes<T = any> = {
   offset: number;
   scrollContainer?: HTMLElement;
   scrollObservable?: Observable<T>;
+  decode?: boolean;
 };
 
 export type ObsEvent<T> = {
