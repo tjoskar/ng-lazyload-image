@@ -1,5 +1,51 @@
 # Changelog
 
+## 7.0.0 (2019-10-15)
+
+### Feature
+
+- Load all images right away when the `isBot` returns true (checking userAgent by default) [PR](https://github.com/tjoskar/ng-lazyload-image/pull/412). Closes [#394](https://github.com/tjoskar/ng-lazyload-image/pull/394), [#393](https://github.com/tjoskar/ng-lazyload-image/issues/393)
+
+### Braking changes
+
+- Use IntersectionObserver by default. If you want to use the scroll listener you have to use the `scrollPreset`. eg.
+
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image'; // <-- include scrollPreset
+import { AppComponent } from './app.component';
+
+@NgModule({
+    declarations: [ AppComponent ],
+    imports: [
+      BrowserModule,
+      LazyLoadImageModule.forRoot({
+        preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset
+      })
+    ],
+    bootstrap: [ AppComponent ]
+})
+export class MyAppModule {}
+```
+
+- Rename `scrollObservable` to `customObservable`.
+Before:
+```html
+<img [scrollObservable]="scroll$" ... >
+```
+After 7.0.0
+```html
+<img [customObservable]="scroll$" ... >
+```
+
+- The images is not decode by default before instert into the dom. If you want the images to be decoded you have to set `decode` to true:
+
+```html
+<img decode="true" ... >
+<div decode="true" ... >
+```
+
 ## 6.1.0 (2019-08-07)
 
 ### Feature

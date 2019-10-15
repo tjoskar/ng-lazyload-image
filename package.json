@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "ng-lazyload-image",
-  "version": "6.1.0",
+  "version": "7.0.0",
   "description": "Lazy image loader for Angular > v2",
   "main": "index.js",
   "scripts": {
