@@ -1,9 +1,9 @@
-import { empty, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Attributes } from '../types';
 
 type ObserverOptions = {
-  root?: Element;
+  root: Element | null;
   rootMargin?: string;
 };
 
@@ -15,25 +15,22 @@ function loadingCallback(entrys: IntersectionObserverEntry[]) {
   entrys.forEach(entry => intersectionSubject.next(entry));
 }
 
-export const getIntersectionObserver = (attributes: Attributes): Observable<IntersectionObserverEntry> => {
-  if (!attributes.scrollContainer) {
-    return empty();
-  }
+const uniqKey = {};
 
+export const getIntersectionObserver = (attributes: Attributes): Observable<IntersectionObserverEntry> => {
+  const scrollContainerKey = attributes.scrollContainer || uniqKey;
   const options: ObserverOptions = {
-    root: attributes.scrollContainer
+    root: attributes.scrollContainer || null
   };
   if (attributes.offset) {
     options.rootMargin = `${attributes.offset}px`;
   }
 
-  const scrollContainer = attributes.scrollContainer || window;
-
-  let observer = observers.get(scrollContainer);
+  let observer = observers.get(scrollContainerKey);
 
   if (!observer) {
     observer = new IntersectionObserver(loadingCallback, options);
-    observers.set(scrollContainer, observer);
+    observers.set(scrollContainerKey, observer);
   }
 
   observer.observe(attributes.element);
