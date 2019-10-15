@@ -1,7 +1,6 @@
 import { empty, Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Attributes } from '../types';
-import { isWindowDefined } from '../util';
 
 type ObserverOptions = {
   root?: Element;
@@ -17,7 +16,7 @@ function loadingCallback(entrys: IntersectionObserverEntry[]) {
 }
 
 export const getIntersectionObserver = (attributes: Attributes): Observable<IntersectionObserverEntry> => {
-  if (!attributes.scrollContainer && !isWindowDefined()) {
+  if (!attributes.scrollContainer) {
     return empty();
   }
 

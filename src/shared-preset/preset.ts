@@ -11,7 +11,7 @@ import {
   setImageAndSourcesToLazy,
   setImageAndSourcesToDefault
 } from '../util';
-import { FinallyFn, LoadImageFn, SetErrorImageFn, SetLoadedImageFn, SetupFn } from '../types';
+import { FinallyFn, LoadImageFn, SetErrorImageFn, SetLoadedImageFn, SetupFn, IsBotFn } from '../types';
 
 const end: FinallyFn = ({ element }) => addCssClassName(element, cssClassNames.loaded);
 
@@ -61,10 +61,20 @@ const setup: SetupFn = ({ element, defaultImagePath, useSrcset }) => {
   }
 };
 
+export const isBot: IsBotFn = navigator => {
+  if (navigator && navigator.userAgent) {
+    return /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp|duckduckbot/i.test(
+      navigator.userAgent
+    );
+  }
+  return false;
+};
+
 export const sharedPreset = {
   finally: end,
   loadImage,
   setErrorImage,
   setLoadedImage,
-  setup
+  setup,
+  isBot
 };
