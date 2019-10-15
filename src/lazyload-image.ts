@@ -3,8 +3,8 @@ import { catchError, filter, map, mergeMap, take, tap } from 'rxjs/operators';
 import { Attributes, HookSet } from './types';
 
 export function lazyLoadImage<E>(hookSet: HookSet<E>, attributes: Attributes) {
-  return (customObservable: Observable<E>) => {
-    return customObservable.pipe(
+  return (evntObservable: Observable<E>) => {
+    return evntObservable.pipe(
       filter(event =>
         hookSet.isVisible({
           element: attributes.element,
