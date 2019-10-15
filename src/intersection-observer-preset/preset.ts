@@ -7,8 +7,8 @@ export const isVisible: IsVisibleFn<IntersectionObserverEntry> = ({ event }) => 
 };
 
 export const getObservable: GetObservableFn<IntersectionObserverEntry> = (attributes: Attributes, _getInterObserver = getIntersectionObserver) => {
-  if (attributes.scrollObservable) {
-    return attributes.scrollObservable;
+  if (attributes.customObservable) {
+    return attributes.customObservable;
   }
   return _getInterObserver(attributes);
 };

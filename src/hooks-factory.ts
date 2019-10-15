@@ -1,11 +1,11 @@
-import { scrollPreset } from './scroll-preset';
+import { intersectionObserverPreset } from './intersection-observer-preset';
 import { ssrPreset } from './ssr-preset';
 import { HookSet, ModuleOptions } from './types';
 import { getNavigator } from './util';
 
 export function cretateHooks<E>(options?: ModuleOptions<E>): HookSet<any> {
-  const defaultPreset = scrollPreset;
-  const isBot = options && options.isBot ? options.isBot : scrollPreset.isBot;
+  const defaultPreset = intersectionObserverPreset;
+  const isBot = options && options.isBot ? options.isBot : defaultPreset.isBot;
 
   if (isBot(getNavigator())) {
     return ssrPreset;

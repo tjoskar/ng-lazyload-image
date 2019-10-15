@@ -69,20 +69,18 @@ import { AppComponent } from './app.component';
 export class MyAppModule {}
 ```
 
-### Scroll listener
-
-`ng-lazyload-image` is using a scroll listener by default so you dont need to do anything if you want to continue using the scroll as event emitter.
-
 ### IntersectionObserver
 
-Make sure to inclue a pollyfill for [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) if you need to target IE: https://github.com/w3c/IntersectionObserver/tree/master/polyfill
+`ng-lazyload-image` is using a intersection observer by default so you don't need to do anything if you want to continue using the intersection observer as event emitter.
 
-You can easily swtich from scroll listener to IntersectionObserver by using the `intersectionObserverPreset`:
+### Scroll listener
+
+You can easily swtich from IntersectionObserver to scroll listener by using the `scrollPreset`:
 
 ```javascript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image'; // <-- include intersectionObserverPreset
+import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image'; // <-- include scrollPreset
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -90,7 +88,7 @@ import { AppComponent } from './app.component';
     imports: [
       BrowserModule,
       LazyLoadImageModule.forRoot({
-        preset: intersectionObserverPreset // <-- tell LazyLoadImage that you want to use IntersectionObserver
+        preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset
       })
     ],
     bootstrap: [ AppComponent ]
@@ -189,9 +187,9 @@ You can load image async or change the url on the fly, eg.
 <img [lazyLoad]="image$ | async">
 ```
 
-### Scroll observable
+### Custom observable
 
-Sometimes you want to get more controll over the scroll event. `scrollObservable` lets you create your own scroll observable.
+Sometimes you want to get more controll over when the we should check if the image is in viewport. `customObservable` let's you create your own observable.
 
 ```ts
 import { merge, fromEvent } from 'rxjs'
@@ -207,19 +205,19 @@ constructor() {
 ```
 
 ```html
-<img [scrollObservable]="scroll$" ... >
+<img [customObservable]="scroll$" ... >
 ```
 
 ### Ionic
 
-If you are using Ionic 2 and **don't** want to use IntersectionObserver, you may need to include your own scroll observable or change the scroll target. For instans if you want to have multiple scroll targets:
+If you are using Ionic and **don't** want to use IntersectionObserver, you may need to include your own scroll observable or change the scroll target. For instans if you want to have multiple scroll targets:
 
 ```javascript
 @Component({
   selector: 'page-image',
   template: `
     <ion-content #container padding>
-      <img [defaultImage]="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [scrollObservable]="container.ionScroll" />
+      <img [defaultImage]="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [customObservable]="container.ionScroll" />
     </ion-content>
   `
 })
@@ -235,7 +233,7 @@ In case of using ion-slides in Ionic 2+, you can include your own scroll observa
     selector: 'page-image',
     template: `
       <ion-content #container padding>
-        <img [defaultImage]="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [scrollObservable]="container.ionSlideWillChange" />
+        <img [defaultImage]="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [customObservable]="container.ionSlideWillChange" />
       </ion-content>
     `
 })
@@ -309,7 +307,7 @@ Default: `window`
 
 You will need to set this property if you are using a scroll container and do not propagate the scroll event to window.
 
-##### scrollObservable (optional)
+##### customObservable (optional)
 
 Type: `Observable`
 
@@ -516,7 +514,7 @@ eg.
 ```ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -524,7 +522,7 @@ import { AppComponent } from './app.component';
     imports: [
       BrowserModule,
       LazyLoadImageModule.forRoot({
-        preset: intersectionObserverPreset
+        preset: scrollPreset
       })
     ],
     bootstrap: [ AppComponent ]
@@ -532,11 +530,11 @@ import { AppComponent } from './app.component';
 export class MyAppModule {}
 ```
 
-If you want to use the `intersectionObserverPreset` but overwride on of the functions, you can easily do that:
+If you want to use the `scrollPreset` but overwride on of the functions, you can easily do that:
 
 ```ts
 LazyLoadImageModule.forRoot({
-  preset: intersectionObserverPreset,
+  preset: scrollPreset,
   finally: ({ element }) => console.log('The image is loaded', element)
 })
 ```

@@ -22,8 +22,8 @@ export const isVisible: IsVisibleFn<Event | string> = ({ element, offset, scroll
 };
 
 const getObservable: GetObservableFn<Event | string> = (attributes: Attributes) => {
-  if (attributes.scrollObservable) {
-    return attributes.scrollObservable.pipe(startWith(''));
+  if (attributes.customObservable) {
+    return attributes.customObservable.pipe(startWith(''));
   }
   if (attributes.scrollContainer) {
     return getScrollListener(attributes.scrollContainer);

@@ -34,7 +34,7 @@ export type Attributes<T = any> = {
   useSrcset?: boolean;
   offset: number;
   scrollContainer?: HTMLElement;
-  scrollObservable?: Observable<T>;
+  customObservable?: Observable<T>;
   decode?: boolean;
 };
 

@@ -38,7 +38,7 @@ describe('getObservable', () => {
     const observable = {};
 
     // Act
-    const result = (getObservable as any)({ scrollObservable: observable } as any, null);
+    const result = (getObservable as any)({ customObservable: observable } as any, null);
 
     // Assert
     expect(result).toBe(observable);
