@@ -29,7 +29,7 @@
 
 ## 🤯 Demo <a name = "demo"></a>
 
-Visit this site: https://tjoskar.github.io/ng-lazyload-image/fade-in-image
+Visit this site: https://naughty-bose-ec1cfc.netlify.com
 
 ## ✅ Prerequisites <a name = "prerequisites"></a>
 
