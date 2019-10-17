@@ -3,11 +3,11 @@ import { ssrPreset } from './ssr-preset';
 import { HookSet, ModuleOptions } from './types';
 import { getNavigator } from './util';
 
-export function cretateHooks<E>(options?: ModuleOptions<E>): HookSet<any> {
+export function createHooks<E>(platformId: Object, options?: ModuleOptions<E>): HookSet<any> {
   const defaultPreset = intersectionObserverPreset;
   const isBot = options && options.isBot ? options.isBot : defaultPreset.isBot;
 
-  if (isBot(getNavigator())) {
+  if (isBot(getNavigator(), platformId)) {
     return ssrPreset;
   } else if (!options) {
     return defaultPreset;

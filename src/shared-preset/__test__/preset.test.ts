@@ -111,7 +111,7 @@ describe('isBot', () => {
     };
 
     // Act
-    const result = sharedPreset.isBot(navigator as any);
+    const result = sharedPreset.isBot(navigator as any, {});
 
     // Assert
     expect(result).toBe(true);
@@ -124,7 +124,7 @@ describe('isBot', () => {
     };
 
     // Act
-    const result = sharedPreset.isBot(navigator as any);
+    const result = sharedPreset.isBot(navigator as any, {});
 
     // Assert
     expect(result).toBe(false);
@@ -137,7 +137,7 @@ describe('isBot', () => {
     };
 
     // Act
-    const result = sharedPreset.isBot(navigator as any);
+    const result = sharedPreset.isBot(navigator as any, {});
 
     // Assert
     expect(result).toBe(false);
@@ -150,7 +150,7 @@ describe('isBot', () => {
     };
 
     // Act
-    const result = sharedPreset.isBot(navigator as any);
+    const result = sharedPreset.isBot(navigator as any, {});
 
     // Assert
     expect(result).toBe(true);

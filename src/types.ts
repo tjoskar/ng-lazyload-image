@@ -51,7 +51,7 @@ export type SetErrorImageFn = (args: SetErrorImageProps) => void;
 export type SetupFn = (attributes: Attributes) => void;
 export type FinallyFn = (attributes: Attributes) => void;
 export type GetObservableFn<E> = (attributes: Attributes) => Observable<E>;
-export type IsBotFn = (navigator?: Navigator) => boolean;
+export type IsBotFn = (navigator: Navigator | undefined, platformId: Object) => boolean;
 
 export interface HookSet<E> {
   getObservable: GetObservableFn<E>;
