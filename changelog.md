@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.0.1 (2019-10-22)
+
+### Bugfix
+
+- It was not possible to overwrite `isBot` for SSR. Closes [#414](https://github.com/tjoskar/ng-lazyload-image/issues/414) Thanks to [intellix](https://github.com/intellix) :tada:
+
 ## 7.0.0 (2019-10-15)
 
 ### Feature
