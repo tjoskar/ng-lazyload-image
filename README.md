@@ -330,7 +330,7 @@ Type: `boolean`
 
 Example: `true`
 
-You can set this to `true`, the image well be [decoded](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) before inserted into the DOM. This can be usefull for large images.
+You can set this to `true`, the image well be [decoded](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) before inserted into the DOM. This can be useful for large images.
 
 ### Events
 
@@ -461,7 +461,7 @@ function setErrorImage({ element, errorImagePath, useSrcset }: SetErrorImageProp
 
 ### setup
 
-This function will be called on setup. Can be usefull for (re)setting css-classes and setting the default image.
+This function will be called on setup. Can be useful for (re)setting css-classes and setting the default image.
 
 This function will be called every time an attrebute is changing.
 
@@ -477,7 +477,7 @@ function setup(atter: Attributes) {
 
 ### finally
 
-This function will be called on teardown. Can be usefull for setting css-classes.
+This function will be called on teardown. Can be useful for setting css-classes.
 
 Eg.
 
@@ -491,7 +491,7 @@ function finally(atter: Attributes) {
 
 ### isBot
 
-A function to check if the current user is a bot or not. Can be usefull for SSR and SEO.
+A function to check if the current user is a bot or not. Can be useful for SSR and SEO.
 
 Default function:
 ```ts
@@ -505,9 +505,16 @@ export const isBot: IsBotFn = navigator => {
 };
 ```
 
+You could also force all images to load under SSR by providing such a function to LazyLoadImageModule.forRoot:
+```ts
+export function isBot(navigator, platformId) {
+  return isPlatformServer(platformId) ? true : intersectionObserverPreset.isBot(navigator, platformId);
+}
+```
+
 ### preset
 
-Preset can be usefull when you want to set multible of the functions above.
+Preset can be useful when you want to set multible of the functions above.
 
 eg.
 
