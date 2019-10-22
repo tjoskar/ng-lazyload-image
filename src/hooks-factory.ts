@@ -8,7 +8,7 @@ export function createHooks<E>(platformId: Object, options?: ModuleOptions<E>): 
   const isBot = options && options.isBot ? options.isBot : defaultPreset.isBot;
 
   if (isBot(getNavigator(), platformId)) {
-    return ssrPreset;
+    return Object.assign(ssrPreset, { isBot });
   } else if (!options) {
     return defaultPreset;
   }
