@@ -12,6 +12,7 @@ import { ChangeImageComponent } from './pages/changing-image.component';
 import { OnLoadComponent } from './pages/onload.component';
 import { ResponsiveImageComponent } from './pages/responsive-image.component';
 import { BigImagesComponent } from './pages/big-images.component';
+import { AsyncImagesComponent } from './pages/async-images.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { BigImagesComponent } from './pages/big-images.component';
     ChangeImageComponent,
     OnLoadComponent,
     ResponsiveImageComponent,
-    BigImagesComponent
+    BigImagesComponent,
+    AsyncImagesComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ import { BigImagesComponent } from './pages/big-images.component';
       { path: 'scroll-container', component: ScrollContainerComponent },
       { path: 'on-load', component: OnLoadComponent },
       { path: 'responsive-image', component: ResponsiveImageComponent },
-      { path: 'big-images', component: BigImagesComponent }
+      { path: 'big-images', component: BigImagesComponent },
+      { path: 'async-images', component: AsyncImagesComponent }
     ]),
     LazyLoadImageModule.forRoot(intersectionObserverPreset)
   ],

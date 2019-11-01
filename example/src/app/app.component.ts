@@ -6,7 +6,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     `
       .menu {
         display: flex;
-        width: 50%;
+        width: 90%;
         justify-content: space-between;
         margin: 20px auto;
       }
@@ -36,6 +36,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       <a routerLink="/change-image" routerLinkActive="active">Change image</a>
       <a routerLink="/responsive-image" routerLinkActive="active">Responsive image</a>
       <a routerLink="/big-images" routerLinkActive="active">Big images</a>
+      <a routerLink="/async-images" routerLinkActive="active">Async images</a>
     </div>
 
     <router-outlet></router-outlet>

@@ -18,7 +18,7 @@
     "@angular/platform-browser-dynamic": "~8.2.0",
     "@angular/router": "~8.2.0",
     "ng-lazyload-image": "file://../dist",
-    "rxjs": "~6.5.2",
+    "rxjs": "6.5.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
