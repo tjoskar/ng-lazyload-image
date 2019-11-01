@@ -1,6 +1,6 @@
 import { isPlatformServer } from '@angular/common';
 import { AfterContentInit, Directive, ElementRef, EventEmitter, Inject, Input, NgZone, OnChanges, OnDestroy, Optional, Output, PLATFORM_ID } from '@angular/core';
-import { Observable, ReplaySubject, Subscription } from 'rxjs';
+import { Observable, ReplaySubject, Subscription, never } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { createHooks } from './hooks-factory';
 import { lazyLoadImage } from './lazyload-image';
@@ -59,7 +59,12 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
       this.scrollSubscription = this.propertyChanges$
         .pipe(
           tap(attributes => this.hooks.setup(attributes)),
-          switchMap(attributes => this.hooks.getObservable(attributes).pipe(lazyLoadImage(this.hooks, attributes)))
+          switchMap(attributes => {
+            if (!attributes.imagePath) {
+              return never()
+            }
+            return this.hooks.getObservable(attributes).pipe(lazyLoadImage(this.hooks, attributes))
+          })
         )
         .subscribe(success => this.onLoad.emit(success));
     });
