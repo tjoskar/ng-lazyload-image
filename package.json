@@ -39,18 +39,18 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@angular/common": "^8.2.0",
-    "@angular/compiler": "^8.2.0",
-    "@angular/compiler-cli": "^8.2.0",
-    "@angular/core": "^8.2.0",
-    "@types/jest": "^24.0.17",
-    "jest": "^24.8.0",
+    "@angular/common": "^9.0.1",
+    "@angular/compiler": "^9.0.1",
+    "@angular/compiler-cli": "^9.0.1",
+    "@angular/core": "^9.0.1",
+    "@types/jest": "^25.1.2",
+    "jest": "^25.1.0",
     "marble-test": "^3.1.1",
-    "ng-packagr": "^5.4.3",
-    "rxjs": "^6.5.2",
+    "ng-packagr": "^9.0.0",
+    "rxjs": "^6.5.4",
     "simple-spy": "^3.0.1",
-    "ts-jest": "^24.0.2",
-    "typescript": "3.5.3"
+    "ts-jest": "^25.2.0",
+    "typescript": "3.7.5"
   },
   "prettier": {
     "singleQuote": true,
