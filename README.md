@@ -22,6 +22,7 @@
 - [Install](#install)
 - [Setup](#setup)
 - [Usages](#usages)
+- [Css](#css)
 - [Hooks](#hooks)
 - [Search Engine Optimization (SEO)](#seo)
 - [FAQ](#faq)
@@ -241,6 +242,14 @@ export class AboutPage {
     lazyLoadImage = 'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5';
 }
 ```
+
+## 💅 CSS
+
+The css class name `ng-lazyloading` will automatically be added before the image is loaded and will be removed when the image has been loaded or if the image couldn't be loaded.
+
+The css class name `ng-lazyloaded` will be added when the image is loaded.
+
+The css class name `ng-failed-lazyloaded` will be added when the image couldn't be loaded.
 
 ## 🔄 API
 
