@@ -37,6 +37,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       <a routerLink="/responsive-image" routerLinkActive="active">Responsive image</a>
       <a routerLink="/big-images" routerLinkActive="active">Big images</a>
       <a routerLink="/async-images" routerLinkActive="active">Async images</a>
+      <a routerLink="/custom-observer" routerLinkActive="active">Custom observer</a>
     </div>
 
     <router-outlet></router-outlet>
