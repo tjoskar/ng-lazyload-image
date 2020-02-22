@@ -6,10 +6,7 @@
   ![npm](https://img.shields.io/npm/dw/ng-lazyload-image.svg)
   [![npm version](https://badge.fury.io/js/ng-lazyload-image.svg)](https://badge.fury.io/js/ng-lazyload-image)
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-  [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Ftjoskar%2Fng-lazyload-image%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/tjoskar/ng-lazyload-image/goto?ref=master)
-  <br>
-  <br>
-  [![Build Status](https://saucelabs.com/browser-matrix/tjoskar.svg)](https://saucelabs.com/beta/builds/c7a7d7683d6843f79ae4118f737769c5)
+  ![Build Status](https://github.com/tjoskar/ng-lazyload-image/workflows/Node%20CI/badge.svg)
 </div>
 
 <p align="center">
