@@ -70,9 +70,9 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
           tap(attributes => this.hooks.setup(attributes)),
           switchMap(attributes => {
             if (!attributes.imagePath) {
-              return never()
+              return never();
             }
-            return this.hooks.getObservable(attributes).pipe(lazyLoadImage(this.hooks, attributes))
+            return this.hooks.getObservable(attributes).pipe(lazyLoadImage(this.hooks, attributes));
           })
         )
         .subscribe(success => this.onLoad.emit(success));
