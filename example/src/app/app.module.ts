@@ -12,6 +12,7 @@ import { ChangeImageComponent } from './pages/changing-image.component';
 import { OnLoadComponent } from './pages/onload.component';
 import { ResponsiveImageComponent } from './pages/responsive-image.component';
 import { BigImagesComponent } from './pages/big-images.component';
+import { AsyncImagesComponent } from './pages/async-images.component';
 import { CustomObserverComponent } from './pages/custom-observer';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { CustomObserverComponent } from './pages/custom-observer';
     OnLoadComponent,
     ResponsiveImageComponent,
     BigImagesComponent,
+    AsyncImagesComponent,
     CustomObserverComponent
   ],
   imports: [
@@ -45,6 +47,7 @@ import { CustomObserverComponent } from './pages/custom-observer';
       { path: 'on-load', component: OnLoadComponent },
       { path: 'responsive-image', component: ResponsiveImageComponent },
       { path: 'big-images', component: BigImagesComponent },
+      { path: 'async-images', component: AsyncImagesComponent },
       { path: 'custom-observer', component: CustomObserverComponent }
     ]),
     LazyLoadImageModule.forRoot(intersectionObserverPreset)
