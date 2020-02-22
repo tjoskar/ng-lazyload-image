@@ -22,6 +22,7 @@
 - [Install](#install)
 - [Setup](#setup)
 - [Usages](#usages)
+- [Debug](#debug)
 - [Css](#css)
 - [Hooks](#hooks)
 - [Search Engine Optimization (SEO)](#seo)
@@ -243,11 +244,17 @@ export class AboutPage {
 }
 ```
 
+## 🐛 Debug
+
+In order to get a better understanding of what is happening you can pass `[debug]="true"` which will output some debug information in the web console.
+
+See [onStateChange](#onStateChange) for more information about the diffrent output messages.
+
 ## 💅 CSS
 
 The css class name `ng-lazyloading` will automatically be added before the image is loaded and will be removed when the image has been loaded or if the image couldn't be loaded.
 
-The css class name `ng-lazyloaded` will be added when the image is loaded.
+The css class name `ng-lazyloaded` will be added when the image is loaded (regardless of if the image could be loaded or not).
 
 The css class name `ng-failed-lazyloaded` will be added when the image couldn't be loaded.
 
@@ -341,15 +348,64 @@ Example: `true`
 
 You can set this to `true`, the image well be [decoded](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) before inserted into the DOM. This can be useful for large images.
 
+##### debug (optional)
+
+type: `boolean`
+
+Exaple: `true`
+
+See [debug](#debug) for more information.
+
 ### Events
 
-##### onLoad (optional)
+##### onLoad (optional) deprecated
+
+This is deprecated, use `onStateChange` instead.
 
 Type: `Function: (success: boolean) => void`
 
 Example: `<img [lazyLoad]="lazyLoadImage" (onLoad)="myCallbackFunction($event)">`
 
 You can pass a callback function, which will be called when the image is loaded.
+
+##### onStateChange (optional) <a name = "onStateChange"></a>
+
+Type: `Function: (event: StateChange) => void`
+
+Example: `<img [lazyLoad]="lazyLoadImage" (onStateChange)="myCallbackFunction($event)">`
+
+You can pass a callback function, which will be called when the image is getting into different state.
+
+```ts
+myCallbackFunction(event: StateChange) {
+  switch (event.reason) {
+    case 'setup':
+      // The lib has been instantiated but we have not done anything yet.
+      break;
+    case 'observer-emit':
+      // The image observer (intersection/scroll observer) has emit a value so we
+      // should check if the image is in the viewport.
+      // `event.data` is the event in this case.
+      break;
+    case 'start-loading':
+      // The image is in the viewport so the image will start loading
+      break;
+    case 'mount-image':
+      // The image has been loaded successfully so lets put it into the DOM
+      break;
+    case 'loading-succeeded':
+      // The image has successfully been loaded and placed into the DOM
+      break;
+    case 'loading-failed':
+      // The image could not be loaded for some reason.
+      // `event.data` is the error in this case
+      break;
+    case 'finally':
+      // The last event before cleaning up
+      break;
+  }
+}
+```
 
 ## 🎣 Hooks <a name = "hooks"></a>
 

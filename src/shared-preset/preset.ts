@@ -1,22 +1,22 @@
+import { FinallyFn, IsBotFn, LoadImageFn, SetErrorImageFn, SetLoadedImageFn, SetupFn } from '../types';
 import {
+  addCssClassName,
   cssClassNames,
   hasCssClassName,
-  removeCssClassName,
-  addCssClassName,
-  isImageElement,
   isChildOfPicture,
-  setSourcesToLazy,
+  isImageElement,
+  removeCssClassName,
   setImage,
+  setImageAndSourcesToDefault,
   setImageAndSourcesToError,
   setImageAndSourcesToLazy,
-  setImageAndSourcesToDefault
+  setSourcesToLazy
 } from '../util';
-import { FinallyFn, LoadImageFn, SetErrorImageFn, SetLoadedImageFn, SetupFn, IsBotFn } from '../types';
 
 const end: FinallyFn = ({ element }) => {
   addCssClassName(element, cssClassNames.loaded);
   removeCssClassName(element, cssClassNames.loading);
-}
+};
 
 export const loadImage: LoadImageFn = ({ element, useSrcset, imagePath, decode }) => {
   let img: HTMLImageElement;

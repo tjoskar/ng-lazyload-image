@@ -4,7 +4,7 @@ import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { createHooks } from './hooks-factory';
 import { lazyLoadImage } from './lazyload-image';
-import { Attributes, HookSet, ModuleOptions } from './types';
+import { Attributes, HookSet, ModuleOptions, StateChange } from './types';
 import { getNavigator } from './util';
 
 @Directive({
@@ -19,11 +19,14 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
   @Input() offset?: number; // The number of px a image should be loaded before it is in view port
   @Input() useSrcset?: boolean; // Whether srcset attribute should be used instead of src
   @Input() decode?: boolean; // Decode the image before appending to the DOM
-  @Output() onLoad: EventEmitter<boolean> = new EventEmitter(); // Callback when an image is loaded
+  @Input() debug?: boolean; // Will print some debug info when `true`
+  @Output() onStateChange: EventEmitter<StateChange> = new EventEmitter(); // Emits an event on every state change
+  @Output() onLoad: EventEmitter<boolean> = new EventEmitter(); // @deprecated use `onStateChange` instead.
   private propertyChanges$: ReplaySubject<Attributes>;
   private elementRef: ElementRef;
   private ngZone: NgZone;
-  private scrollSubscription?: Subscription;
+  private loadSubscription?: Subscription;
+  private debugSubscription?: Subscription;
   private hooks: HookSet<any>;
   private platformId: Object;
 
@@ -36,6 +39,10 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
   }
 
   ngOnChanges() {
+    if (this.debug === true && !this.debugSubscription) {
+      this.debugSubscription = this.onStateChange.subscribe((e: StateChange) => console.log(e));
+    }
+
     this.propertyChanges$.next({
       element: this.elementRef.nativeElement,
       imagePath: this.lazyImage,
@@ -45,7 +52,8 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
       offset: this.offset ? this.offset | 0 : 0,
       scrollContainer: this.scrollTarget,
       customObservable: this.customObservable,
-      decode: this.decode
+      decode: this.decode,
+      onStateChange: this.onStateChange
     });
   }
 
@@ -56,8 +64,9 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
     }
 
     this.ngZone.runOutsideAngular(() => {
-      this.scrollSubscription = this.propertyChanges$
+      this.loadSubscription = this.propertyChanges$
         .pipe(
+          tap(attributes => attributes.onStateChange.emit({ reason: 'setup' })),
           tap(attributes => this.hooks.setup(attributes)),
           switchMap(attributes => this.hooks.getObservable(attributes).pipe(lazyLoadImage(this.hooks, attributes)))
         )
@@ -66,8 +75,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
   }
 
   ngOnDestroy() {
-    if (this.scrollSubscription) {
-      this.scrollSubscription.unsubscribe();
-    }
+    this.loadSubscription?.unsubscribe();
+    this.debugSubscription?.unsubscribe();
   }
 }

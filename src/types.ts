@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { Observable, ObservableInput } from 'rxjs';
 
 export type IsVisibleProps<E> = {
@@ -26,6 +27,11 @@ export type LoadImageProps = {
   decode?: boolean;
 };
 
+export type StateChange = {
+  reason: 'setup' | 'observer-emit' | 'start-loading' | 'mount-image' | 'loading-failed' | 'loading-succeeded' | 'finally';
+  data?: unknown;
+}
+
 export type Attributes<T = any> = {
   element: HTMLImageElement | HTMLDivElement;
   imagePath: string;
@@ -36,6 +42,7 @@ export type Attributes<T = any> = {
   scrollContainer?: HTMLElement;
   customObservable?: Observable<T>;
   decode?: boolean;
+  onStateChange: EventEmitter<StateChange>;
 };
 
 export type ObsEvent<T> = {
