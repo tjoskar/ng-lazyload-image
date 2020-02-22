@@ -7,6 +7,7 @@ describe('Setup', () => {
       nodeName: {
         toLowerCase: () => 'img'
       },
+      className: '',
       src: ''
     };
     const defaultImagePath = 'https://some-path/image.jpg';
@@ -30,7 +31,8 @@ describe('Setup', () => {
       nodeName: {
         toLowerCase: () => 'img'
       },
-      src: ''
+      src: '',
+      className: ''
     };
     const defaultImagePath = undefined;
     const useSrcset = false;
@@ -53,6 +55,7 @@ describe('Setup', () => {
       nodeName: {
         toLowerCase: () => 'img'
       },
+      className: '',
       src: '',
       srcset: ''
     };

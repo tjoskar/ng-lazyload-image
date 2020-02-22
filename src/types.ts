@@ -30,7 +30,7 @@ export type LoadImageProps = {
 export type StateChange = {
   reason: 'setup' | 'observer-emit' | 'start-loading' | 'mount-image' | 'loading-failed' | 'loading-succeeded' | 'finally';
   data?: unknown;
-}
+};
 
 export type Attributes<T = any> = {
   element: HTMLImageElement | HTMLDivElement;

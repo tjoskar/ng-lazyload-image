@@ -1,0 +1,25 @@
+name: Node CI
+
+on: ['push']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://npm.pkg.github.com'
+      - name: ⬇️ Install
+        run: npm install
+        env:
+          CI: true
+      - name: 🏗 Build
+        run: npm run build
+      - name: 🚥 Check code format
+        run: npx prettier --check "src/**/*.ts"
+      - name: ✅ Test
+        run: npm run test

@@ -4,11 +4,7 @@ import { sampleTime, share, startWith } from 'rxjs/operators';
 const scrollListeners = new WeakMap<any, Observable<any>>();
 
 export function sampleObservable<T>(obs: Observable<T>, scheduler?: any): Observable<T | ''> {
-  return obs.pipe(
-    sampleTime(100, scheduler),
-    share(),
-    startWith('')
-  );
+  return obs.pipe(sampleTime(100, scheduler), share(), startWith(''));
 }
 
 // Only create one scroll listener per target and share the observable.
