@@ -1,5 +1,16 @@
 # Changelog
 
+## 7.1.0 (2020-02-22)
+
+### Feature
+
+- Adding the css class `ng-lazyloading` in the setup and removing it in the `finally` event. Closes [#428](https://github.com/tjoskar/ng-lazyload-image/issues/428).
+- Adding the `onStateChange` event emitter and deprecating `onLoad`. Closes [#425](https://github.com/tjoskar/ng-lazyload-image/issues/425).
+
+### Bugfig
+
+- Do nothing if no image path is provided. Closes [#421](https://github.com/tjoskar/ng-lazyload-image/issues/421).
+
 ## 7.0.1 (2019-10-22)
 
 ### Bugfix
