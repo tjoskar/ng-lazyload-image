@@ -1,6 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { Observable, ObservableInput } from 'rxjs';
-
+// test
 export type IsVisibleProps<E> = {
   event: E;
   element: HTMLImageElement | HTMLDivElement;
