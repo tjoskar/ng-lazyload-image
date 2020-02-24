@@ -17,10 +17,11 @@
 - [Demo](#demo)
 - [Prerequisites](#prerequisites)
 - [Install](#install)
-- [Setup](#setup)
+- [Setup](#libsetup)
 - [Usages](#usages)
 - [Debug](#debug)
-- [Css](#css)
+- [CSS](#css)
+- [API](#api)
 - [Hooks](#hooks)
 - [Search Engine Optimization (SEO)](#seo)
 - [FAQ](#faq)
@@ -50,7 +51,7 @@ or the following if you are using yarn
 $ yarn add ng-lazyload-image
 ```
 
-## 🛠 Setup <a name = "setup"></a>
+## 🛠 Setup <a name = "libsetup"></a>
 
 Include the library in your module (see [app.module.ts](https://github.com/tjoskar/ng-lazyload-image/blob/master/example/src/app.module.ts)):
 
@@ -241,13 +242,13 @@ export class AboutPage {
 }
 ```
 
-## 🐛 Debug
+## 🐛 Debug <a name = "debug"></a>
 
 In order to get a better understanding of what is happening you can pass `[debug]="true"` which will output some debug information in the web console.
 
 See [onStateChange](#onStateChange) for more information about the diffrent output messages.
 
-## 💅 CSS
+## 💅 CSS <a name = "css"></a>
 
 The css class name `ng-lazyloading` will automatically be added before the image is loaded and will be removed when the image has been loaded or if the image couldn't be loaded.
 
@@ -255,7 +256,7 @@ The css class name `ng-lazyloaded` will be added when the image is loaded (regar
 
 The css class name `ng-failed-lazyloaded` will be added when the image couldn't be loaded.
 
-## 🔄 API
+## 🔄 API <a name = "api"></a>
 
 ##### lazyLoad
 
