@@ -5,7 +5,7 @@ import { switchMap, tap } from 'rxjs/operators';
 import { createHooks } from './hooks-factory';
 import { lazyLoadImage } from './lazyload-image';
 import { Attributes, HookSet, ModuleOptions, StateChange } from './types';
-import { getNavigator } from './util';
+import { getNavigator, isImageElement } from './util';
 
 @Directive({
   selector: '[lazyLoad]'
@@ -69,7 +69,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
           tap(attributes => attributes.onStateChange.emit({ reason: 'setup' })),
           tap(attributes => this.hooks.setup(attributes)),
           switchMap(attributes => {
-            if (!attributes.imagePath) {
+            if (!attributes.imagePath && isImageElement(attributes.element)) {
               return never();
             }
             return this.hooks.getObservable(attributes).pipe(lazyLoadImage(this.hooks, attributes));

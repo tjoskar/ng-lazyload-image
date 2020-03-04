@@ -19,6 +19,9 @@ const end: FinallyFn = ({ element }) => {
 };
 
 export const loadImage: LoadImageFn = ({ element, useSrcset, imagePath, decode }) => {
+  if (!imagePath) {
+    return Promise.resolve(null);
+  }
   let img: HTMLImageElement;
   if (isImageElement(element) && isChildOfPicture(element)) {
     const parentClone = element.parentNode!.cloneNode(true) as HTMLPictureElement;
