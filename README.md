@@ -2,11 +2,12 @@
 
 <div align="center">
 
-  [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-  ![npm](https://img.shields.io/npm/dw/ng-lazyload-image.svg)
-  [![npm version](https://badge.fury.io/js/ng-lazyload-image.svg)](https://badge.fury.io/js/ng-lazyload-image)
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-  ![Build Status](https://github.com/tjoskar/ng-lazyload-image/workflows/Node%20CI/badge.svg)
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+![npm](https://img.shields.io/npm/dw/ng-lazyload-image.svg)
+[![npm version](https://badge.fury.io/js/ng-lazyload-image.svg)](https://badge.fury.io/js/ng-lazyload-image)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+![Build Status](https://github.com/tjoskar/ng-lazyload-image/workflows/Node%20CI/badge.svg)
+
 </div>
 
 <p align="center">
@@ -14,6 +15,7 @@
 </p>
 
 ## 📝 Table of Contents
+
 - [Demo](#demo)
 - [Prerequisites](#prerequisites)
 - [Install](#install)
@@ -62,9 +64,9 @@ import { LazyLoadImageModule } from 'ng-lazyload-image'; // <-- import it
 import { AppComponent } from './app.component';
 
 @NgModule({
-    declarations: [ AppComponent ],
-    imports: [ BrowserModule, LazyLoadImageModule ], // <-- and include it
-    bootstrap: [ AppComponent ]
+  declarations: [AppComponent],
+  imports: [BrowserModule, LazyLoadImageModule], // <-- and include it
+  bootstrap: [AppComponent]
 })
 export class MyAppModule {}
 ```
@@ -84,14 +86,14 @@ import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image'; // <-- in
 import { AppComponent } from './app.component';
 
 @NgModule({
-    declarations: [ AppComponent ],
-    imports: [
-      BrowserModule,
-      LazyLoadImageModule.forRoot({
-        preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset
-      })
-    ],
-    bootstrap: [ AppComponent ]
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    LazyLoadImageModule.forRoot({
+      preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset
+    })
+  ],
+  bootstrap: [AppComponent]
 })
 export class MyAppModule {}
 ```
@@ -139,6 +141,7 @@ class ImageComponent {
 ### Responsive images
 
 If using responsive images in a plain `<img>` tag, you'll need to set the `useSrcset` attribute to `true`:
+
 ```javascript
 @Component({
   selector: 'image',
@@ -149,7 +152,7 @@ If using responsive images in a plain `<img>` tag, you'll need to set the `useSr
     `
 })
 class ImageComponent {
-defaultImage = 'https://www.placecage.com/1000/1000';
+  defaultImage = 'https://www.placecage.com/1000/1000';
   images = `https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?fm=jpg 700w,
             https://images.unsplash.com/photo-1437818628339-19ded67ade8e?fm=jpg 1100w`;
 }
@@ -159,6 +162,7 @@ If using responsive images in a `<picture>` tag, set the default `<img>` tag as 
 You can use `attr.lazyLoad`, `attr.defaultImage` and `attr.errorImage` attributes for `<source>` elements.  
 There's no need to set `useSrcset` for `<source>` elements, as `srcset` is used by default.  
 A simple example for a `<picture>` tag:
+
 ```javascript
 @Component({
   selector: 'image',
@@ -171,20 +175,21 @@ A simple example for a `<picture>` tag:
     `
 })
 class ImageComponent {
-    screen_lg = '1200px';
-    screen_md = '992px';
-    defaultImage = 'https://www.placecage.com/1000/1000';
-    image1 = 'https://images.unsplash.com/photo-1422004707501-e8dad229e17a?fm=jpg';
-    image2 = 'https://images.unsplash.com/photo-1439931444800-9bcc83f804a6?fm=jpg';
-    image3 = 'https://images.unsplash.com/photo-1417128281290-30a42da46277?fm=jpg';
+  screen_lg = '1200px';
+  screen_md = '992px';
+  defaultImage = 'https://www.placecage.com/1000/1000';
+  image1 = 'https://images.unsplash.com/photo-1422004707501-e8dad229e17a?fm=jpg';
+  image2 = 'https://images.unsplash.com/photo-1439931444800-9bcc83f804a6?fm=jpg';
+  image3 = 'https://images.unsplash.com/photo-1417128281290-30a42da46277?fm=jpg';
 }
 ```
 
 ### Loading image path async
 
 You can load image async or change the url on the fly, eg.
+
 ```html
-<img [lazyLoad]="image$ | async">
+<img [lazyLoad]="image$ | async" />
 ```
 
 ### Custom observable
@@ -205,7 +210,7 @@ constructor() {
 ```
 
 ```html
-<img [customObservable]="scroll$" ... >
+<img [customObservable]="scroll$" ... />
 ```
 
 ### Ionic
@@ -230,15 +235,15 @@ In case of using ion-slides in Ionic 2+, you can include your own scroll observa
 
 ```javascript
 @Component({
-    selector: 'page-image',
-    template: `
+  selector: 'page-image',
+  template: `
       <ion-content #container padding>
         <img [defaultImage]="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [customObservable]="container.ionSlideWillChange" />
       </ion-content>
     `
 })
 export class AboutPage {
-    lazyLoadImage = 'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5';
+  lazyLoadImage = 'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5';
 }
 ```
 
@@ -267,7 +272,7 @@ Example: `https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg`
 The image to be lazy loaded. This image will replace the default image (`defaultImage`).
 
 ```html
-<img [defaultImage]="'https://www.placecage.com/1000/1000'" [lazyLoad]="'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5'">
+<img [defaultImage]="'https://www.placecage.com/1000/1000'" [lazyLoad]="'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5'" />
 ```
 
 ##### defaultImage (optional)
@@ -284,7 +289,6 @@ You can also use `src` attribute for img tag to define default image:
 or `background-image` property for non-image tags:  
 `<div style="background-image: url('https://www.placecage.com/1000/1000');" [lazyLoad]="lazyLoadImage"></div>`
 
-
 ##### errorImage (optional)
 
 Type: `string`
@@ -294,7 +298,7 @@ Example: `https://i.imgur.com/XkU4Ajf.png`
 An image to be loaded if failing to load `lazyLoad`. Will load the default image (`defaultImage`) if absent.
 
 ```html
-<img [defaultImage]="someDefaultImage" [lazyLoad]="imageToLazyLoad" [errorImage]="imageToShowOnError">
+<img [defaultImage]="someDefaultImage" [lazyLoad]="imageToLazyLoad" [errorImage]="imageToShowOnError" />
 ```
 
 ##### offset (optional)
@@ -308,7 +312,7 @@ Default: `0`
 Number of px a image should be loaded before it is in view port
 
 ```html
-<img [defaultImage]="someDefaultImage" [lazyLoad]="imageToLazyLoad" offset="100">
+<img [defaultImage]="someDefaultImage" [lazyLoad]="imageToLazyLoad" offset="100" />
 ```
 
 ##### scrollTarget (optional)
@@ -422,16 +426,15 @@ function loadImage({ imagePath }: LoadImageProps): Promise<string> {
     headers: {
       Authorization: 'Bearer ...'
     }
-  }).then(res => res.blob()).then(blob => URL.createObjectURL(blob));
+  })
+    .then(res => res.blob())
+    .then(blob => URL.createObjectURL(blob));
 }
 
 @NgModule({
-    declarations: [ AppComponent ],
-    imports: [
-      BrowserModule,
-      LazyLoadImageModule.forRoot({ loadImage })
-    ],
-    bootstrap: [ AppComponent ]
+  declarations: [AppComponent],
+  imports: [BrowserModule, LazyLoadImageModule.forRoot({ loadImage })],
+  bootstrap: [AppComponent]
 })
 export class MyAppModule {}
 ```
@@ -460,6 +463,7 @@ See [intersection-listener.ts](https://github.com/tjoskar/ng-lazyload-image/blob
 Function to check if the element is vissible.
 
 Eg.
+
 ```ts
 import { IsVisibleProps } from 'ng-lazyload-image';
 
@@ -481,7 +485,9 @@ function loadImage({ imagePath }: LoadImageProps) {
     headers: {
       Authorization: 'Bearer ...'
     }
-  }).then(res => res.blob()).then(blob => URL.createObjectURL(blob));
+  })
+    .then(res => res.blob())
+    .then(blob => URL.createObjectURL(blob));
 }
 ```
 
@@ -489,7 +495,7 @@ If you don't want to load the image but instead let the browser load it for you,
 
 ```ts
 function loadImage({ imagePath }: LoadImageProps) {
-  return [ imagePath ];
+  return [imagePath];
 }
 ```
 
@@ -557,6 +563,7 @@ function finally(atter: Attributes) {
 A function to check if the current user is a bot or not. Can be useful for SSR and SEO.
 
 Default function:
+
 ```ts
 export const isBot: IsBotFn = navigator => {
   if (navigator && navigator.userAgent) {
@@ -569,6 +576,7 @@ export const isBot: IsBotFn = navigator => {
 ```
 
 You could also force all images to load under SSR by providing such a function to LazyLoadImageModule.forRoot:
+
 ```ts
 export function isBot(navigator, platformId) {
   return isPlatformServer(platformId) ? true : intersectionObserverPreset.isBot(navigator, platformId);
@@ -588,14 +596,14 @@ import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
 import { AppComponent } from './app.component';
 
 @NgModule({
-    declarations: [ AppComponent ],
-    imports: [
-      BrowserModule,
-      LazyLoadImageModule.forRoot({
-        preset: scrollPreset
-      })
-    ],
-    bootstrap: [ AppComponent ]
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    LazyLoadImageModule.forRoot({
+      preset: scrollPreset
+    })
+  ],
+  bootstrap: [AppComponent]
 })
 export class MyAppModule {}
 ```
@@ -606,7 +614,7 @@ If you want to use the `scrollPreset` but overwride on of the functions, you can
 LazyLoadImageModule.forRoot({
   preset: scrollPreset,
   finally: ({ element }) => console.log('The image is loaded', element)
-})
+});
 ```
 
 ## 🔎 Search Engine Optimization (SEO) <a name = "seo"></a>
@@ -645,6 +653,10 @@ LazyLoadImageModule.forRoot({
 
 **A** See: https://github.com/tjoskar/ng-lazyload-image/issues/390
 
+**Q** It doesn't work with `BrowserAnimationsModule`
+
+**A** Are you using the scroll preset? If so, take a look at this [issue](https://github.com/tjoskar/ng-lazyload-image/issues/438).
+
 **Q** I can't get it to work. Can you help me?
 
 **A** Sure, create an issue and describe your issue in as much detail as possible.
@@ -652,5 +664,3 @@ LazyLoadImageModule.forRoot({
 ## 🙇‍ Contributing <a name = "contributing"></a>
 
 See the [contributing guide](CONTRIBUTING.md)
-
-
