@@ -9,11 +9,12 @@ import { DefaultImageComponent } from './pages/default-image.component';
 import { PixelatedImageComponent } from './pages/pixelated-image.component';
 import { ScrollContainerComponent } from './pages/scroll-container.component';
 import { ChangeImageComponent } from './pages/changing-image.component';
-import { OnLoadComponent } from './pages/onload.component';
+import { OnStateChangeComponent } from './pages/on-state-change.component';
 import { ResponsiveImageComponent } from './pages/responsive-image.component';
 import { BigImagesComponent } from './pages/big-images.component';
 import { AsyncImagesComponent } from './pages/async-images.component';
 import { CustomObserverComponent } from './pages/custom-observer';
+import { OffsetComponent } from './pages/offset.component';
 
 @NgModule({
   declarations: [
@@ -24,11 +25,12 @@ import { CustomObserverComponent } from './pages/custom-observer';
     PixelatedImageComponent,
     ScrollContainerComponent,
     ChangeImageComponent,
-    OnLoadComponent,
+    OnStateChangeComponent,
     ResponsiveImageComponent,
     BigImagesComponent,
     AsyncImagesComponent,
-    CustomObserverComponent
+    CustomObserverComponent,
+    OffsetComponent
   ],
   imports: [
     BrowserModule,
@@ -44,11 +46,12 @@ import { CustomObserverComponent } from './pages/custom-observer';
       { path: 'default-image', component: DefaultImageComponent },
       { path: 'pixelated-image', component: PixelatedImageComponent },
       { path: 'scroll-container', component: ScrollContainerComponent },
-      { path: 'on-load', component: OnLoadComponent },
+      { path: 'on-load', component: OnStateChangeComponent },
       { path: 'responsive-image', component: ResponsiveImageComponent },
       { path: 'big-images', component: BigImagesComponent },
       { path: 'async-images', component: AsyncImagesComponent },
-      { path: 'custom-observer', component: CustomObserverComponent }
+      { path: 'custom-observer', component: CustomObserverComponent },
+      { path: 'offset', component: OffsetComponent }
     ]),
     LazyLoadImageModule.forRoot(intersectionObserverPreset)
   ],

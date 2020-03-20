@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { StateChange } from 'ng-lazyload-image';
 
 @Component({
   selector: 'default-image',
@@ -13,28 +14,25 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
     `
   ],
   template: `
-    <div *ngIf="isLoading">Image is loading...</div>
-    <div *ngIf="!isLoading">Image is loaded</div>
+    <h3>States (see also the console):</h3>
+    <p *ngFor="let state of imageStates">{{ state }}</p>
     <div [ngClass]="{ hidden: isLoading }">
-      <img [defaultImage]="defaultImage" [errorImage]="errorImage" [lazyLoad]="image" (onLoad)="onLoadImage($event)" />
+      <img [defaultImage]="defaultImage" [errorImage]="errorImage" [lazyLoad]="image" (onStateChange)="onStateChange($event)" />
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OnLoadComponent {
-  isLoading = true;
+export class OnStateChangeComponent {
   errorImage = 'https://i.imgur.com/XkU4Ajf.png';
   defaultImage = 'https://www.placecage.com/1000/1000';
   image = 'https://images.unsplash.com/photo-1467932760935-519284fc87fa?dpr=2&auto=compress,format&fit=crop&w=1199&h=800&q=80';
+  imageStates: string[] = [];
 
   constructor(private cd: ChangeDetectorRef) {}
 
-  onLoadImage(success: boolean) {
-    if (success) {
-      this.isLoading = false;
-      this.cd.detectChanges();
-    } else {
-      alert('Image cannot be loaded!');
-    }
+  onStateChange(state: StateChange) {
+    this.imageStates.push(state.reason);
+    console.log(state);
+    this.cd.detectChanges();
   }
 }
