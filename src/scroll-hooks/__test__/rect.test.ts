@@ -8,8 +8,8 @@ describe('Rect', () => {
         left: 100,
         top: 200,
         right: 300,
-        bottom: 400
-      })
+        bottom: 400,
+      }),
     };
 
     // Act
@@ -26,7 +26,7 @@ describe('Rect', () => {
     // Arrange
     const _window = {
       innerWidth: 100,
-      innerHeight: 200
+      innerHeight: 200,
     };
 
     // Act

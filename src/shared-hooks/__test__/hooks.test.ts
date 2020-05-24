@@ -1,25 +1,35 @@
-import { sharedPreset } from '../preset';
+import { SharedHooks } from '../hooks';
+
+class TestClass extends SharedHooks<unknown> {
+  getObservable(): never {
+    throw new Error('Method not implemented.');
+  }
+  isVisible(): never {
+    throw new Error('Method not implemented.');
+  }
+}
 
 describe('Setup', () => {
   it('Should set default image if defined', () => {
     // Arrange
     const element = {
       nodeName: {
-        toLowerCase: () => 'img'
+        toLowerCase: () => 'img',
       },
       className: '',
-      src: ''
+      src: '',
     };
     const defaultImagePath = 'https://some-path/image.jpg';
     const useSrcset = false;
     const attribute = {
       element,
       defaultImagePath,
-      useSrcset
+      useSrcset,
     };
+    const hooks = new TestClass();
 
     // Act
-    sharedPreset.setup(attribute as any);
+    hooks.setup(attribute as any);
 
     // Assert
     expect(element.src).toBe(defaultImagePath);
@@ -29,21 +39,22 @@ describe('Setup', () => {
     // Arrange
     const element = {
       nodeName: {
-        toLowerCase: () => 'img'
+        toLowerCase: () => 'img',
       },
       src: '',
-      className: ''
+      className: '',
     };
     const defaultImagePath = undefined;
     const useSrcset = false;
     const attribute = {
       element,
       defaultImagePath,
-      useSrcset
+      useSrcset,
     };
+    const hooks = new TestClass();
 
     // Act
-    sharedPreset.setup(attribute as any);
+    hooks.setup(attribute as any);
 
     // Assert
     expect(element.src).toBe('');
@@ -53,22 +64,23 @@ describe('Setup', () => {
     // Arrange
     const element = {
       nodeName: {
-        toLowerCase: () => 'img'
+        toLowerCase: () => 'img',
       },
       className: '',
       src: '',
-      srcset: ''
+      srcset: '',
     };
     const defaultImagePath = 'https://some-path/image.jpg';
     const useSrcset = true;
     const attribute = {
       element,
       defaultImagePath,
-      useSrcset
+      useSrcset,
     };
+    const hooks = new TestClass();
 
     // Act
-    sharedPreset.setup(attribute as any);
+    hooks.setup(attribute as any);
 
     // Assert
     expect(element.src).toBe('');
@@ -93,11 +105,12 @@ describe('Setup', () => {
     const attribute = {
       element: img,
       defaultImagePath: imagePath1,
-      useSrcset: false
+      useSrcset: false,
     };
+    const hooks = new TestClass();
 
     // Act
-    sharedPreset.setup(attribute as any);
+    hooks.setup(attribute as any);
 
     // Assert
     expect(img.src).toBe(imagePath1);
@@ -110,11 +123,13 @@ describe('isBot', () => {
   test('Google bot is a bot', () => {
     // Arrange
     const navigator = {
-      userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+      userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
     };
+    const hooks = new TestClass();
+    hooks.navigator = navigator as any;
 
     // Act
-    const result = sharedPreset.isBot(navigator as any, {});
+    const result = hooks.isBot();
 
     // Assert
     expect(result).toBe(true);
@@ -123,11 +138,13 @@ describe('isBot', () => {
   test('Firefox is not a bot', () => {
     // Arrange
     const navigator = {
-      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0'
+      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:70.0) Gecko/20100101 Firefox/70.0',
     };
+    const hooks = new TestClass();
+    hooks.navigator = navigator as any;
 
     // Act
-    const result = sharedPreset.isBot(navigator as any, {});
+    const result = hooks.isBot();
 
     // Assert
     expect(result).toBe(false);
@@ -136,11 +153,13 @@ describe('isBot', () => {
   test('Chrome is not a bot', () => {
     // Arrange
     const navigator = {
-      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'
+      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36',
     };
+    const hooks = new TestClass();
+    hooks.navigator = navigator as any;
 
     // Act
-    const result = sharedPreset.isBot(navigator as any, {});
+    const result = hooks.isBot();
 
     // Assert
     expect(result).toBe(false);
@@ -149,11 +168,13 @@ describe('isBot', () => {
   test('Slack bot is a bot', () => {
     // Arrange
     const navigator = {
-      userAgent: 'Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)'
+      userAgent: 'Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)',
     };
+    const hooks = new TestClass();
+    hooks.navigator = navigator as any;
 
     // Act
-    const result = sharedPreset.isBot(navigator as any, {});
+    const result = hooks.isBot();
 
     // Assert
     expect(result).toBe(true);

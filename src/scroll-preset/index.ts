@@ -1,1 +1,0 @@
-export { scrollPreset } from './preset';

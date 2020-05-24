@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { LazyLoadImageModule, ScrollHooks, Attributes } from 'ng-lazyload-image';
 import { AppComponent } from './app.component';
 import { FadeInImageComponent } from './pages/fade-in-image.component';
 import { BgImageComponent } from './pages/bg-image.component';
@@ -53,7 +53,7 @@ import { OffsetComponent } from './pages/offset.component';
       { path: 'custom-observer', component: CustomObserverComponent },
       { path: 'offset', component: OffsetComponent }
     ]),
-    LazyLoadImageModule.forRoot(intersectionObserverPreset)
+    LazyLoadImageModule
   ],
   bootstrap: [AppComponent]
 })

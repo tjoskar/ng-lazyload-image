@@ -1,31 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { Observable, ObservableInput } from 'rxjs';
-
-export type IsVisibleProps<E> = {
-  event: E;
-  element: HTMLImageElement | HTMLDivElement;
-  offset: number;
-  scrollContainer?: HTMLElement;
-};
-
-export type SetLoadedImageProps = {
-  element: HTMLImageElement | HTMLDivElement;
-  imagePath: string;
-  useSrcset?: boolean;
-};
-
-export type SetErrorImageProps = {
-  element: HTMLImageElement | HTMLDivElement;
-  errorImagePath?: string;
-  useSrcset?: boolean;
-};
-
-export type LoadImageProps = {
-  element: HTMLImageElement | HTMLDivElement;
-  imagePath: string;
-  useSrcset?: boolean;
-  decode?: boolean;
-};
+import { getNavigator } from './util';
 
 export type StateChange = {
   reason: 'setup' | 'observer-emit' | 'start-loading' | 'mount-image' | 'loading-failed' | 'loading-succeeded' | 'finally';
@@ -33,44 +8,70 @@ export type StateChange = {
 };
 
 export type Attributes<T = any> = {
+  /**
+   * A reference to the element
+   */
   element: HTMLImageElement | HTMLDivElement;
+  /**
+   * A URI path to the image to be lazyloaded
+   */
   imagePath: string;
+  /**
+   * A URI path to the default image
+   */
   defaultImagePath?: string;
+  /**
+   * A URI path to the error image
+   */
   errorImagePath?: string;
+  /**
+   * If true, use a `srcset` for the image
+   */
   useSrcset?: boolean;
+  /**
+   * Number of pixels to use as offset in all directions
+   */
   offset: number;
+  /**
+   * A reference to the scroll container, if not window
+   */
   scrollContainer?: HTMLElement;
+  /**
+   * A custom customObservable.
+   */
   customObservable?: Observable<T>;
+  /**
+   * If true, try to decode the image before put it to the DOM
+   */
   decode?: boolean;
+  /**
+   * If true, try to decode the image before put it to the DOM
+   */
   onStateChange: EventEmitter<StateChange>;
+  /**
+   * A uniq id for the image
+   */
+  id: string;
 };
 
-export type ObsEvent<T> = {
-  event: T;
-  attributes: Attributes;
-};
+export abstract class Hooks<E = unknown> {
+  navigator?: Navigator = getNavigator();
+  protected platformId!: Object;
 
-export type IsVisibleFn<E> = (args: IsVisibleProps<E>, getWindow?: () => Window) => boolean;
+  setPlatformId(platformId: Object) {
+    this.platformId = platformId;
+  }
 
-export type LoadImageFn = (args: LoadImageProps) => ObservableInput<string>;
-export type SetLoadedImageFn = (args: SetLoadedImageProps) => void;
-export type SetErrorImageFn = (args: SetErrorImageProps) => void;
-export type SetupFn = (attributes: Attributes) => void;
-export type FinallyFn = (attributes: Attributes) => void;
-export type GetObservableFn<E> = (attributes: Attributes) => Observable<E>;
-export type IsBotFn = (navigator: Navigator | undefined, platformId: Object) => boolean;
-
-export interface HookSet<E> {
-  getObservable: GetObservableFn<E>;
-  isVisible: IsVisibleFn<E>;
-  loadImage: LoadImageFn;
-  setLoadedImage: SetLoadedImageFn;
-  setErrorImage: SetErrorImageFn;
-  setup: SetupFn;
-  finally: FinallyFn;
-  isBot: IsBotFn;
-}
-
-export interface ModuleOptions<T = any> extends Partial<HookSet<T>> {
-  preset?: HookSet<T>;
+  abstract getObservable(attributes: Attributes): Observable<E>;
+  abstract isVisible(event: E, attributes: Attributes): boolean;
+  abstract loadImage(attributes: Attributes): ObservableInput<string>;
+  abstract setLoadedImage(imagePath: string, attributes: Attributes): void;
+  abstract setErrorImage(error: Error, attributes: Attributes): void;
+  abstract setup(attributes: Attributes): void;
+  abstract finally(attributes: Attributes): void;
+  abstract isBot(attributes: Attributes): boolean;
+  abstract isDisabled(): boolean;
+  abstract skipLazyLoading(attributes: Attributes): boolean;
+  onDestroy(attributes: Attributes): void {}
+  onAttributeChange(newAttributes: Attributes): void {}
 }

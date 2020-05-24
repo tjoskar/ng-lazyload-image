@@ -1,14 +1,11 @@
-import { isPlatformServer } from '@angular/common';
-import { AfterContentInit, Directive, ElementRef, EventEmitter, Inject, Input, NgZone, OnChanges, OnDestroy, Optional, Output, PLATFORM_ID } from '@angular/core';
-import { Observable, ReplaySubject, Subscription, never } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
-import { createHooks } from './hooks-factory';
+import { AfterContentInit, Directive, ElementRef, EventEmitter, Inject, Input, NgZone, OnChanges, OnDestroy, Output, PLATFORM_ID } from '@angular/core';
+import { never, Observable, ReplaySubject, Subscription } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { lazyLoadImage } from './lazyload-image';
-import { Attributes, HookSet, ModuleOptions, StateChange } from './types';
-import { getNavigator } from './util';
+import { Attributes, Hooks, StateChange } from './types';
 
 @Directive({
-  selector: '[lazyLoad]'
+  selector: '[lazyLoad]',
 })
 export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDestroy {
   @Input('lazyLoad') lazyImage!: string; // The image to be lazy loaded
@@ -21,21 +18,21 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
   @Input() decode?: boolean; // Decode the image before appending to the DOM
   @Input() debug?: boolean; // Will print some debug info when `true`
   @Output() onStateChange: EventEmitter<StateChange> = new EventEmitter(); // Emits an event on every state change
-  @Output() onLoad: EventEmitter<boolean> = new EventEmitter(); // @deprecated use `onStateChange` instead.
   private propertyChanges$: ReplaySubject<Attributes>;
   private elementRef: ElementRef;
   private ngZone: NgZone;
   private loadSubscription?: Subscription;
   private debugSubscription?: Subscription;
-  private hooks: HookSet<any>;
-  private platformId: Object;
+  private hooks: Hooks;
+  private uid: string;
 
-  constructor(el: ElementRef, ngZone: NgZone, @Inject(PLATFORM_ID) platformId: Object, @Optional() @Inject('options') options?: ModuleOptions) {
+  constructor(el: ElementRef, ngZone: NgZone, @Inject(PLATFORM_ID) platformId: Object, @Inject('LazyLoadImageHooks') hooks: Hooks) {
     this.elementRef = el;
     this.ngZone = ngZone;
     this.propertyChanges$ = new ReplaySubject();
-    this.platformId = platformId;
-    this.hooks = createHooks(platformId, options);
+    this.hooks = hooks;
+    hooks.setPlatformId(platformId);
+    this.uid = Math.random().toString(36).substr(2, 9);
   }
 
   ngOnChanges() {
@@ -53,33 +50,40 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
       scrollContainer: this.scrollTarget,
       customObservable: this.customObservable,
       decode: this.decode,
-      onStateChange: this.onStateChange
+      onStateChange: this.onStateChange,
+      id: this.uid,
     });
   }
 
   ngAfterContentInit() {
-    // Don't do anything if SSR and the user isn't a bot
-    if (isPlatformServer(this.platformId) && !this.hooks.isBot(getNavigator(), this.platformId)) {
+    if (this.hooks.isDisabled()) {
       return null;
     }
 
     this.ngZone.runOutsideAngular(() => {
       this.loadSubscription = this.propertyChanges$
         .pipe(
-          tap(attributes => attributes.onStateChange.emit({ reason: 'setup' })),
-          tap(attributes => this.hooks.setup(attributes)),
-          switchMap(attributes => {
+          tap((attributes) => this.hooks.onAttributeChange(attributes)),
+          tap((attributes) => attributes.onStateChange.emit({ reason: 'setup' })),
+          tap((attributes) => this.hooks.setup(attributes)),
+          switchMap((attributes) => {
             if (!attributes.imagePath) {
               return never();
             }
             return this.hooks.getObservable(attributes).pipe(lazyLoadImage(this.hooks, attributes));
           })
         )
-        .subscribe(success => this.onLoad.emit(success));
+        .subscribe({
+          next: () => null,
+        });
     });
   }
 
   ngOnDestroy() {
+    this.propertyChanges$
+      .pipe(take(1))
+      .subscribe({ next: (attributes) => this.hooks.onDestroy(attributes) })
+      .unsubscribe();
     this.loadSubscription?.unsubscribe();
     this.debugSubscription?.unsubscribe();
   }

@@ -66,7 +66,7 @@ import { AppComponent } from './app.component';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, LazyLoadImageModule], // <-- and include it
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class MyAppModule {}
 ```
@@ -77,23 +77,18 @@ export class MyAppModule {}
 
 ### Scroll listener
 
-You can easily swtich from IntersectionObserver to scroll listener by using the `scrollPreset`:
+You can easily swtich from IntersectionObserver to scroll listener by using the `scrollHooks`:
 
 ```javascript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image'; // <-- include scrollPreset
+import { LazyLoadImageModule, ScrollHooks } from 'ng-lazyload-image'; // <-- include ScrollHooks
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    LazyLoadImageModule.forRoot({
-      preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset
-    })
-  ],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, LazyLoadImageModule.forRoot(ScrollHooks)],
+  bootstrap: [AppComponent],
 })
 export class MyAppModule {}
 ```
@@ -111,9 +106,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'image',
-  template: `
-    <img [defaultImage]="defaultImage" [lazyLoad]="image">
-  `
+  template: ` <img [defaultImage]="defaultImage" [lazyLoad]="image" /> `,
 })
 class ImageComponent {
   defaultImage = 'https://www.placecage.com/1000/1000';
@@ -128,9 +121,7 @@ It also supports background images, by using `backgroundImage`:
 ```javascript
 @Component({
   selector: 'image',
-  template: `
-    <div [defaultImage]="defaultImage" [lazyLoad]="image"></div>
-  `
+  template: ` <div [defaultImage]="defaultImage" [lazyLoad]="image"></div> `,
 })
 class ImageComponent {
   defaultImage = 'https://www.placecage.com/1000/1000';
@@ -145,11 +136,7 @@ If using responsive images in a plain `<img>` tag, you'll need to set the `useSr
 ```javascript
 @Component({
   selector: 'image',
-  template: `
-    <img [defaultImage]="defaultImage"
-         [lazyLoad]="images"
-         [useSrcset]="true">
-    `
+  template: ` <img [defaultImage]="defaultImage" [lazyLoad]="images" [useSrcset]="true" /> `,
 })
 class ImageComponent {
   defaultImage = 'https://www.placecage.com/1000/1000';
@@ -168,11 +155,11 @@ A simple example for a `<picture>` tag:
   selector: 'image',
   template: `
     <picture>
-      <source media="(min-width: {{ screen_lg }})" [attr.defaultImage]="defaultImage" [attr.lazyLoad]="image2">
-      <source media="(min-width: {{ screen_md }})" [attr.defaultImage]="defaultImage" [attr.lazyLoad]="image3">
-      <img [defaultImage]="defaultImage" [lazyLoad]="image1">
+      <source media="(min-width: {{ screen_lg }})" [attr.defaultImage]="defaultImage" [attr.lazyLoad]="image2" />
+      <source media="(min-width: {{ screen_md }})" [attr.defaultImage]="defaultImage" [attr.lazyLoad]="image3" />
+      <img [defaultImage]="defaultImage" [lazyLoad]="image1" />
     </picture>
-    `
+  `,
 })
 class ImageComponent {
   screen_lg = '1200px';
@@ -222,9 +209,9 @@ If you are using Ionic and **don't** want to use IntersectionObserver, you may n
   selector: 'page-image',
   template: `
     <ion-content #container padding>
-      <img [defaultImage]="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [customObservable]="container.ionScroll" />
+      <img [defaultImage]="https:  //www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [customObservable]="container.ionScroll" />
     </ion-content>
-  `
+  `,
 })
 export class AboutPage {
   lazyLoadImage = 'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5';
@@ -237,10 +224,10 @@ In case of using ion-slides in Ionic 2+, you can include your own scroll observa
 @Component({
   selector: 'page-image',
   template: `
-      <ion-content #container padding>
-        <img [defaultImage]="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [customObservable]="container.ionSlideWillChange" />
-      </ion-content>
-    `
+    <ion-content #container padding>
+      <img [defaultImage]="https:  //www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [customObservable]="container.ionSlideWillChange" />
+    </ion-content>
+  `,
 })
 export class AboutPage {
   lazyLoadImage = 'https://hd.unsplash.com/photo-1431400445088-1750c997c6b5';
@@ -348,7 +335,7 @@ Type: `boolean`
 
 Example: `true`
 
-You can set this to `true`, the image well be [decoded](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) before inserted into the DOM. This can be useful for large images.
+You can set this to `true`, the image will be [decoded](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode) before inserted into the DOM. This can be useful for large images.
 
 ##### debug (optional)
 
@@ -359,16 +346,6 @@ Exaple: `true`
 See [debug](#debug) for more information.
 
 ### Events
-
-##### onLoad (optional) deprecated
-
-This is deprecated, use `onStateChange` instead.
-
-Type: `Function: (success: boolean) => void`
-
-Example: `<img [lazyLoad]="lazyLoadImage" (onLoad)="myCallbackFunction($event)">`
-
-You can pass a callback function, which will be called when the image is loaded.
 
 ##### onStateChange (optional) <a name = "onStateChange"></a>
 
@@ -418,23 +395,57 @@ For example, let's say you want to fetch an image with some custom headers. If s
 ```ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { LazyLoadImageModule, intersectionObserverPreset, LoadImageProps } from 'ng-lazyload-image';
+import { LazyLoadImageModule, IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
 import { AppComponent } from './app.component';
 
-function loadImage({ imagePath }: LoadImageProps): Promise<string> {
-  return await fetch(imagePath, {
-    headers: {
-      Authorization: 'Bearer ...'
-    }
-  })
-    .then(res => res.blob())
-    .then(blob => URL.createObjectURL(blob));
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  loadImage({ imagePath }: Attributes): Promise<string> {
+    return await fetch(imagePath, {
+      headers: {
+        Authorization: 'Bearer ...',
+      },
+    })
+      .then((res) => res.blob())
+      .then((blob) => URL.createObjectURL(blob));
+  }
 }
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, LazyLoadImageModule.forRoot({ loadImage })],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, LazyLoadImageModule.forRoot(LazyLoadImageHooks)],
+  bootstrap: [AppComponent],
+})
+export class MyAppModule {}
+```
+
+You can even use other services by inject them. Lets say you want to use Angulars https class instead of `window.fetch`:
+
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LazyLoadImageModule, IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
+import { AppComponent } from './app.component';
+
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  private http: HttpClient;
+
+  constructor(http: HttpClient) {
+    super();
+    this.http = http;
+  }
+
+  loadImage({ imagePath }: Attributes): Promise<string> {
+    return this.http.get(imagePath, {
+      responseType: 'blob',
+      headers: { Authorization: 'Bearer ...' },
+    }).pipe(map(blob => URL.createObjectURL(blob)));
+  }
+}
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, LazyLoadImageModule.forRoot(LazyLoadImageHooks, [HttpClient])], // You must add the dependency list here
+  bootstrap: [AppComponent],
 })
 export class MyAppModule {}
 ```
@@ -443,20 +454,25 @@ The following hooks are supported:
 
 ### getObservable
 
-Should return an observable that emits a new value every time `ng-lazyload-image` should check if the image is in viewport.
+Should return an observable that emits a new value every time `ng-lazyload-image` should check if the image is in viewport. It is important that the emited event is of the same type `isVisible` expects.
 
 Eg.
 
 ```ts
-import { Attributes } from 'ng-lazyload-image';
+import { Attributes, IntersectionObserverHooks } from 'ng-lazyload-image';
 
-// This will trigger an event every second
-function getObservable(attributes: Attributes) {
-  return interval(1000);
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  getObservable(attributes: Attributes) {
+    // Will emit `{ isIntersecting: true }` every second.
+    // You will have to overwride `isVisible` if you want to pass another event
+    return interval(1000).pipe(mapTo({ isIntersecting: true })));
+  }
 }
 ```
 
-See [intersection-listener.ts](https://github.com/tjoskar/ng-lazyload-image/blob/master/src/intersection-observer-preset/intersection-listener.ts#L19) for example.
+See [intersection-listener.ts](https://github.com/tjoskar/ng-lazyload-image/blob/master/src/intersection-observer-hooks/hooks.ts) for example.
+
+See `isVisible` if you want to use your own event.
 
 ### isVisible
 
@@ -465,11 +481,31 @@ Function to check if the element is vissible.
 Eg.
 
 ```ts
-import { IsVisibleProps } from 'ng-lazyload-image';
+import { Attributes, ScrollHooks } from 'ng-lazyload-image';
 
-function isVisible({ event, element, scrollContainer, offset }: IsVisibleProps<SomeEvent>) {
-  // `event` is form `getObservable`
-  return isElementInViewport(element, scrollContainer, offset);
+class LazyLoadImageHooks extends ScrollHooks {
+  isVisible(event: Event | string, { element, scrollContainer, offset }: Attributes) {
+    // `event` is form `getObservable`
+    return isElementInViewport(element, scrollContainer, offset);
+  }
+}
+```
+
+If you want to create your own event, you can create both `getObservable` and `isVisible` by extend `SharedHooks`:
+
+```ts
+import { Attributes, SharedHooks } from 'ng-lazyload-image';
+
+class LazyLoadImageHooks extends SharedHooks<number> {
+
+  getObservable(attributes: Attributes) {
+    return interval(1000);
+  }
+
+  isVisible(event: number, attributes: Attributes) {
+    // `event` is 0,1,2,3,4,5,...
+    return isElementInViewport(element, scrollContainer, offset);
+  }
 }
 ```
 
@@ -478,24 +514,24 @@ function isVisible({ event, element, scrollContainer, offset }: IsVisibleProps<S
 Function to load the image. It must return a path to the image (it can however be async, like the example below and/or return a observable).
 
 ```ts
-import { LoadImageProps } from 'ng-lazyload-image';
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
 
-function loadImage({ imagePath }: LoadImageProps) {
-  return await fetch(imagePath, {
-    headers: {
-      Authorization: 'Bearer ...'
-    }
-  })
-    .then(res => res.blob())
-    .then(blob => URL.createObjectURL(blob));
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  loadImage({ imagePath }: Attributes): Promise<string> {
+    return await fetch(imagePath)
+      .then((res) => res.blob())
+      .then((blob) => URL.createObjectURL(blob));
+  }
 }
 ```
 
 If you don't want to load the image but instead let the browser load it for you, then you can just return the imagePath (We will however not know if the image can't be loaded and the error image will not be used):
 
 ```ts
-function loadImage({ imagePath }: LoadImageProps) {
-  return [imagePath];
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  loadImage({ imagePath }: Attributes) {
+    return [imagePath];
+  }
 }
 ```
 
@@ -506,11 +542,13 @@ A function to set the image url to the DOM.
 Eg.
 
 ```ts
-import { SetLoadedImageProps } from 'ng-lazyload-image';
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
 
-function setLoadedImage({ element, imagePath, useSrcset }: SetLoadedImageProps) {
-  // `imagePath` comes from `loadImage`
-  element.src = imagePath;
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  setLoadedImage({ element, imagePath }: Attributes) {
+    // `imagePath` comes from `loadImage`
+    element.src = imagePath;
+  }
 }
 ```
 
@@ -521,10 +559,12 @@ This function will be called if the lazy image cant be loaded.
 Eg.
 
 ```ts
-import { SetErrorImageProps } from 'ng-lazyload-image';
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
 
-function setErrorImage({ element, errorImagePath, useSrcset }: SetErrorImageProps) {
-  element.src = errorImagePath;
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  setErrorImage({ element, errorImagePath }: Attributes) {
+    element.src = errorImagePath;
+  }
 }
 ```
 
@@ -537,10 +577,15 @@ This function will be called every time an attrebute is changing.
 Eg.
 
 ```ts
-import { Attributes } from 'ng-lazyload-image';
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
 
-function setup(atter: Attributes) {
-  // Do something
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  setup(attributes: Attributes) {
+    // Overwride the path to the default image for all lazyloaded images
+    attributes.defaultImagePath = 'some/path.jpg';
+    // You can always call the base `setup` if you want to keep the default behavior
+    super.setup(attributes);
+  }
 }
 ```
 
@@ -551,10 +596,12 @@ This function will be called on teardown. Can be useful for setting css-classes.
 Eg.
 
 ```ts
-import { Attributes } from 'ng-lazyload-image';
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
 
-function finally(atter: Attributes) {
-  // Do something
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  finally(attributes: Attributes) {
+    // So something
+  }
 }
 ```
 
@@ -565,66 +612,133 @@ A function to check if the current user is a bot or not. Can be useful for SSR a
 Default function:
 
 ```ts
-export const isBot: IsBotFn = navigator => {
-  if (navigator && navigator.userAgent) {
-    return /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp|duckduckbot/i.test(
-      navigator.userAgent
-    );
+import { isPlatformServer } from '@angular/common';
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
+
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  isBot(attributes: Attributes) {
+    // Check if the user is a bot or not.
+    // You have access to `navigator`:
+    this.navigator; // Is the same as `window.navigator` if window is defined otherwise undefined.
+    isPlatformServer(this.platformId); // True if the code is running on the server
   }
-  return false;
-};
+}
 ```
 
-You could also force all images to load under SSR by providing such a function to LazyLoadImageModule.forRoot:
+Both `IntersectionObserverHooks` and `ScrollHooks` will load the image as soon as possble if `isBot` returns `true`. Lets say you want to 
+
 
 ```ts
-export function isBot(navigator, platformId) {
+isBot(attributes: Attributes) {
   return isPlatformServer(platformId) ? true : intersectionObserverPreset.isBot(navigator, platformId);
 }
 ```
 
-### preset
+### isDisabled
 
-Preset can be useful when you want to set multible of the functions above.
-
-eg.
+A function to decided if the module should be disabled. The default behavior is to disable it on the server if the user is not a bot:
 
 ```ts
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
-import { AppComponent } from './app.component';
+import { isPlatformServer } from '@angular/common';
+import { IntersectionObserverHooks } from 'ng-lazyload-image';
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    LazyLoadImageModule.forRoot({
-      preset: scrollPreset
-    })
-  ],
-  bootstrap: [AppComponent]
-})
-export class MyAppModule {}
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  isDisabled() {
+    // This is the same as: `return super.isDisabled();`
+    return isPlatformServer(this.platformId) && !this.isBot();
+  }
+}
 ```
 
-If you want to use the `scrollPreset` but overwride on of the functions, you can easily do that:
+### skipLazyLoading
+
+A function to decided if we should load the image right away. This can be useful if you want to skip to lazyload the image when SSR:
 
 ```ts
-LazyLoadImageModule.forRoot({
-  preset: scrollPreset,
-  finally: ({ element }) => console.log('The image is loaded', element)
-});
+import { isPlatformServer } from '@angular/common';
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
+
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  skipLazyLoading(attributes: Attributes) {
+    return isPlatformServer(this.platformId); 
+  }
+}
+```
+
+Or maybe you want to load the image ASAP from specific domains
+
+```ts
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
+
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  skipLazyLoading(attributes: Attributes) {
+    const imageUrl = new URL(attributes.imagePath);
+    return imageUrl.hostname === 'example.org';
+  }
+}
+```
+
+The default behavior for `skipLazyLoading` is to call `isBot`. Meaning: if the user is a bot, load the image right away, otherwise, lazyload the image.
+
+### onAttributeChange
+
+This function is called when some of the atrebute of the image is changed.
+
+```ts
+import { isPlatformServer } from '@angular/common';
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
+
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  onAttributeChange(newAttributes: Attributes) {
+    console.log(`New attributes: ${newAttributes}`);
+  }
+}
+```
+
+### onDestroy
+
+This function is called when a image is loaded and the directive will unmount, aka. when `ngOnDestroy` is called in the directive. This can be useful if you want to do some cleanup.
+
+```ts
+import { isPlatformServer } from '@angular/common';
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
+
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  imageToBeLoaded = new Map<string, Attributes>();
+
+  onAttributeChange(newAttributes: Attributes) {
+    console.log(`New attributes: ${newAttributes}`);
+    imageToBeLoaded.set(newAttributes.id, newAttributes);
+  }
+
+  ngOnDestroy(attributes: Attributes) {
+    imageToBeLoaded.delete(newAttributes.id);
+  }
+}
 ```
 
 ## 🔎 Search Engine Optimization (SEO) <a name = "seo"></a>
 
-`ng-lazyload-image` are using the following strategy:
+`ng-lazyload-image` are using the following strategy by default:
 
 ### Server side rendering (SSR)
 
-- If the user is a bot (see `isBot` hook above), render all the images right away. (useful if the bot don't understand javascript)
-- If the user is not a bot (or if we can't decide), don't do anything and let the client fix the images (see below)
+If the incoming request is from a bot; it will set `[lazyLoad]` to `src` on the image (useful if the bot don't understand javascript).
+
+If the request is not from a bot (or if we can't decide), don't do anything and let the client fix the images (see below).
+
+You can chang this behavior by implementing your own `skipLazyLoading` function (see `skipLazyLoading` above). Let's say you always want to show the image ASAP, regardles of if the user is a bot or not:
+
+```ts
+import { isPlatformServer } from '@angular/common';
+import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
+
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  skipLazyLoading(attributes: Attributes) {
+    return isPlatformServer(this.platformId); 
+  }
+}
+```
 
 ### Client side
 

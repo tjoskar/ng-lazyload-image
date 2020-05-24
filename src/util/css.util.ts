@@ -1,7 +1,7 @@
 export const cssClassNames = {
   loaded: 'ng-lazyloaded',
   loading: 'ng-lazyloading',
-  failed: 'ng-failed-lazyloaded'
+  failed: 'ng-failed-lazyloaded',
 };
 
 export function removeCssClassName(element: HTMLImageElement | HTMLDivElement, cssClassName: string) {

@@ -7,7 +7,7 @@ Contributions are most welcome! But to avoid unnecessary work, please create an 
 ## Bugs 🐞
 
 When you submit a bugreport make sure to include what version of Angular and ng-lazyload-image you are using. Also include what browser the bug occurs in (if relevant), also include what version of `npm` and `node` you are using (if relevant).
-Make it clear if you are using ng-lazyload-image with some other library (or framework) like ionc or material design.
+Make it clear if you are using ng-lazyload-image with some other library (or framework) like ionc or material design. Also state if you are using any custom hooks.
 
 Please try to describe the issue as detailed as possible. If possible, create a simple git repo or provide project on stackblitz or code sandbox to reproduce the bug. You can fork this one: https://stackblitz.com/edit/angular-8-lazyload-image-intersection-observer
 
@@ -22,12 +22,10 @@ Alright, let me give you a introduction to the project.
 ├── example                           // Contains some examples about how to use the library
 ├── index.ts                          // The endpoint for the library. This is the file the user will import
 ├── src                               // The folder that contains all the source files
-│   ├── intersection-observer-preset  // Logic for intersection observer lazy loading
-│   ├── scroll-preset                 // Logic for scroll-lazy-loading
-│   ├── shared-preset                 // Shared logic between the presets
-│   ├── shared-preset                 // Server side render (bot) preset
+│   ├── intersection-observer-hooks   // Logic for intersection observer lazy loading
+│   ├── scroll-hooks                  // Logic for scroll-lazy-loading
+│   ├── shared-hooks                  // Shared logic between the hookst
 │   ├── util                          // Some utility functions
-│   ├── hooks-factory.ts              // Creates and builds the hooks, that will load the image
 │   ├── lazyload-image.directive.ts   // The directive declaration
 │   ├── lazyload-image.module.ts      // The module declaration
 │   ├── lazyload-image.ts             // Contains logic about when and how the images should be loaded
@@ -40,16 +38,19 @@ Alright, let me give you a introduction to the project.
 The project is quite simple. When the library is initialized, a set of hooks is created. These hooks contains logics about how and when the image should be loaded. The hooks contains of the following functions:
 
 ```
-getObservable: GetObservableFn<E> // What we should observe
-isVisible: IsVisibleFn<E> // Logic to see if the image is visible
-loadImage: LoadImageFn  // Logic to load the image. It can be async or sync.
-setLoadedImage: SetLoadedImageFn  // Logic to set the image in DOM
-setErrorImage: SetErrorImageFn  // Logic to set the error image
-setup: SetupFn  // Set up function
-finally: FinallyFn  // Teardown function
+getObservable(attributes: Attributes): Observable<E>; // What we should observe
+isVisible(event: E, attributes: Attributes): boolean; // Logic to see if the image is visible
+loadImage(attributes: Attributes): ObservableInput<string>; // Logic to load the image. It can be async or sync.
+setLoadedImage(imagePath: string, attributes: Attributes): void; // Logic to set the image in DOM
+setErrorImage(error: Error, attributes: Attributes): void; // Logic to set the error image
+setup(attributes: Attributes): void; // Set up function
+finally(attributes: Attributes): void; // Teardown function
+isBot(attributes: Attributes): boolean; // Is the user a bot?
+isDisabled(): boolean; // Should the lazyload mechanism be disbled?
+skipLazyLoading(attributes: Attributes): boolean; // Should we load the image ASAP?
 ```
 
-When Angular detects `[lazyLoad]` on a `img` or `div` tag it will create a new instance of `LazyLoadImageDirective` ([lazyload-image.directive.ts](src/lazyload-image.directive.ts)). This will trigger `ngAfterContentInit` which will emit a new event on `propertyChanges$` and every time a new event is emitted; the setup-hook will be called. After that will the `getObservable`-hook be called which will emit a new event to `isVisible`. If `isVisible` returns true, `loadImage` will be called and then `setLoadedImage` and then `finally`. If something goes wrong (the image can't be loaded or some other errors) the `setErrorImage` will be loaded.
+When Angular detects `[lazyLoad]` on a `img` or `div` tag it will create a new instance of `LazyLoadImageDirective` ([lazyload-image.directive.ts](src/lazyload-image.directive.ts)). This will trigger `ngAfterContentInit` which will emit a new event on `propertyChanges$` and every time a new event is emitted; the setup-hook will be called. After that will the `getObservable`-hook be called which will emit a new event to `isVisible`. If `isVisible` returns true, `loadImage` will be called and then `setLoadedImage` and then `finally`. If something goes wrong (the image can't be loaded or some other errors) the `setErrorImage` will be called.
 
 #### Intersection observer preset
 
@@ -87,12 +88,6 @@ If `loadImage` emits an error (or something else goes wrong), `setErrorImage` wi
 
 And at last will `finally` be called. At this point will the scroll event be unsubscribed, so the footprint will be minimal. However, if the attributes changes, we will restart and call `setup` and every other function once again.
 
-#### SSR Preset
-
-This preset will automatically be used for all web crawler bots. Yes, it is a bad name and will be updated in the future.
-
-This preset is used when a bot visit the site and it will load all the image right away, it doesn't matter if the pictures are in the viewpoint or not.
-
 ### Project setup
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) the repo to your account
@@ -101,10 +96,9 @@ This preset is used when a bot visit the site and it will load all the image rig
 4. Run `npm run build` to build the project
 5. Go into `example` (`cd example`) and run `npm start`
 6. You should now be able to visit the example page on http://localhost:4200/
-7. Do some changes to the code
-8. Create unit tests for any logic changes you are doing
-9. Make sure all unit test passes by running: `npm test`
-10. Commit your work
-11. Push to your repo
-12. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
-13. Give yourself a high five 🖐
+7. Do some changes to the code (you can run `npm build:dev` for faster builds)
+8. Make sure all unit test passes by running: `npm test`
+9. Commit your work
+10. Push to your repo
+11. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
+12. Give yourself a high five 🖐

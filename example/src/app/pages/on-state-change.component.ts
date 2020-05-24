@@ -16,9 +16,7 @@ import { StateChange } from 'ng-lazyload-image';
   template: `
     <h3>States (see also the console):</h3>
     <p *ngFor="let state of imageStates">{{ state }}</p>
-    <div [ngClass]="{ hidden: isLoading }">
-      <img [defaultImage]="defaultImage" [errorImage]="errorImage" [lazyLoad]="image" (onStateChange)="onStateChange($event)" />
-    </div>
+    <img [defaultImage]="defaultImage" [errorImage]="errorImage" [lazyLoad]="image" (onStateChange)="onStateChange($event)" />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
