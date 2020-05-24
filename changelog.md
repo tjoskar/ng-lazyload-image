@@ -1,5 +1,148 @@
 # Changelog
 
+## 8.0.0 (2020-05-24)
+
+### Feature
+
+- Using a class based hook system for easier customisation.
+
+### Braking changes
+
+- Using classes instead of object in order to use the DI system. You will now have to create a class instead of a object if you want to use the hook system.
+
+Before:
+```ts
+function loadImage({ imagePath }: LoadImageProps): Promise<string> {
+  return fetch(imagePath, {
+    headers: {
+      Authorization: 'Bearer ...'
+    }
+  })
+    .then(res => res.blob())
+    .then(blob => URL.createObjectURL(blob));
+}
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, LazyLoadImageModule.forRoot({ loadImage })],
+  bootstrap: [AppComponent]
+})
+export class MyAppModule {}
+```
+
+After:
+```ts
+import { LazyLoadImageModule, IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
+
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  loadImage({ imagePath }: Attributes): Promise<string> {
+    return fetch(imagePath, {
+      headers: {
+        Authorization: 'Bearer ...',
+      },
+    })
+      .then((res) => res.blob())
+      .then((blob) => URL.createObjectURL(blob));
+  }
+}
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, LazyLoadImageModule.forRoot(LazyLoadImageHooks)],
+  bootstrap: [AppComponent],
+})
+export class MyAppModule {}
+```
+
+This is also true if you want to use scroll events:
+
+Before
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    LazyLoadImageModule.forRoot({
+      preset: scrollPreset
+    })
+  ],
+  bootstrap: [AppComponent],
+})
+export class MyAppModule {}
+```
+
+After:
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LazyLoadImageModule, ScrollHooks } from 'ng-lazyload-image';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, LazyLoadImageModule.forRoot(ScrollHooks)],
+  bootstrap: [AppComponent],
+})
+export class MyAppModule {}
+```
+
+- The deprecated event emitter `onLoad` is now removed.
+
+Before:
+```ts
+myCallbackFunction(isLoaded: boolean) {
+  isLoaded // true if the image get loaded, otherwise false
+}
+```
+
+```html
+<img [lazyLoad]="lazyLoadImage" (onLoad)="myCallbackFunction($event)">
+```
+
+After:
+```ts
+myCallbackFunction(event: StateChange) {
+  const isLoaded = event.reason === 'loading-succeeded';
+
+  switch (event.reason) {
+    case 'setup':
+      // The lib has been instantiated but we have not done anything yet.
+      break;
+    case 'observer-emit':
+      // The image observer (intersection/scroll observer) has emit a value so we
+      // should check if the image is in the viewport.
+      // `event.data` is the event in this case.
+      break;
+    case 'start-loading':
+      // The image is in the viewport so the image will start loading
+      break;
+    case 'mount-image':
+      // The image has been loaded successfully so lets put it into the DOM
+      break;
+    case 'loading-succeeded':
+      // The image has successfully been loaded and placed into the DOM
+      break;
+    case 'loading-failed':
+      // The image could not be loaded for some reason.
+      // `event.data` is the error in this case
+      break;
+    case 'finally':
+      // The last event before cleaning up
+      break;
+  }
+}
+```
+
+```html
+<img [lazyLoad]="lazyLoadImage" (onStateChange)="myCallbackFunction($event)">
+```
+
+
 ## 7.1.0 (2020-02-22)
 
 ### Feature
