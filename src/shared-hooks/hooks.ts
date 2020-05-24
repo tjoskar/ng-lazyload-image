@@ -13,9 +13,10 @@ import {
   setSourcesToLazy,
 } from '../util';
 import { isPlatformServer } from '@angular/common';
+import { ObservableInput } from 'rxjs';
 
 export abstract class SharedHooks<E> extends Hooks<E> {
-  setup(attributes: Attributes) {
+  setup(attributes: Attributes): void {
     setImageAndSourcesToDefault(attributes.element, attributes.defaultImagePath, attributes.useSrcset);
     addCssClassName(attributes.element, cssClassNames.loading);
 
@@ -24,12 +25,12 @@ export abstract class SharedHooks<E> extends Hooks<E> {
     }
   }
 
-  finally(attributes: Attributes) {
+  finally(attributes: Attributes): void {
     addCssClassName(attributes.element, cssClassNames.loaded);
     removeCssClassName(attributes.element, cssClassNames.loading);
   }
 
-  loadImage(attributes: Attributes) {
+  loadImage(attributes: Attributes): ObservableInput<string> {
     if (this.isBot()) {
       // Set the image right away for bots for better SEO
       return [attributes.imagePath];
@@ -63,27 +64,27 @@ export abstract class SharedHooks<E> extends Hooks<E> {
     });
   }
 
-  setErrorImage(error: Error, attributes: Attributes) {
+  setErrorImage(error: Error, attributes: Attributes): void {
     const { element, useSrcset, errorImagePath } = attributes;
     setImageAndSourcesToError(element, errorImagePath, useSrcset);
     addCssClassName(element, cssClassNames.failed);
   }
 
-  setLoadedImage(imagePath: string, attributes: Attributes) {
+  setLoadedImage(imagePath: string, attributes: Attributes): void {
     const { element, useSrcset } = attributes;
     setImageAndSourcesToLazy(element, imagePath, useSrcset);
   }
 
-  isDisabled() {
+  isDisabled(): boolean {
     // Disable if SSR and the user isn't a bot
     return isPlatformServer(this.platformId) && !this.isBot();
   }
 
-  skipLazyLoading() {
+  skipLazyLoading(): boolean {
     return this.isBot();
   }
 
-  isBot() {
+  isBot(): boolean {
     if (this.navigator?.userAgent) {
       return /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp|duckduckbot/i.test(
         this.navigator.userAgent

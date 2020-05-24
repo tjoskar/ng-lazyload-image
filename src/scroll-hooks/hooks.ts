@@ -13,7 +13,7 @@ export class ScrollHooks extends SharedHooks<Event | string> {
     this.getWindow = getWindow;
   }
 
-  getObservable(attributes: Attributes<Event | string>) {
+  getObservable(attributes: Attributes<Event | string>): Observable<Event | string> {
     if (this.isBot()) {
       return of('load');
     } else if (attributes.customObservable) {

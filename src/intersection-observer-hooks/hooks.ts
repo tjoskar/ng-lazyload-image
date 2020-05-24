@@ -8,7 +8,7 @@ export class IntersectionObserverHooks extends SharedHooks<{ isIntersecting: boo
   private readonly intersectionSubject = new Subject<IntersectionObserverEntry>();
   private readonly uniqKey = {};
 
-  getObservable(attributes: Attributes<{ isIntersecting: boolean }>) {
+  getObservable(attributes: Attributes<{ isIntersecting: boolean }>): Observable<{ isIntersecting: boolean }> {
     if (this.isBot()) {
       return of({ isIntersecting: true });
     }
