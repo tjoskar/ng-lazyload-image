@@ -711,8 +711,8 @@ class LazyLoadImageHooks extends IntersectionObserverHooks {
     imageToBeLoaded.set(newAttributes.id, newAttributes);
   }
 
-  ngOnDestroy(attributes: Attributes) {
-    imageToBeLoaded.delete(newAttributes.id);
+  onDestroy(attributes: Attributes) {
+    imageToBeLoaded.delete(attributes.id);
   }
 }
 ```
@@ -749,7 +749,7 @@ class LazyLoadImageHooks extends IntersectionObserverHooks {
 
 **Q** How can I manually trigger the loading of images?
 
-**A** See: https://github.com/tjoskar/ng-lazyload-image/issues/197
+**A** You can either use the `getObservable` hook if you can trigger the loading outside the dom or you can use the `customObservable` input, see above and https://github.com/tjoskar/ng-lazyload-image/issues/197
 
 **Q** Does this library work with ionic or some other wrapper for Angular?
 
@@ -759,17 +759,17 @@ class LazyLoadImageHooks extends IntersectionObserverHooks {
 
 **A** See: https://github.com/tjoskar/ng-lazyload-image/issues/300
 
-**Q** I can't get it to work with electron. Can you help me?
-
-**A** Make sure you uses the [right file path](https://github.com/tjoskar/ng-lazyload-image/issues/308#issuecomment-368240550).
-
-**Q** I'm getting the error: `NullInjectorError: No provider for ElementRef!`
-
-**A** See: https://github.com/tjoskar/ng-lazyload-image/issues/390
-
 **Q** It doesn't work with `BrowserAnimationsModule`
 
 **A** Are you using the scroll preset? If so, take a look at this [issue](https://github.com/tjoskar/ng-lazyload-image/issues/438).
+
+**Q** Can I add a debounce time before loading the image>
+
+**A** Yes, take a look at this [issue](https://github.com/tjoskar/ng-lazyload-image/issues/456).
+
+**Q** Can I cancel image loading when the user change page?
+
+**A** Yes, take a look at this [issue](https://github.com/tjoskar/ng-lazyload-image/issues/458).
 
 **Q** I can't get it to work. Can you help me?
 
