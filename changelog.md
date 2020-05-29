@@ -1,6 +1,13 @@
 # Changelog
 
-## 8.0.0 (2020-05-24)
+## 8.0.1 (2020-05-29)
+
+### Bug fix
+
+- Honor referrerpolicy on the image. Closes #422
+- Use `skipLazyLoading` instead of `isBot` for checking if the image should be loaded or not.
+
+## 8.0.0 (2020-05-29)
 
 ### Feature
 

@@ -44,6 +44,9 @@ export abstract class SharedHooks<E> extends Hooks<E> {
       setImage(img, imagePath, useSrcset);
     } else {
       img = new Image();
+      if (isImageElement(element) && element.referrerPolicy) {
+        img.referrerPolicy = element.referrerPolicy;
+      }
       if (isImageElement(element) && element.sizes) {
         img.sizes = element.sizes;
       }
