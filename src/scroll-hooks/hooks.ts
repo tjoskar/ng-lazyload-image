@@ -14,7 +14,7 @@ export class ScrollHooks extends SharedHooks<Event | string> {
   }
 
   getObservable(attributes: Attributes<Event | string>): Observable<Event | string> {
-    if (this.isBot()) {
+    if (this.skipLazyLoading()) {
       return of('load');
     } else if (attributes.customObservable) {
       return attributes.customObservable.pipe(startWith(''));

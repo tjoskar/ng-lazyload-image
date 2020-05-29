@@ -31,7 +31,7 @@ export abstract class SharedHooks<E> extends Hooks<E> {
   }
 
   loadImage(attributes: Attributes): ObservableInput<string> {
-    if (this.isBot()) {
+    if (this.skipLazyLoading()) {
       // Set the image right away for bots for better SEO
       return [attributes.imagePath];
     }
