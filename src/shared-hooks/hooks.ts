@@ -1,19 +1,8 @@
-import { Hooks, Attributes } from '../types';
-import {
-  addCssClassName,
-  cssClassNames,
-  hasCssClassName,
-  isChildOfPicture,
-  isImageElement,
-  removeCssClassName,
-  setImage,
-  setImageAndSourcesToDefault,
-  setImageAndSourcesToError,
-  setImageAndSourcesToLazy,
-  setSourcesToLazy,
-} from '../util';
 import { isPlatformServer } from '@angular/common';
 import { ObservableInput } from 'rxjs';
+import { Attributes, Hooks } from '../types';
+import { addCssClassName, cssClassNames, hasCssClassName, removeCssClassName } from '../util/css.util';
+import { isChildOfPicture, isImageElement, setImage, setImageAndSourcesToDefault, setImageAndSourcesToError, setImageAndSourcesToLazy, setSourcesToLazy } from '../util/util';
 
 export abstract class SharedHooks<E> extends Hooks<E> {
   setup(attributes: Attributes): void {

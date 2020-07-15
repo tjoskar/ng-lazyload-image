@@ -23,6 +23,7 @@
   "exclude": ["node_modules", "dist", "compiled", "example/**/*.ts"],
   "angularCompilerOptions": {
     "genDir": "dist",
-    "strictMetadataEmit": true
+    "strictMetadataEmit": true,
+    "enableIvy": false
   }
 }

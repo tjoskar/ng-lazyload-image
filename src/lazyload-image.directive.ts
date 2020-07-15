@@ -2,6 +2,7 @@ import { AfterContentInit, Directive, ElementRef, EventEmitter, Inject, Input, N
 import { never, Observable, ReplaySubject, Subscription } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { lazyLoadImage } from './lazyload-image';
+import { LAZYLOAD_IMAGE_HOOKS } from './token';
 import { Attributes, Hooks, StateChange } from './types';
 
 @Directive({
@@ -26,12 +27,12 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
   private hooks: Hooks;
   private uid: string;
 
-  constructor(el: ElementRef, ngZone: NgZone, @Inject(PLATFORM_ID) platformId: Object, @Inject('LazyLoadImageHooks') hooks: Hooks) {
+  constructor(el: ElementRef, ngZone: NgZone, @Inject(PLATFORM_ID) platformId: Object, @Inject(LAZYLOAD_IMAGE_HOOKS) hooks: Hooks) {
     this.elementRef = el;
     this.ngZone = ngZone;
     this.propertyChanges$ = new ReplaySubject();
     this.hooks = hooks;
-    hooks.setPlatformId(platformId);
+    this.hooks.setPlatformId(platformId);
     this.uid = Math.random().toString(36).substr(2, 9);
   }
 
