@@ -1,8 +1,6 @@
-import { LazyLoadImageModule } from './src/lazyload-image.module';
-import { IntersectionObserverHooks } from './src/intersection-observer-hooks';
-import { ScrollHooks } from './src/scroll-hooks';
-import { SharedHooks } from './src/shared-hooks/hooks';
-import { Attributes, StateChange, Hooks } from './src/types';
-
-export { LazyLoadImageModule, StateChange, IntersectionObserverHooks, ScrollHooks, Attributes, Hooks, SharedHooks };
-export default LazyLoadImageModule;
+export { LazyLoadImageModule } from './src/lazyload-image.module';
+export { IntersectionObserverHooks } from './src/intersection-observer-hooks/hooks';
+export { ScrollHooks } from './src/scroll-hooks/hooks';
+export { SharedHooks } from './src/shared-hooks/hooks';
+export { Attributes, StateChange, Hooks } from './src/types';
+export { LAZYLOAD_IMAGE_HOOKS } from './src/token';

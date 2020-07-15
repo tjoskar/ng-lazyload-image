@@ -33,24 +33,24 @@
   },
   "homepage": "https://github.com/tjoskar/ng-lazyload-image#readme",
   "peerDependencies": {
-    "@angular/core": ">=7.0.0",
-    "@angular/common": ">=7.0.0",
+    "@angular/core": ">=8.0.0",
+    "@angular/common": ">=8.0.0",
     "rxjs": ">=6.0.0"
   },
   "dependencies": {},
   "devDependencies": {
-    "@angular/common": "^9.0.1",
-    "@angular/compiler": "^9.0.1",
-    "@angular/compiler-cli": "^9.0.1",
-    "@angular/core": "^9.0.1",
-    "@types/jest": "^25.1.2",
-    "jest": "^25.1.0",
+    "@angular/common": "^10.0.3",
+    "@angular/compiler": "^10.0.3",
+    "@angular/compiler-cli": "^10.0.3",
+    "@angular/core": "^10.0.3",
+    "@types/jest": "^26.0.4",
+    "jest": "^26.1.0",
     "marble-test": "^3.1.1",
-    "ng-packagr": "^9.0.0",
-    "rxjs": "^6.5.4",
+    "ng-packagr": "^10.0.1",
+    "rxjs": "^6.6.0",
     "simple-spy": "^3.0.1",
-    "ts-jest": "^25.2.0",
-    "typescript": "3.7.5"
+    "ts-jest": "^26.1.2",
+    "typescript": "3.9.6"
   },
   "prettier": {
     "singleQuote": true,

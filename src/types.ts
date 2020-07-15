@@ -1,6 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { Observable, ObservableInput } from 'rxjs';
-import { getNavigator } from './util';
+import { getNavigator } from './util/util';
 
 export type StateChange = {
   reason: 'setup' | 'observer-emit' | 'start-loading' | 'mount-image' | 'loading-failed' | 'loading-succeeded' | 'finally';

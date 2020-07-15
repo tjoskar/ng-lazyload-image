@@ -2,7 +2,9 @@ import { Observable, of, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { SharedHooks } from '../shared-hooks/hooks';
 import { Attributes } from '../types';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class IntersectionObserverHooks extends SharedHooks<{ isIntersecting: boolean }> {
   private readonly observers = new WeakMap<Element | {}, IntersectionObserver>();
   private readonly intersectionSubject = new Subject<IntersectionObserverEntry>();
