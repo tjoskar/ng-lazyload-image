@@ -1,5 +1,139 @@
 # Changelog
 
+## 9.0.0 (2020-07-25)
+
+### Bug fix
+
+- In some cases users are facing the error: "useClass cannot be undefined". I don't know why but it seams to have something to do with Ivy. See: #463 The solution to this issue was to remove `forRoot` and instead export a `InjectionToken` that the user can use to inject a custom Hook set. See Braking change below:
+
+### Braking change
+
+Before:
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LazyLoadImageModule, IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
+import { AppComponent } from './app.component';
+
+class LazyLoadImageHooks extends IntersectionObserverHooks {
+  async loadImage({ imagePath }: Attributes): Promise<string> {
+    return await fetch(imagePath, {
+      headers: {
+        Authorization: 'Bearer ...',
+      },
+    })
+      .then((res) => res.blob())
+      .then((blob) => URL.createObjectURL(blob));
+  }
+}
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, LazyLoadImageModule.forRoot(LazyLoadImageHooks)],
+  bootstrap: [AppComponent],
+})
+export class MyAppModule {}
+```
+
+After:
+```ts
+import { NgModule, Injectable } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { LazyLoadImageModule, IntersectionObserverHooks, Attributes, LAZYLOAD_IMAGE_HOOKS } from 'ng-lazyload-image';
+import { AppComponent } from './app.component';
+
+export class LazyLoadImageHooks extends IntersectionObserverHooks {
+  async loadImage({ imagePath }: Attributes): Promise<string> {
+    return await fetch(imagePath, {
+      headers: {
+        Authorization: 'Bearer ...',
+      },
+    })
+      .then((res) => res.blob())
+      .then((blob) => URL.createObjectURL(blob));
+  }
+}
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, LazyLoadImageModule],
+  providers: [{ provide: LAZYLOAD_IMAGE_HOOKS, useClass: LazyLoadImageHooks }],
+  bootstrap: [AppComponent],
+})
+export class MyAppModule {}
+```
+
+When using dependencies:
+
+Before:
+```ts
+import { NgModule, Injectable } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { LazyLoadImageModule, IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AppComponent } from './app.component';
+
+export class LazyLoadImageHooks extends IntersectionObserverHooks {
+  private http: HttpClient;
+
+  constructor(http: HttpClient) {
+    super();
+    this.http = http;
+  }
+
+  loadImage({ imagePath }: Attributes): Observable<string> {
+    // Load the image through `HttpClient` and cancel the request if the user change page or the image gets removed
+    return this.http.get(imagePath, { responseType: 'blob' }).pipe(map(blob => URL.createObjectURL(blob)));
+  }
+}
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, HttpClientModule, LazyLoadImageModule.forRoot(IntersectionObserverHooks, [HttpClient])],
+  providers: [{ provide: LAZYLOAD_IMAGE_HOOKS, useClass: LazyLoadImageHooks }],
+  bootstrap: [AppComponent],
+})
+export class MyAppModule {}
+```
+
+After:
+```ts
+import { NgModule, Injectable } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { LazyLoadImageModule, IntersectionObserverHooks, Attributes, LAZYLOAD_IMAGE_HOOKS } from 'ng-lazyload-image';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AppComponent } from './app.component';
+
+@Injectable()
+export class LazyLoadImageHooks extends IntersectionObserverHooks {
+  private http: HttpClient;
+
+  constructor(http: HttpClient) {
+    super();
+    this.http = http;
+  }
+
+  loadImage({ imagePath }: Attributes): Observable<string> {
+    // Load the image through `HttpClient` and cancel the request if the user change page or the image gets removed
+    return this.http.get(imagePath, { responseType: 'blob' }).pipe(map(blob => URL.createObjectURL(blob)));
+  }
+}
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, HttpClientModule, LazyLoadImageModule],
+  providers: [{ provide: LAZYLOAD_IMAGE_HOOKS, useClass: LazyLoadImageHooks }],
+  bootstrap: [AppComponent],
+})
+export class MyAppModule {}
+```
+
+
+
 ## 8.0.1 (2020-05-29)
 
 ### Bug fix
