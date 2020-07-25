@@ -1,5 +1,5 @@
-import { of, Observable, empty, Subject } from 'rxjs';
-import { startWith, sampleTime, share } from 'rxjs/operators';
+import { empty, Observable, of, Subject } from 'rxjs';
+import { sampleTime, share, startWith } from 'rxjs/operators';
 import { SharedHooks } from '../shared-hooks/hooks';
 import { Attributes } from '../types';
 import { Rect } from './rect';
