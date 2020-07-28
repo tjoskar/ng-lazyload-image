@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, ObservableInput } from 'rxjs';
 import { getNavigator } from './util/util';
 
@@ -54,6 +54,7 @@ export type Attributes<T = any> = {
   id: string;
 };
 
+@Injectable()
 export abstract class Hooks<E = unknown> {
   navigator?: Navigator = getNavigator();
   protected platformId!: Object;

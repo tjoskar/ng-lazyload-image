@@ -1,9 +1,11 @@
+import { Injectable } from '@angular/core';
 import { empty, Observable, of, Subject } from 'rxjs';
 import { sampleTime, share, startWith } from 'rxjs/operators';
 import { SharedHooks } from '../shared-hooks/hooks';
 import { Attributes } from '../types';
 import { Rect } from './rect';
 
+@Injectable()
 export class ScrollHooks extends SharedHooks<Event | string> {
   private readonly getWindow: () => Window;
   private readonly scrollListeners = new WeakMap<any, Observable<any>>();

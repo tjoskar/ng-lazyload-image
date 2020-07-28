@@ -1,9 +1,11 @@
 import { isPlatformServer } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { ObservableInput } from 'rxjs';
 import { Attributes, Hooks } from '../types';
 import { addCssClassName, cssClassNames, hasCssClassName, removeCssClassName } from '../util/css.util';
 import { isChildOfPicture, isImageElement, setImage, setImageAndSourcesToDefault, setImageAndSourcesToError, setImageAndSourcesToLazy, setSourcesToLazy } from '../util/util';
 
+@Injectable()
 export abstract class SharedHooks<E> extends Hooks<E> {
   setup(attributes: Attributes): void {
     setImageAndSourcesToDefault(attributes.element, attributes.defaultImagePath, attributes.useSrcset);
