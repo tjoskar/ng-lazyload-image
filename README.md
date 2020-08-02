@@ -55,7 +55,7 @@ $ yarn add ng-lazyload-image
 
 ## 🛠 Setup <a name = "libsetup"></a>
 
-Include the library in your module (see [app.module.ts](https://github.com/tjoskar/ng-lazyload-image/blob/master/example/src/app.module.ts)):
+Include the library in your module (see [app.module.ts](https://github.com/tjoskar/ng-lazyload-image/blob/master/example/src/app/app.module.ts)):
 
 ```javascript
 import { NgModule } from '@angular/core';
