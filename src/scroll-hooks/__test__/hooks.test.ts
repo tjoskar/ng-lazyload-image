@@ -1,12 +1,16 @@
 import { ScrollHooks } from '../hooks';
 
 describe('isVisible', () => {
-  const getWindow = () =>
-    ({
-      innerHeight: 1000,
-      innerWidth: 1000,
-    } as any);
-  const hooks = new ScrollHooks(getWindow);
+  class Sut extends ScrollHooks {
+    constructor() {
+      super();
+      this.getWindow = () => ({
+        innerHeight: 1000,
+        innerWidth: 1000,
+      } as any)
+    }
+  }
+  const hooks = new Sut();
 
   const generateElement = (top: number, left: number, height = 300, width = 300): any => ({
     getBoundingClientRect: () => ({
