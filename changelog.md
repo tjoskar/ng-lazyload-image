@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.0.1 (2020-07-25)
+
+### Bug fix
+
+- Fixing ScrollHooks for Angular 8. See [#476](https://github.com/tjoskar/ng-lazyload-image/issues/476)
+
 ## 9.0.0 (2020-07-25)
 
 ### Bug fix
