@@ -5,13 +5,8 @@ import { Attributes } from '../types';
 import { Rect } from './rect';
 
 export class ScrollHooks extends SharedHooks<Event | string> {
-  private readonly getWindow: () => Window;
+  protected getWindow = () => window;
   private readonly scrollListeners = new WeakMap<any, Observable<any>>();
-
-  constructor(getWindow = () => window) {
-    super();
-    this.getWindow = getWindow;
-  }
 
   getObservable(attributes: Attributes<Event | string>): Observable<Event | string> {
     if (this.skipLazyLoading()) {
