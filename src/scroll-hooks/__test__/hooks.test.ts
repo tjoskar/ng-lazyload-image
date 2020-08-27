@@ -4,10 +4,11 @@ describe('isVisible', () => {
   class Sut extends ScrollHooks {
     constructor() {
       super();
-      this.getWindow = () => ({
-        innerHeight: 1000,
-        innerWidth: 1000,
-      } as any)
+      this.getWindow = () =>
+        ({
+          innerHeight: 1000,
+          innerWidth: 1000,
+        } as any);
     }
   }
   const hooks = new Sut();
