@@ -4,7 +4,7 @@ import { getNavigator } from './util/util';
 
 export type StateChange = {
   reason: 'setup' | 'observer-emit' | 'start-loading' | 'mount-image' | 'loading-failed' | 'loading-succeeded' | 'finally';
-  data?: unknown;
+  data?: any;
 };
 
 export type Attributes<T = any> = {
