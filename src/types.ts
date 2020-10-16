@@ -54,7 +54,7 @@ export type Attributes<T = any> = {
   id: string;
 };
 
-export abstract class Hooks<E = unknown> {
+export abstract class Hooks<E = any> {
   navigator?: Navigator = getNavigator();
   protected platformId!: Object;
 
