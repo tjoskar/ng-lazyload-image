@@ -73,10 +73,10 @@ export abstract class SharedHooks<E> extends Hooks<E> {
   }
 
   skipLazyLoading(attributes: Attributes): boolean {
-    return this.isBot();
+    return this.isBot(attributes);
   }
 
-  isBot(): boolean {
+  isBot(attributes?: Attributes): boolean {
     if (this.navigator?.userAgent) {
       return /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp|duckduckbot/i.test(
         this.navigator.userAgent

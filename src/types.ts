@@ -69,7 +69,7 @@ export abstract class Hooks<E = unknown> {
   abstract setErrorImage(error: Error, attributes: Attributes): void;
   abstract setup(attributes: Attributes): void;
   abstract finally(attributes: Attributes): void;
-  abstract isBot(attributes: Attributes): boolean;
+  abstract isBot(attributes?: Attributes): boolean;
   abstract isDisabled(): boolean;
   abstract skipLazyLoading(attributes: Attributes): boolean;
   onDestroy(attributes: Attributes): void {}

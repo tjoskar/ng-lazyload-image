@@ -45,7 +45,7 @@ setLoadedImage(imagePath: string, attributes: Attributes): void; // Logic to set
 setErrorImage(error: Error, attributes: Attributes): void; // Logic to set the error image
 setup(attributes: Attributes): void; // Set up function
 finally(attributes: Attributes): void; // Teardown function
-isBot(attributes: Attributes): boolean; // Is the user a bot?
+isBot(attributes?: Attributes): boolean; // Is the user a bot?
 isDisabled(): boolean; // Should the lazyload mechanism be disbled?
 skipLazyLoading(attributes: Attributes): boolean; // Should we load the image ASAP?
 ```
