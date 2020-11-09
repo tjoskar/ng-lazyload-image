@@ -9,7 +9,7 @@ export class IntersectionObserverHooks extends SharedHooks<{ isIntersecting: boo
   private readonly uniqKey = {};
 
   getObservable(attributes: Attributes<{ isIntersecting: boolean }>): Observable<{ isIntersecting: boolean }> {
-    if (this.skipLazyLoading()) {
+    if (this.skipLazyLoading(attributes)) {
       return of({ isIntersecting: true });
     }
     if (attributes.customObservable) {

@@ -20,7 +20,7 @@ export abstract class SharedHooks<E> extends Hooks<E> {
   }
 
   loadImage(attributes: Attributes): ObservableInput<string> {
-    if (this.skipLazyLoading()) {
+    if (this.skipLazyLoading(attributes)) {
       // Set the image right away for bots for better SEO
       return [attributes.imagePath];
     }
@@ -72,7 +72,7 @@ export abstract class SharedHooks<E> extends Hooks<E> {
     return isPlatformServer(this.platformId) && !this.isBot();
   }
 
-  skipLazyLoading(): boolean {
+  skipLazyLoading(attributes: Attributes): boolean {
     return this.isBot();
   }
 
