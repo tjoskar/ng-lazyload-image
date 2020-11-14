@@ -1,5 +1,21 @@
 # Changelog
 
+## 9.1.0 (2020-11-14)
+
+### Feature
+
+- Support to Angular 11
+
+## 9.0.2 (2020-11-14)
+
+### Bug fix
+
+- Pass attributes as argument to `skipLazyLoading`. See [#483](https://github.com/tjoskar/ng-lazyload-image/issues/483) Thanks to [kp42](https://github.com/kp42) 🎉
+
+### Feature
+
+- Export `LazyLoadImageDirective`. See [#486](https://github.com/tjoskar/ng-lazyload-image/issues/486)
+
 ## 9.0.1 (2020-07-25)
 
 ### Bug fix
