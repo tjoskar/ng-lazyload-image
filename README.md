@@ -639,7 +639,7 @@ import { isPlatformServer } from '@angular/common';
 import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
 
 class LazyLoadImageHooks extends IntersectionObserverHooks {
-  isBot(attributes: Attributes) {
+  isBot(attributes?: Attributes) {
     // Check if the user is a bot or not.
     this.navigator; // Is the same as `window.navigator` if window is defined otherwise undefined.
     isPlatformServer(this.platformId); // True if the code is running on the server

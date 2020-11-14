@@ -20,7 +20,7 @@ export abstract class SharedHooks<E> extends Hooks<E> {
   }
 
   loadImage(attributes: Attributes): ObservableInput<string> {
-    if (this.skipLazyLoading()) {
+    if (this.skipLazyLoading(attributes)) {
       // Set the image right away for bots for better SEO
       return [attributes.imagePath];
     }
@@ -72,11 +72,11 @@ export abstract class SharedHooks<E> extends Hooks<E> {
     return isPlatformServer(this.platformId) && !this.isBot();
   }
 
-  skipLazyLoading(): boolean {
-    return this.isBot();
+  skipLazyLoading(attributes: Attributes): boolean {
+    return this.isBot(attributes);
   }
 
-  isBot(): boolean {
+  isBot(attributes?: Attributes): boolean {
     if (this.navigator?.userAgent) {
       return /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp|duckduckbot/i.test(
         this.navigator.userAgent

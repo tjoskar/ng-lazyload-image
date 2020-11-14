@@ -9,7 +9,7 @@ export class ScrollHooks extends SharedHooks<Event | string> {
   private readonly scrollListeners = new WeakMap<any, Observable<any>>();
 
   getObservable(attributes: Attributes<Event | string>): Observable<Event | string> {
-    if (this.skipLazyLoading()) {
+    if (this.skipLazyLoading(attributes)) {
       return of('load');
     } else if (attributes.customObservable) {
       return attributes.customObservable.pipe(startWith(''));
