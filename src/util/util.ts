@@ -1,3 +1,7 @@
+export function findSrcSetPath(srcset: string): string {
+  return srcset.split(',')[0].split(' ')[0];
+}
+
 export function getNavigator(): Navigator | undefined {
   return typeof window !== 'undefined' ? window.navigator : undefined;
 }
@@ -12,10 +16,12 @@ export function isImageElement(element: HTMLImageElement | HTMLDivElement): elem
 
 export function setImage(element: HTMLImageElement | HTMLDivElement, imagePath: string, useSrcset?: boolean) {
   if (isImageElement(element)) {
-    if (useSrcset && 'srcset' in element) {
+    if (!useSrcset) {
+      element.src = imagePath;
+    } else if ('srcset' in element) {
       element.srcset = imagePath;
     } else {
-      element.src = imagePath;
+      (element as HTMLImageElement).src = findSrcSetPath(imagePath);
     }
   } else {
     element.style.backgroundImage = `url('${imagePath}')`;
