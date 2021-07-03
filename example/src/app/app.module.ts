@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { Attributes, IntersectionObserverHooks, LazyLoadImageModule, LAZYLOAD_IMAGE_HOOKS } from 'ng-lazyload-image';
 import { AppComponent } from './app.component';
 import { AsyncImagesComponent } from './pages/async-images.component';
 import { BgImageComponent } from './pages/bg-image.component';
@@ -16,6 +16,15 @@ import { OnStateChangeComponent } from './pages/on-state-change.component';
 import { PixelatedImageComponent } from './pages/pixelated-image.component';
 import { ResponsiveImageComponent } from './pages/responsive-image.component';
 import { ScrollContainerComponent } from './pages/scroll-container.component';
+
+/**
+ * Just a silly example to demonstrate hooks
+ */
+export class LazyLoadImageHooks extends IntersectionObserverHooks {
+  onAttributeChange(newAttributes: Attributes) {
+    console.log(`New attributes: ${newAttributes}`);
+  }
+}
 
 @NgModule({
   declarations: [
@@ -57,6 +66,7 @@ import { ScrollContainerComponent } from './pages/scroll-container.component';
     ]),
     LazyLoadImageModule,
   ],
+  providers: [{ provide: LAZYLOAD_IMAGE_HOOKS, useClass: LazyLoadImageHooks }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
