@@ -33,11 +33,10 @@
   },
   "homepage": "https://github.com/tjoskar/ng-lazyload-image#readme",
   "peerDependencies": {
-    "@angular/core": ">=11.0.0",
     "@angular/common": ">=11.0.0",
+    "@angular/core": ">=11.0.0",
     "rxjs": ">=6.0.0"
   },
-  "dependencies": {},
   "devDependencies": {
     "@angular/common": "13.1.1",
     "@angular/compiler": "13.1.1",
@@ -45,6 +44,7 @@
     "@angular/core": "13.1.1",
     "@types/jest": "27.4.0",
     "jest": "27.4.5",
+    "jest-preset-angular": "11.0.1",
     "marble-test": "3.1.1",
     "ng-packagr": "13.1.2",
     "rxjs": "7.5.1",
@@ -65,7 +65,12 @@
     "last 1 iOS version"
   ],
   "jest": {
-    "preset": "ts-jest"
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist",
+      "<rootDir>/example"
+    ]
   },
   "gitmoji": {
     "blacklist": [
