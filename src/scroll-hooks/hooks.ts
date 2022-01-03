@@ -37,7 +37,7 @@ export class ScrollHooks extends SharedHooks<Event | string> {
   }
 
   sampleObservable<T>(obs: Observable<T>, scheduler?: any): Observable<T | ''> {
-    return obs.pipe(sampleTime(100, scheduler), share(), startWith(''));
+    return obs.pipe(sampleTime(100, scheduler), share(), startWith('')) as Observable<T | ''>;
   }
 
   // Only create one scroll listener per target and share the observable.
