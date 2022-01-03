@@ -92,5 +92,8 @@
       "children-crossing",
       "iphone"
     ]
+  },
+  "volta": {
+    "node": "16.13.1"
   }
 }
