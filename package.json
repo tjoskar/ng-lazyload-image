@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "ng-lazyload-image",
-  "version": "9.1.0",
+  "version": "9.1.1",
   "description": "Lazy image loader for Angular > v2",
   "main": "index.js",
   "scripts": {
@@ -66,7 +66,9 @@
   ],
   "jest": {
     "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": ["<rootDir>/setup-jest.ts"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/setup-jest.ts"
+    ],
     "modulePathIgnorePatterns": [
       "<rootDir>/dist",
       "<rootDir>/example"
