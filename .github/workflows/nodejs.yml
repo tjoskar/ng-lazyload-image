@@ -8,10 +8,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js v12
+      - name: Use Node.js v16
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
       - name: ⬇️ Install
         run: npm install
