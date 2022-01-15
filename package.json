@@ -3,7 +3,6 @@
   "name": "ng-lazyload-image",
   "version": "9.1.1",
   "description": "Lazy image loader for Angular > v2",
-  "main": "index.js",
   "scripts": {
     "preversion": "npm run test && npm run build",
     "postversion": "git push && git push --tags",
