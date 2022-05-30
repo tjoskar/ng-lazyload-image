@@ -304,7 +304,7 @@ Default: `0`
 Number of px a image should be loaded before it is in view port
 
 ```html
-<img [defaultImage]="someDefaultImage" [lazyLoad]="imageToLazyLoad" offset="100" />
+<img [defaultImage]="someDefaultImage" [lazyLoad]="imageToLazyLoad" [offset]="100" />
 ```
 
 ##### scrollTarget (optional)
