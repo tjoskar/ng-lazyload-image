@@ -184,7 +184,7 @@ You can load image async or change the url on the fly, eg.
 
 Sometimes you want to get more controll over when the we should check if the image is in viewport. `customObservable` let's you create your own observable.
 
-This will change the functionality of *when* we chek if the image is in the viewport. It does not change the functionality of *how* to detect if an image is in the viewport or not. Meaning: if you are using IntersectionObserver (default), it is important that the obserer that you pass to `customObservable` will emit objects that looks like: `{ isIntersecting: boolean }`. You can change this behavior by implementing your own `isVisible` (see [hooks](#hooks) below for more information).
+This will change the functionality of _when_ we chek if the image is in the viewport. It does not change the functionality of _how_ to detect if an image is in the viewport or not. Meaning: if you are using IntersectionObserver (default), it is important that the obserer that you pass to `customObservable` will emit objects that looks like: `{ isIntersecting: boolean }`. You can change this behavior by implementing your own `isVisible` (see [hooks](#hooks) below for more information).
 
 If you are using the ScrollHooks-preset, you can just pass `customObservable` and the reset will be handle automatically.
 
@@ -214,7 +214,7 @@ If you are using Ionic and **don't** want to use IntersectionObserver, you may n
   selector: 'page-image',
   template: `
     <ion-content #container padding>
-      <img [defaultImage]="https://www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [customObservable]="container.ionScroll" />
+      <img [defaultImage]="https:  //www.placecage.com/1000/1000" [lazyLoad]="lazyLoadImage" [customObservable]="container.ionScroll" />
     </ion-content>
   `,
 })
@@ -250,6 +250,8 @@ See [onStateChange](#onStateChange) for more information about the diffrent outp
 The css class name `ng-lazyloading` will automatically be added before the image is loaded and will be removed when the image has been loaded or if the image couldn't be loaded.
 
 The css class name `ng-lazyloaded` will be added when the image is loaded (regardless of if the image could be loaded or not).
+
+The css class `ng-fade-in` will be added after image is loaded and removed after `fadeInDuration`.
 
 The css class name `ng-failed-lazyloaded` will be added when the image couldn't be loaded.
 
@@ -346,9 +348,25 @@ You can set this to `true`, the image will be [decoded](https://developer.mozill
 
 type: `boolean`
 
-Exaple: `true`
+Example: `true`
 
 See [debug](#debug) for more information.
+
+##### fadeIn (optional)
+
+type: `boolean`
+
+Default: `true`
+
+Whether the image should fade in after loading.
+
+##### fadeInDuration (optional)
+
+type: `number`
+
+Default: `1000`
+
+fadeIn duration in milliseconds.
 
 ### Events
 
@@ -446,7 +464,7 @@ export class LazyLoadImageHooks extends IntersectionObserverHooks {
 
   loadImage({ imagePath }: Attributes): Observable<string> {
     // Load the image through `HttpClient` and cancel the request if the user change page or the image gets removed
-    return this.http.get(imagePath, { responseType: 'blob' }).pipe(map(blob => URL.createObjectURL(blob)));
+    return this.http.get(imagePath, { responseType: 'blob' }).pipe(map((blob) => URL.createObjectURL(blob)));
   }
 }
 
@@ -488,7 +506,7 @@ import { debounceTime } from 'rxjs/operators';
 class LazyLoadImageHooks extends IntersectionObserverHooks {
   getObservable(attributes: Attributes) {
     // Only load the image if it has been in the viewport for one second
-    return super.getObservable(attributes).pipe(debounceTime(1000))
+    return super.getObservable(attributes).pipe(debounceTime(1000));
   }
 }
 ```
@@ -520,7 +538,6 @@ If you want to create your own event, you can create both `getObservable` and `i
 import { Attributes, SharedHooks } from 'ng-lazyload-image';
 
 class LazyLoadImageHooks extends SharedHooks<number> {
-
   getObservable(attributes: Attributes) {
     return interval(1000);
   }
@@ -675,7 +692,7 @@ import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
 
 class LazyLoadImageHooks extends IntersectionObserverHooks {
   skipLazyLoading(attributes: Attributes) {
-    return isPlatformServer(this.platformId); 
+    return isPlatformServer(this.platformId);
   }
 }
 ```
@@ -749,7 +766,7 @@ import { IntersectionObserverHooks, Attributes } from 'ng-lazyload-image';
 class LazyLoadImageHooks extends IntersectionObserverHooks {
   skipLazyLoading(attributes: Attributes) {
     // Skipping lazyloading the image for SSR
-    return isPlatformServer(this.platformId); 
+    return isPlatformServer(this.platformId);
   }
 }
 ```

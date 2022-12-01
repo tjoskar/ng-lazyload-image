@@ -17,6 +17,14 @@ export abstract class SharedHooks<E> extends Hooks<E> {
   }
 
   finally(attributes: Attributes): void {
+    // prevent repeating fadeIn animation on page change
+    if (attributes.fadeIn) {
+      setTimeout(() => {
+        removeCssClassName(attributes.element, cssClassNames.fadeIn);
+        attributes.element.style.removeProperty('animation-duration');
+      }, attributes.fadeInDuration);
+    }
+
     addCssClassName(attributes.element, cssClassNames.loaded);
     removeCssClassName(attributes.element, cssClassNames.loading);
   }
@@ -65,6 +73,11 @@ export abstract class SharedHooks<E> extends Hooks<E> {
   }
 
   setLoadedImage(imagePath: string, attributes: Attributes): void {
+    if (attributes.fadeIn) {
+      addCssClassName(attributes.element, cssClassNames.fadeIn);
+      attributes.element.style.animationDuration = `${attributes.fadeInDuration}ms`;
+    }
+
     const { element, useSrcset } = attributes;
     setImageAndSourcesToLazy(element, imagePath, useSrcset);
   }

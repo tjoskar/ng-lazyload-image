@@ -52,6 +52,14 @@ export type Attributes<T = any> = {
    * A uniq id for the image
    */
   id: string;
+  /**
+   * Whether the image should fade in after loading, default true
+   */
+  fadeIn?: boolean;
+  /**
+   * fadeIn duration in milliseconds, default 1000
+   */
+  fadeInDuration?: number;
 };
 
 export abstract class Hooks<E = unknown> {

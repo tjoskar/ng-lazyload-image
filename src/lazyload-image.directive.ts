@@ -1,5 +1,5 @@
 import { AfterContentInit, Directive, ElementRef, EventEmitter, Inject, Input, NgZone, OnChanges, OnDestroy, Output, PLATFORM_ID } from '@angular/core';
-import { never, Observable, ReplaySubject, Subscription } from 'rxjs';
+import { NEVER, Observable, ReplaySubject, Subscription } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { lazyLoadImage } from './lazyload-image';
 import { LAZYLOAD_IMAGE_HOOKS } from './token';
@@ -18,6 +18,8 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
   @Input() useSrcset?: boolean; // Whether srcset attribute should be used instead of src
   @Input() decode?: boolean; // Decode the image before appending to the DOM
   @Input() debug?: boolean; // Will print some debug info when `true`
+  @Input() fadeIn?: boolean; // Whether the image should fade in after loading
+  @Input() fadeInDuration?: number; // fadeIn duration in milliseconds, default 1000
   @Output() onStateChange: EventEmitter<StateChange> = new EventEmitter(); // Emits an event on every state change
   private propertyChanges$: ReplaySubject<Attributes>;
   private elementRef: ElementRef;
@@ -53,6 +55,8 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
       decode: this.decode,
       onStateChange: this.onStateChange,
       id: this.uid,
+      fadeIn: this.fadeIn || true,
+      fadeInDuration: this.fadeInDuration || 1000,
     });
   }
 
@@ -69,7 +73,7 @@ export class LazyLoadImageDirective implements OnChanges, AfterContentInit, OnDe
           tap((attributes) => this.hooks.setup(attributes)),
           switchMap((attributes) => {
             if (!attributes.imagePath) {
-              return never();
+              return NEVER;
             }
             return this.hooks.getObservable(attributes).pipe(lazyLoadImage(this.hooks, attributes));
           })
