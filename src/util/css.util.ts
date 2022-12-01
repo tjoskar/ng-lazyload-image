@@ -2,6 +2,7 @@ export const cssClassNames = {
   loaded: 'ng-lazyloaded',
   loading: 'ng-lazyloading',
   failed: 'ng-failed-lazyloaded',
+  fadeIn: 'ng-fade-in',
 };
 
 export function removeCssClassName(element: HTMLImageElement | HTMLDivElement, cssClassName: string) {
